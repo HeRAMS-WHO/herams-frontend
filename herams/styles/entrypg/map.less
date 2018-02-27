@@ -1,0 +1,103 @@
+.map-entry {
+
+  margin-left: @home-sidebar-width;
+
+  #mapid {
+    height: 100vh;
+  }
+
+}
+
+.entry-popup {
+
+  width: 315px;
+  height: 260px;
+
+  //.leaflet-popup-tip
+  .leaflet-popup-content-wrapper,
+  {
+    background: @home-popups-bgcolor;
+    .leaflet-popup-content {
+      margin: 0;
+      width:100% !important;
+    }
+  }
+  .leaflet-popup-tip-container {
+    display: none;
+  }
+
+  .entry-popup-top {
+    height: 45px;
+    background-color: #33333b;
+    color: @txt-dark-bg;
+
+    border-radius: 12px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    :first-child {
+      padding-top: 6px;
+    }
+
+  }
+  .entry-popup-main {
+    height: 170px;
+
+    // .col
+
+    .row {
+
+      text-align:center;
+      font-size: 0.9em;
+      color: @txt-dark-bg;
+      width: 305px;
+
+      .col-sm-4 {
+        width: 105px;
+      }
+
+      &.charts-titles {
+        height: 34px;
+        padding: 0;
+        margin-top: 13px;
+
+      }
+      &.charts {
+        height: 107px;
+        &>div {
+          padding: 0;
+          margin:auto;
+        }
+
+      }
+      &.charts-percents {
+        position:absolute;
+        top:128px;
+        font-size: 1.8em;
+        color: @txt-dark-bg;
+        &:nth-child(1),&:nth-child(2),&:nth-child(3){
+          // display:none;
+        }
+      }
+      &.charts-cnts {
+        height: 32px;
+      }
+    }
+  }
+  .entry-popup-bottom {
+    height: 45px;
+
+    .display-total {
+      padding:10px 0 0;
+      margin: 0 15px;
+      border-top: 1px solid @sep-dark-color;
+
+      color: @txt-dark-bg;
+      text-align: center;
+    }
+  }
+}
