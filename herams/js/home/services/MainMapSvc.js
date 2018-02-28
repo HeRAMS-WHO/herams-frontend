@@ -29,7 +29,7 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$timeout,
         };
 
     function getPopupData(country_num) {
-        return 'homedata.countries['+country_num+'].stats';
+        return 'homedata.layers['+country_num+'].stats';
     }
 
     function handleLayerSuccess() {
@@ -48,10 +48,13 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$timeout,
         * @description
         *   returns a leaflet map object after creation according to params
         */
-        createMainMap: function(container,lat,long,basemap) {
+        createMainMap: function(container) {
 
-            var map = L.map(container, { zoomControl:false }).setView([lat, long], 4);
-            var Esri_WorldGrayCanvas = L.tileLayer(basemap).addTo(map);
+            var map = L.map(container, { zoomControl:false }).setView([CONFIG.home.lat, CONFIG.home.long], 4);
+
+            for (var i in CONFIG.home.basemaps) {
+               var tmp = L.tileLayer(CONFIG.home.basemaps[i]).addTo(map);
+            }
 
             return map;
 
