@@ -6,7 +6,7 @@
  * @description
  *   This service provides a set of methods to handle leaflet on the main page
  */
-angular.module('app-herams').service('MainMapSvc', function($rootScope,$timeout,$compile,$log) {
+angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$timeout,$compile,$log,commonSvc) {
 
     var cnt = 0;
 
@@ -115,6 +115,7 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$timeout,
 
                 geojson.on('click', function(e) {
                     $log.info('Let s go to next screen!!');
+                    commonSvc.overview();
                 });
 
             });

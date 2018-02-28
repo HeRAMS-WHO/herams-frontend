@@ -87,6 +87,11 @@ angular.module('app-herams').config(['$stateProvider', '$urlRouterProvider',
                 url: '/',
                 templateUrl: 'views/home.html',
                 controller: 'HomeCtrl'
+            })
+            .state('overview', {
+                url: '/overview',
+                templateUrl: 'views/overview.html',
+                controller: 'HomeCtrl'
             });
     }
 ]);
