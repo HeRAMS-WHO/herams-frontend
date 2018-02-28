@@ -92,9 +92,8 @@ angular.module('app-herams').config(['$stateProvider', '$urlRouterProvider',
 ]);
 
 
-angular.module('app-herams').run(
-    function($rootScope, $timeout, $state) {
+angular.module('app-herams')
+    .run(function($rootScope, $timeout, $state) {
         $state.go('home');
-    }
- );
+    });
 

@@ -32,7 +32,7 @@ var livereload = require('gulp-livereload');
 var inject = require('gulp-inject');
 // var imagemin = require('gulp-imagemin'),
  //    pngquant = require('imagemin-pngquant');
-// var cachebust = new CacheBuster();
+// var cachebust = new CacheBuster();                   -- important to avoid caching data
 var argv = require('yargs').argv;
 
 

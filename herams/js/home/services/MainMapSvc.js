@@ -11,8 +11,8 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$timeout,
     var cnt = 0;
 
     /* - CONFIG - */
-    var country_shape_stroke        = '#5791e1',
-        country_shape_fill          = '#ffffff',
+    var country_shape_stroke        = CONFIG.home.colors.layer_stroke_color,
+        country_shape_fill          = CONFIG.home.colors.layer_fill_color,
         country_shape_stroke_over   = country_shape_fill,
         country_shape_fill_over     = country_shape_stroke;
 
