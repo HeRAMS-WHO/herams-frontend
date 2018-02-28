@@ -6,7 +6,7 @@
  * @description
  *   This service provides a set of common handful methods
  */
-angular.module('app-herams').service('commonSvc', function($log) {
+angular.module('app-herams').service('commonSvc', function($http,$log) {
 
     return {
 
@@ -17,6 +17,16 @@ angular.module('app-herams').service('commonSvc', function($log) {
         */
         deepCopy: function(obj) {
             return JSON.parse(JSON.stringify(obj));
+        },
+        loadData: function(url) {
+            return $http({
+                'method': 'GET',
+                'url': url,
+                'headers': {
+                    // 'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json;charset=UTF-8'
+                }
+            });
         }
     }
 });

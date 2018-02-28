@@ -1,0 +1,35 @@
+{
+  "results": {
+    "map_baselayer": "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+    "map_lat": 34.553,
+    "map_long": 18.048,
+    "countries": [
+      {
+        "name": "Nigeria",
+        "geodata": {
+          "lat": 9.0820,
+          "long": 8.6753,
+          "layer_url": "config/geojson_Admin0.json"
+        },
+        "stats": {
+          "total": 182,
+           "charts": [
+            {
+              "title": "Fully functionning",
+              "total": 102,
+              "percentage": 56.6
+            },{
+              "title": "Partially functionning",
+              "total": 42,
+              "percentage": 23.1
+            },{
+              "title": "Non functionning",
+              "total": 37,
+              "percentage": 20.3
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

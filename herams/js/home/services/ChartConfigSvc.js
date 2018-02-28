@@ -11,7 +11,7 @@ angular.module('app-herams').service('ChartConfigSvc', function($log,commonSvc) 
     var chartW = 105,
         chartH = 105,
         bgColor = '#42424b',
-        tmpChart = {
+        tmpMainDonuts = {
            chart: {
                type: 'pie',
                animation: true,
@@ -61,7 +61,7 @@ angular.module('app-herams').service('ChartConfigSvc', function($log,commonSvc) 
     return {
 
         getGenPie: function() {
-            return tmpChart;
+            return tmpMainDonuts;
         },
         setTmpChart: function(n,color) {
             var custChart = commonSvc.deepCopy(this.getGenPie());
@@ -81,7 +81,6 @@ angular.module('app-herams').service('ChartConfigSvc', function($log,commonSvc) 
             return custChart;
         },
         setAfterAnimate: function(chart,f) {
-            $log.info('test: ',chart);
             chart.plotOptions.pie.events = {};
             chart.plotOptions.pie.events.afterAnimate = f();
         }

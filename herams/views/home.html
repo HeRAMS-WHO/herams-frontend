@@ -1,4 +1,4 @@
-<div class="home">
+<div class="home" ng-controller="HomeCtrl" ng-init="init()">
 
     <div class="menu-entry">
         <div class="Logo">
@@ -13,12 +13,8 @@
         </div>
     </div>
 
-
-
     <div class="map-entry">
-        <div ng-controller="MapCtrl">
-            <div id="mapid"></div>
-        </div>
+            <homemap mapdata="homedata" ng-cloak></homemap>
     </div>
 
 </div>
