@@ -1,5 +1,6 @@
 "use strict";
 
+
 /**
  * @ngdoc controller
  * @name phc_dashboard.controller:BaseCtrl
@@ -19,7 +20,7 @@ angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$l
         function loadSuccess(httpResponse) {
 
             $scope.homedata = httpResponse.data.results;
-            $log.info('loaded  Home Data correctly: ',httpResponse);
+            $log.info('loaded Home Data correctly: ',httpResponse);
         }
 
         function loadFailure(httpResponse) {
@@ -27,9 +28,11 @@ angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$l
         }
 
         function loadFinally(httpResponse) {
-            $log.info('last but not least');
+            $log.info('Home - last but not least');
         }
 
     }
 
 });
+
+

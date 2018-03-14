@@ -6,7 +6,7 @@
  * @description
  *   This service provides a set of common handful methods
  */
-angular.module('app-herams').service('commonSvc', function($state,$http,$log) {
+angular.module('app-herams').service('commonSvc', function($state,$http,$window,$log) {
 
     return {
 
@@ -31,11 +31,13 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$log) {
         },
 
         home: function() {
-            $state.go('home');
+            // $state.go('home');
+            $window.location = "index.html";
         },
 
-        overview: function() {
-            $state.go('overview');
+        gotoOverview: function() {
+            // $state.go('overview');
+            $window.location = "overview.html";
         }
     }
 });

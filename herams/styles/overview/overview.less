@@ -6,6 +6,7 @@
 
 @dark-top-height: 176px;
 
+
 .mainWrapper .overview {
 
   height:100%;
@@ -18,6 +19,7 @@
     height:100%;
 
     background-color: @home-sidebar-bgcolor;
+    z-index: 50;
 
     .Logo {
       border-bottom: 1px solid @sep-color;
@@ -74,9 +76,10 @@
 
       position: absolute;
       top: 50px;
-      left: 310px;
       width:100%;
-      padding-right: 335px;
+      padding-left: 300px;
+      padding-right: 15px;
+      height:100%;
 
       .header {
 
@@ -118,15 +121,99 @@
           background-color: white;
           width:100%;
           height: 75px;
+
+          display:flex;
+          justify-content:start;
+          align-items:center;
+
+          &>div {
+            min-width: 140px;
+            margin-left: 20px;
+
+            img {
+              float:left;
+              height:20px;
+              margin-right: 8px;
+            }
+          }
+
         }
       }
 
       .datagrid {
 
+        .row {
+          * {
+            padding-right: 0;
+            padding-left: 0;
+            margin:0;
+          }
+
+          &.spacer {
+            height: 15px;
+          }
+
+          .one, .two, .three, .four, .five {
+            height: 0;
+            padding-bottom: 100%;
+
+            .chart-container {
+              background-color: white;
+              -webkit-border-radius: 5px;
+              -moz-border-radius: 5px;
+              border-radius: 5px;
+              height: 0;
+              padding-bottom: 100%;
+              overflow: hidden;
+            }
+          }
+
+        }
+      }
+
+      &.layout1 {
+        .col-3 {
+          padding-left: 5px;
+          .row:first-child {
+            padding-bottom: 5px;
+          }
+        }
       }
 
     }
 
  }
 
+}
+
+
+#mapid {
+  height: 500px;
+}
+
+
+#chart1,
+#chart2,
+#chart3,
+#chart4 {
+  margin:15px;
+}
+
+.highcharts-title {
+  font-family: @font-family-sans-serif;
+}
+.highcharts-grid-line {
+    stroke-width: 0;
+}
+.highcharts-axis-line {
+    stroke-width: 0;
+}
+.highcharts-tick {
+    stroke-width: 0;
+}
+.highcharts-minor-grid-line {
+    stroke-width: 0;
+}
+.highcharts-credits {
+  display: none;
 }

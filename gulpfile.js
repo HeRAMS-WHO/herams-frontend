@@ -48,7 +48,7 @@ gulp.task('styles', function(success) {
         ])
     .pipe(plumber())
     .pipe(less())
-    .pipe(autoprefixer({browsers: ['last 1 version']}))
+    //.pipe(autoprefixer({browsers: ['last 1 version']}))
     .pipe(gulp.dest('dist/styles'))
     .pipe(gulp.dest('.tmp/styles'));
 });
@@ -127,6 +127,7 @@ gulp.task('connect', ['styles'], function() {
     // paths to bower_components should be relative to the current file
     // e.g. in app/index.html you should use ../bower_components
     .use('/bower_components', serveStatic('bower_components'))
+    .use('/node_modules', serveStatic('node_modules'))
     .use(serveIndex('herams'));
 
     require('http').createServer(app)

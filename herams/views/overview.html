@@ -1,4 +1,4 @@
-<div ng-controller="MainCtrl" class="overview">
+<div ng-controller="MainCtrl" class="overview" ng-init="init()">
 
    <div class="menu">
         <div class="Logo" ng-click="home()">
@@ -16,7 +16,7 @@
 
     <div class="main">
         <div class="background-top"></div>
-        <div class="content">
+        <div class="content layout1">
             <div class="header container-fluid">
                 <div class="row">
                     <div class="col-6 tools"></div>
@@ -32,7 +32,51 @@
                     <div class="col-12 filters"></div>
                 </div>
             </div>
-            <div class="datagrid"></div>
+            <div class="datagrid container-fluid">
+                <div class="row spacer"><div class="col-12"></div></div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row"><div class="col-12 one"><hfmap mapdata="::heramdata" ng-cloak></hfmap></div></div>
+                    </div>
+                    <div class="col-3">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12 two">
+                                    <div class="chart-container">
+                                        <div id="chart1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 three">
+                                    <div class="chart-container">
+                                        <div id="chart2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12 four">
+                                    <div class="chart-container">
+                                        <div id="chart3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 five">
+                                    <div class="chart-container">
+                                        <div id="chart4"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row spacer"><div class="col-12"></div></div>
+            </div>
         </div>
     </div>
 

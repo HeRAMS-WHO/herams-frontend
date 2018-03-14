@@ -1,19 +1,15 @@
 /* ------------------ GEOGRAPHIC CONFIGS ------------------ */
 
 var CONFIG = {
+    esriHTTP : {
+        start: "https://extranet.who.int/maps/rest/services/WHE_BASEMAP/GLOBAL_ADM/MapServer/4/query?where=ADM0_NAME+IN+%28%27",
+        end: "%27%29&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=ADM0_NAME%2C+ISO_2_CODE&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json"
+    },
     home: {
-        basemaps: [
-            "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-            "https://server.arcgisonline.com/arcgis/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}"
-        ],
-        lat : 34.553,
-        long: 18.048,
-        colors: {
-            layer_stroke_color: "#5791e1",
-            layer_fill_color: "#ffffff",
-            donut_color1: "#0098fd",
-            donut_color2: "#eb8600",
-            donut_color3: "#fe0104"
+        layersOpacity: 0.7,
+        dfltColors: {
+          layer_stroke_color: "#5791e1",
+          layer_fill_color: "#ffffff",
         }
     }
 };
