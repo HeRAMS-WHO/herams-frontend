@@ -23,7 +23,6 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
         controller: function($scope) {},
         link: function($scope, $el, $attr) {
 
-
             $timeout(function() {
 
                 $log.info('homemap.js > $scope.mapdata: ',$scope.mapdata);
@@ -34,6 +33,7 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
                 /* adding HeRams */
                 var statuses = $scope.mapdata.config.statuses,
                     layers = $scope.mapdata.layers;
+
                 MainMapSvc.addLayersToMainMap(mainMap,layers,statuses);
 
             })
