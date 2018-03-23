@@ -34,6 +34,7 @@ angular.module('app-herams', [
  *  ---------------- From HSDF - start ----------------
  *   ---------------------------------------------------
  */
+/*
 angular.module('app-herams').filter('unique', function() {
     return function(collection) {
         var result = [];
@@ -67,18 +68,20 @@ angular.module('app-herams').filter('uniqueObjects', function() {
 angular.module('app-herams').config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.headers.common['Authorization'] = 'Basic ' + APP_CONFIG.geoserver.user;
 }]);
+*/
 
 /*  ---------------------------------------------------
  *  ---------------- From HSDF - end ----------------
  *   ---------------------------------------------------
  */
 
+/*
 angular.module('app-herams').config(['$stateProvider', '$urlRouterProvider',
-    /**
+    /!**
      * Configures the routes using ui.router module
      * @param  {Service} $stateProvider
      * @param  {Service} $urlRouterProvider
-     */
+     *!/
     function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/home');
 
@@ -87,14 +90,19 @@ angular.module('app-herams').config(['$stateProvider', '$urlRouterProvider',
                 url: '/',
                 templateUrl: 'views/home.html',
                 controller: 'HomeCtrl'
+            })
+            .state('overview', {
+                url: '/overview',
+                templateUrl: 'views/overview.html',
+                controller: 'MainCtrl'
             });
     }
 ]);
 
-
-angular.module('app-herams').run(
-    function($rootScope, $timeout, $state) {
+angular.module('app-herams')
+    .run(function($rootScope, $timeout, $state) {
         $state.go('home');
-    }
- );
+    });
 
+
+*/

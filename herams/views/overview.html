@@ -1,0 +1,83 @@
+<div ng-controller="MainCtrl" class="overview" ng-init="init()">
+
+   <div class="menu">
+        <div class="Logo" ng-click="home()">
+            <img src="img/HeRAMS_NGA.svg"/>
+        </div>
+        <div class="menu-items">
+            <ul>
+                <li>Overview</li>
+                <li>Health infrastructure</li>
+                <li>Health services</li>
+                <li>Resources</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="background-top"></div>
+        <div class="content layout1">
+            <div class="header container-fluid">
+                <div class="row">
+                    <div class="col-6 tools"></div>
+                    <div class="col-6 userlog"></div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumbs">Health infrastructure &gt;</div>
+                        <div class="title"><span>Characteristics</span></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 filters"></div>
+                </div>
+            </div>
+            <div class="datagrid container-fluid">
+                <div class="row spacer"><div class="col-12"></div></div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row"><div class="col-12 one"><hfmap mapdata="::heramdata" ng-cloak></hfmap></div></div>
+                    </div>
+                    <div class="col-3">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12 two">
+                                    <div class="chart-container">
+                                        <div id="chart1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 three">
+                                    <div class="chart-container">
+                                        <div id="chart2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12 four">
+                                    <div class="chart-container">
+                                        <div id="chart3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 five">
+                                    <div class="chart-container">
+                                        <div id="chart4"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row spacer"><div class="col-12"></div></div>
+            </div>
+        </div>
+    </div>
+
+</div>

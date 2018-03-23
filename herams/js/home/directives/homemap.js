@@ -25,25 +25,16 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
 
             $timeout(function() {
 
-                /* create Map */
-                var mainMap = MainMapSvc.createMainMap(
-                    'mapid',
-                    $scope.mapdata.map_lat,
-                    $scope.mapdata.map_long,
-                    $scope.mapdata.map_baselayer
-                );
+                $log.info('homemap.js > $scope.mapdata: ',$scope.mapdata);
 
-                /* adding Nigeria */
-                var countries = $scope.mapdata.countries;
-                for (var i in countries) {
-                    MainMapSvc.addLayerToMainMap(
-                        mainMap,
-                        countries[i].geodata.layer_url,
-                        countries[i].geodata.lat,
-                        countries[i].geodata.long,
-                        i
-                    );
-                }
+                /* create Map */
+                var mainMap = MainMapSvc.createMainMap('mapid',$scope.mapdata.config);
+
+                /* adding HeRams */
+                var statuses = $scope.mapdata.config.statuses,
+                    layers = $scope.mapdata.layers;
+
+                MainMapSvc.addLayersToMainMap(mainMap,layers,statuses);
 
             })
 

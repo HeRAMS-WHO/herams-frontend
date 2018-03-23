@@ -14,26 +14,40 @@
           "donut_color1": "#0098fd",
           "donut_color2": "#eb8600",
           "donut_color3": "#fe0104"
-      },
-      "statuses": {
-          "id1":{
+      }
+    },
+    "statuses": [
+        {
             "label": "Baseline established",
             "color": "#f7c331"
-          },
-          "id2":{
+        },
+        {
             "label": "Regular monitoring",
             "color": "#66cc66"
-          },
-          "id3":{
+        },
+        {
             "label": "Target",
             "color": "#f7882f"
-          }
-      }
+        }
+    ],
+    "statusesNew": {
+        "id1":{
+          "label": "Baseline established",
+          "color": "#f7c331"
+        },
+        "id2":{
+          "label": "Regular monitoring",
+          "color": "#66cc66"
+        },
+        "id3":{
+          "label": "Target",
+          "color": "#f7882f"
+        }
     },
     "layers": [
       {
         "name": "Nigeria",
-        "status": "id2",
+        "status": 1,
         "geodata": {
           "lat": 9.0820,
           "long": 8.6753
@@ -59,63 +73,63 @@
       },
       {
           "name": "Mali",
-          "status": "id1"
+          "status": 0
       },
       {
           "name": "Cameroon",
-          "status": "id3"
+          "status": 2
       },
       {
           "name": "Sudan",
-          "status": "id2"
+          "status": 1
       },
       {
           "name": "South+Sudan",
-          "status": "id1"
+          "status": 0
       },
       {
           "name": "Central+African+Republic",
-          "status": "id2"
+          "status": 1
       },
       {
           "name": "Ethiopia",
-          "status": "id3"
+          "status": 2
       },
       {
           "name": "Somalia",
-          "status": "id3"
+          "status": 2
       },
       {
           "name": "Yemen",
-          "status": "id2"
+          "status": 1
       },
       {
           "name": "Pakistan",
-          "status": "id1"
+          "status": 0
       },
       {
           "name": "Democratic+Republic+of+the+Congo",
-          "status": "id1"
+          "status": 0
       },
       {
           "name": "Ukraine",
-          "status": "id2"
+          "status": 1
       },
       {
           "name": "Turkey",
-          "status": "id2"
+          "status": 1
       },
       {
           "name": "Jordan",
-          "status": "id1"
+          "status": 0
       },
       {
           "name": "Syrian+Arab+Republic",
-          "status": "id2"
+          "status": 1
       },
       {
           "name": "West+Bank+and+Gaza+Strip",
-          "status": "id1"
+          "status": 0
       }
     ]
   }

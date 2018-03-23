@@ -5,10 +5,13 @@
 @import "variables.less";
 @import "textstyles.less";
 
-@import "home.less";
+@import "home/home.less";
 
-@import "entrypg/menu.less";
-@import "entrypg/map.less";
+@import "home/menu.less";
+@import "home/map.less";
+
+@import "overview/overview.less";
+
 
 .browsehappy {
   margin: 0.2em 0;
@@ -25,6 +28,9 @@ html, body {
 }
 html, body, body > div, body > div > div {
   height: 100%;
+}
+body {
+  background-color: @light-grey;
 }
 a, a:hover, a:focus {
   cursor: pointer;

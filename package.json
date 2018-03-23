@@ -6,6 +6,7 @@
   "repository": "https://github.com/angular/angular-seed",
   "license": "MIT",
   "devDependencies": {
+    "@esri/arcgis-to-geojson-utils": "^1.1.0",
     "angular-sanitize": "^1.6.9",
     "bower": "^1.7.7",
     "connect": "^3.3.4",
