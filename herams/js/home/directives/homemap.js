@@ -34,7 +34,8 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
                 var statuses = $scope.mapdata.config.statuses,
                     layers = $scope.mapdata.layers;
 
-                MainMapSvc.addLayersToMainMap(mainMap,layers,statuses);
+                // MainMapSvc.addLayersToMainMap(mainMap,layers,statuses);
+                MainMapSvc.addcircleMarkerToMainMap(mainMap,layers,statuses);
 
             })
 
