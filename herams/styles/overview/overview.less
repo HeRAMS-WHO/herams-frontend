@@ -74,46 +74,24 @@
 
     .content {
 
-      position: absolute;
-      top: 50px;
-      width:100%;
       padding-left: 300px;
-      padding-right: 15px;
-      height:100%;
 
       .header {
 
-        .row {
-          &:nth-child(2) {
-            height: 81px;
-            div:first-child {
-              padding:0;
-            }
-          }
-        }
+        height: 160px;
+        padding-right: 0;
 
-        .tools {
-
+        .row:first-child {
+          height:81px;
+          padding-right: 20px;
         }
-        .userlog {
+        .row:nth-child(2) {
+          margin-right:0;
+          margin-left:0;
 
         }
-        .breadcrumbs {
-          font-size: 1.2em;
-          font-weight: 300;
-          color: @intermediate-grey;
-        }
-        .title {
-          font-size: 3em;
-          font-weight: 300;
-          line-height: 34px;
-          color: white;
-          span {
-            margin:0;
-            padding-bottom: 10px;
-            border-bottom: @title-borderbot solid @brand-blue;
-          }
-        }
+
+
         .filters {
           margin:0; padding: 0;
           border-radius: 5px;
@@ -216,4 +194,59 @@
 }
 .highcharts-credits {
   display: none;
+}
+
+
+/**
+    MAIN CONTENT
+ */
+/* Main content container (white area) */
+/*
+.mainWrapper .main .content .datagrid {
+  height: 85vh;
+  border-top-right-radius: 5px;
+}
+.mainWrapper .main .content .datagrid .row * {
+  padding-right: 0;
+  padding-left: 0;
+  margin: 0;
+}
+.mainWrapper .main .content .datagrid .row.spacer {
+  height: 15px;
+}
+
+!* Main content *!
+.mainWrapper .main .content .datagrid .row .main-content-area {
+  padding: 30px;
+}
+*/
+
+
+
+/**
+    BOOTSTRAP POPOVER
+ */
+.hidden-popover{
+  display:none;
+}
+.popover.bottom>.arrow {
+  display: none;
+}
+.popover-content {
+  padding:0;
+  margin:0;
+}
+.log-popover > ul {
+  list-style:none;
+  padding:0;
+  margin:0
+}
+.log-popover > ul > li {
+  padding:5px 10px 5px 20px;
+  font-size: 1em;
+  font-family: Roboto, 'sans-serif';
+}
+.log-popover > ul > li:hover {
+  color: white;
+  background-color:#5791e1;
 }
