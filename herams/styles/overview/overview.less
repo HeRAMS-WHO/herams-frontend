@@ -133,6 +133,54 @@
   -moz-border-radius: 5px;
   border-radius: 5px;
   border: 3px solid white;
+
+  .map-filters {
+    height: 60px;
+    display:flex;
+
+    .regfiltr {
+      width: 30%;
+      background-color: white;
+      padding: 10px 15px;
+
+      text-align: left;
+      font-family: 'Source Sans Pro';
+      font-size: 0.9em;
+      font-weight: 700;
+      // color: @dark-grey;
+      color: @light-grey;
+
+      &:first-child {
+        border-right: 1px #e0e0e0 solid;
+      }
+   }
+    .srchfiltr {
+      width: 40%;
+      padding: 10px 15px;
+      background-color: rgba(66,66,74,0.1);
+    }
+    .filter-name {
+      color: @intermediate-grey;
+    }
+    .filter-select {
+      font-size: 1em;
+      .filter-count {
+        font-size: 0.8em;
+        font-weight: 500;
+      }
+    }
+    .filter-input {
+      -webkit-border-radius: 30px;
+      -moz-border-radius: 30px;
+      border-radius: 30px;
+      background-color: white;
+
+      height: 40px;
+      padding-top: 10px;
+
+      color: @light-grey;
+    }
+  }
 }
 
 .chart-container {

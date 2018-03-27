@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc directive
- * @name app-herams.directive:layout14
+ * @name app-herams.directive:layout13
  * @restrict E
  * @scope
  *   @param {type} description
  * @description
- *   Lorem ipsum
+ *   map on the left + 3 blocks next to it on the right, 2 top and 1 below
  * @example
- *   <entry-popup />
+ *   <layout13 />
  */
 angular.module('app-herams').directive('layout13', function(HFMapSvc,$timeout,$log,commonSvc) {
 

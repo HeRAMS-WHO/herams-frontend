@@ -13,7 +13,7 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
     return {
 
         /**
-        * @name MainMapSvc.createMainMap
+        * @name HFMapSvc.createMap
         * @description
         *   returns a leaflet map object after creation according to params
         */
@@ -36,14 +36,11 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
 
             /* - responsiveness - */
             $(window).on('orientationchange pageshow resize', function () {
-                // $("#mapid").height($('.boxes').innerHeight());
-                $("#mapid").height($('.main-content').innerHeight());
+                var hght = $('.main-content').innerHeight() - $('.map-filters').innerHeight();
+                $("#mapid").height(hght);
                 map.invalidateSize();
                 map.setView([mapdata.lat, mapdata.long]);
             }).trigger('resize');
-
-
-            // return map;
 
         }
     }
