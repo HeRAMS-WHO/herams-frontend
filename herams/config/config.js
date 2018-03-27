@@ -10,6 +10,7 @@ var CONFIG = {
         dfltColors: {
           layer_stroke_color: "#5791e1",
           layer_fill_color: "#ffffff",
-        }
+        },
+        shapeRadius: 20
     }
 };

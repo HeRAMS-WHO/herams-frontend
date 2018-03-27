@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HeRams</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="../bower_components/fontawesome/css/fontawesome.css" />
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
+
+  <link rel="stylesheet" href="styles/main.css">
+  <script src="../bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body ng-app="app-herams">
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+      <div class="mainWrapper">
+        <div ng-controller="MainCtrl" class="overview" ng-init="init()">
+
+           <div class="menu">
+                <div class="Logo">
+                    <a href="index.html"><img src="img/HeRAMS_NGA.svg"/></a>
+                </div>
+                <div class="menu-items">
+                    <ul>
+                        <li>Overview</li>
+                        <li>Health infrastructure</li>
+                        <li>Health services</li>
+                        <li>Resources</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="main">
+                <div class="background-top"></div>
+                <div class="content layout1">
+                    <div class="header container-fluid">
+                        <div class="row">
+                            <div class="col-6 tools"></div>
+                            <div class="col-6 userlog"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="breadcrumbs">Health infrastructure &gt;</div>
+                                <div class="title"><span>Characteristics</span></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 filters">
+                                <div class="filter-location"><img src="img/filter_where.svg"/>Nigeria</div>
+                                <div class="filter-calendar"><img src="img/filter_when.svg"/>#</div>
+                                <div class="filter-freesearch"><img src="img/filter_who.svg"/>#</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="datagrid container-fluid">
+                        <div class="row spacer"><div class="col-12"></div></div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row"><div class="col-12 one"><hfmap mapdata="::heramdata" ng-cloak></hfmap></div></div>
+                            </div>
+                            <div class="col-3">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-12 two">
+                                            <div class="chart-container">
+                                                <div id="chart1"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 three">
+                                            <div class="chart-container">
+                                                <div id="chart2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-12 four">
+                                            <div class="chart-container">
+                                                <div id="chart3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 five">
+                                            <div class="chart-container">
+                                                <div id="chart4"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row spacer"><div class="col-12"></div></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+      </div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+
+  <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <!--<script src="../bower_components/angular-animate/angular-animate.js"></script>-->
+  <script src="../bower_components/angular-mocks/angular-mocks.js"></script>
+  <script src="../bower_components/angular-loader/angular-loader.js"></script>
+  <!--<script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>-->
+
+  <script src="../bower_components/leaflet/dist/leaflet-src.js"></script>
+  <script src="../bower_components/highcharts/highcharts.js"></script>
+  <script src="../bower_components/highcharts/highcharts-more.js"></script>
+  <script src="../bower_components/highcharts/modules/exporting.js"></script>
+
+  <script src="../node_modules/@esri/arcgis-to-geojson-utils/dist/arcgis-to-geojson.js"></script>
+
+  <!-- app -->
+  <script src="config/config.js"></script>
+  <script src="config/tmp_chart.js"></script>
+
+  <!-- app -->
+  <script src="js/app.js"></script>
+
+  <!-- home -->
+  <!-- controllers -->
+  <script src="js/home/directives/homemap.js"></script>
+  <script src="js/home/controllers/home.js"></script>
+  <script src="js/overview/directives/hfmap.js"></script>
+  <script src="js/overview/controllers/overview.js"></script>
+  <!-- directives -->
+  <script src="js/home/directives/entry-popups.js"></script>
+  <!-- services -->
+  <script src="js/common/services/commonSvc.js"></script>
+  <script src="js/home/services/MainMapSvc.js"></script>
+  <script src="js/home/services/LayerPopupSvc.js"></script>
+  <script src="js/home/services/ChartConfigSvc.js"></script>
+  <script src="js/common/services/esritogeojsonSvc.js"></script>
+  <script src="js/overview/services/HFMapSvc.js"></script>
+
+<!--
+  <script src="components/version/version.js"></script>
+  <script src="components/version/version-directive.js"></script>
+  <script src="components/version/interpolate-filter.js"></script>
+-->
+</body>
+</html>
