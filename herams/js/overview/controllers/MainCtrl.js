@@ -9,30 +9,13 @@
  */
 angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$log) {
 
+
+    $scope.date = new Date();
+
     /* ui-router */
     $scope.home = function() {
         commonSvc.home();
     }
-
-    /* CHARTS (temporary) */
-
-    function config(chart) {
-       chart.colors = SAMPLECHART.colors;
-       return chart;
-    }
-
-    $scope.loadcharts = function() {
-        // chart-container
-        Highcharts.chart('chart1', config(SAMPLECHART.stacked_chart));
-        Highcharts.chart('chart2', config(SAMPLECHART.stacked_chart));
-        Highcharts.chart('chart3', config(SAMPLECHART.stacked_chart));
-        Highcharts.chart('chart4', config(SAMPLECHART.stacked_chart));
-    }
-
-    console.log(config(SAMPLECHART));
-    console.log(config(SAMPLECHART.stacked_chart));
-
-    // $scope.loadcharts();
 
     /* Data Load */
     $scope.init = function() {

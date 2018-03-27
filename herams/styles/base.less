@@ -19,6 +19,7 @@ a,
 a:hover,
 a:focus {
   cursor: pointer;
+  text-decoration: none;
 }
 *:focus {
   outline: none;
@@ -58,7 +59,12 @@ a:focus {
 .content .header .breadcrumbs {
   font-size: 1.2em;
   font-weight: 300;
-  color: #878787;
+  a {
+    color: #878787;
+    &:hover {
+      color: @brand-blue;
+    }
+  }
 }
 .content .header {
   height: 79px;
