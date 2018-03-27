@@ -36,7 +36,7 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
 
             /* - responsiveness - */
             $(window).on('orientationchange pageshow resize', function () {
-                $("#mapid").height($('.one').innerHeight());
+                $("#mapid").height($('.main-content').innerHeight());
                 map.invalidateSize();
                 map.setView([mapdata.lat, mapdata.long]);
             }).trigger('resize');

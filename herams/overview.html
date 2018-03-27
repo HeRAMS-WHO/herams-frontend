@@ -13,6 +13,9 @@
   <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+
   <link rel="stylesheet" href="styles/main.css">
   <script src="../bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
@@ -41,72 +44,38 @@
 
             <div class="main">
                 <div class="background-top"></div>
-                <div class="content layout1">
+                <div class="content">
                     <div class="header container-fluid">
                         <div class="row">
-                            <div class="col-6 tools"></div>
-                            <div class="col-6 userlog"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="breadcrumbs">Health infrastructure &gt;</div>
-                                <div class="title"><span>Characteristics</span></div>
+                            <div class="col-sm-6 col-lg-8">
+                                <div class="breadcrumbs"><a href="/">&lt; Back</a></div>
+                                <div class="title"><span>Overview</span></div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="user-profile">
+                                    <div>
+                                        <div class="usrname">Samuel Petragallo</div>
+                                        <div class="email">petragallo@who.int</div>
+                                        <div class="org"><span>who</span></div>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-user-circle"></i>
+                                        <i class="fas fa-angle-down" id="log"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-12 filters">
                                 <div class="filter-location"><img src="img/filter_where.svg"/>Nigeria</div>
-                                <div class="filter-calendar"><img src="img/filter_when.svg"/>#</div>
-                                <div class="filter-freesearch"><img src="img/filter_who.svg"/>#</div>
+                                <div class="filter-calendar"><img src="img/filter_when.svg"/>{{date | date:'yyyy-MM-dd'}}</div>
+                                <div class="filter-freesearch"><img src="img/filter_who.svg"/><i style="color:#343a40">nc</i></div>
                             </div>
                         </div>
                     </div>
-                    <div class="datagrid container-fluid">
-                        <div class="row spacer"><div class="col-12"></div></div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="row"><div class="col-12 one"><hfmap mapdata="::heramdata" ng-cloak></hfmap></div></div>
-                            </div>
-                            <div class="col-3">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-12 two">
-                                            <div class="chart-container">
-                                                <div id="chart1"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 three">
-                                            <div class="chart-container">
-                                                <div id="chart2"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-12 four">
-                                            <div class="chart-container">
-                                                <div id="chart3"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 five">
-                                            <div class="chart-container">
-                                                <div id="chart4"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row spacer"><div class="col-12"></div></div>
-                    </div>
-                </div>
+                    <layout14 mapdata="::heramdata" ng-cloak></layout14>
+               </div>
             </div>
 
         </div>
@@ -132,6 +101,7 @@
   <!--<script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>-->
 
   <script src="../bower_components/leaflet/dist/leaflet-src.js"></script>
+
   <script src="../bower_components/highcharts/highcharts.js"></script>
   <script src="../bower_components/highcharts/highcharts-more.js"></script>
   <script src="../bower_components/highcharts/modules/exporting.js"></script>
@@ -150,7 +120,8 @@
   <script src="js/home/directives/homemap.js"></script>
   <script src="js/home/controllers/home.js"></script>
   <script src="js/overview/directives/hfmap.js"></script>
-  <script src="js/overview/controllers/overview.js"></script>
+  <script src="js/overview/directives/layouts/layout_1_4.js"></script>
+  <script src="js/overview/controllers/MainCtrl.js"></script>
   <!-- directives -->
   <script src="js/home/directives/entry-popups.js"></script>
   <!-- services -->
