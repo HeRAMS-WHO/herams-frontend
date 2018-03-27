@@ -29,7 +29,10 @@ angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$l
         Highcharts.chart('chart4', config(SAMPLECHART.stacked_chart));
     }
 
-    $scope.loadcharts();
+    console.log(config(SAMPLECHART));
+    console.log(config(SAMPLECHART.stacked_chart));
+
+    // $scope.loadcharts();
 
     /* Data Load */
     $scope.init = function() {

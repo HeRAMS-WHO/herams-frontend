@@ -44,7 +44,7 @@
 
             <div class="main">
                 <div class="background-top"></div>
-                <div class="content layout1">
+                <div class="content">
                     <div class="header container-fluid">
                         <div class="row">
                             <div class="col-sm-6 col-lg-8">
@@ -74,51 +74,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="datagrid container-fluid">
-                        <div class="row spacer"><div class="col-12"></div></div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="row"><div class="col-12 one"><hfmap mapdata="::heramdata" ng-cloak></hfmap></div></div>
-                            </div>
-                            <div class="col-3">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-12 two">
-                                            <div class="chart-container">
-                                                <div id="chart1"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 three">
-                                            <div class="chart-container">
-                                                <div id="chart2"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-12 four">
-                                            <div class="chart-container">
-                                                <div id="chart3"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 five">
-                                            <div class="chart-container">
-                                                <div id="chart4"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row spacer"><div class="col-12"></div></div>
-                    </div>
+                    <layout14 mapdata="::heramdata" ng-cloak></layout14>
                </div>
             </div>
 
@@ -145,6 +101,7 @@
   <!--<script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>-->
 
   <script src="../bower_components/leaflet/dist/leaflet-src.js"></script>
+
   <script src="../bower_components/highcharts/highcharts.js"></script>
   <script src="../bower_components/highcharts/highcharts-more.js"></script>
   <script src="../bower_components/highcharts/modules/exporting.js"></script>
@@ -163,6 +120,7 @@
   <script src="js/home/directives/homemap.js"></script>
   <script src="js/home/controllers/home.js"></script>
   <script src="js/overview/directives/hfmap.js"></script>
+  <script src="js/overview/directives/layouts/layout_1_4.js"></script>
   <script src="js/overview/controllers/overview.js"></script>
   <!-- directives -->
   <script src="js/home/directives/entry-popups.js"></script>
