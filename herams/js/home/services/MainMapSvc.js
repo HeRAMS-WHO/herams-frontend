@@ -72,7 +72,7 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
                 console.log(status);
                 var latlng = L.latLng(layers[i].geodata.lat, layers[i].geodata.long);
                 var geojson = L.circleMarker(latlng, {
-                            radius:CONFIG.home.shapeRadius,
+                            radius:CONFIG.home.centroidRadius,
                             fillColor : status.color,
                         color: status.color,
                         weight: 1,
@@ -84,25 +84,6 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
                    LayerPopupSvc.addPopup(map,geojson,layers[i]);
                 }
             }
-/*
-            for (var i in layers) {
-                var status = statuses[layers[i].status];
-                var latlng = L.latLng(layers[i]geodata.lat, layers[i]geodata.lat);
-                var geojson = L.circleMarker(latlng, {
-                            radius:CONFIG.home.shapeRadius,
-                            style: {
-                                color       : status.color,
-                                weight      : 1,
-                                fillOpacity : CONFIG.home.layersOpacity,
-                                fillColor   : status.color
-                            }
-                        }).addTo(refMap);
-
-                if (layers[i].stats != null) {
-                   LayerPopupSvc.addPopup(refMap,geojson,layerData);
-                }
-            }
-*/
         }
     }
 });

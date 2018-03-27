@@ -11,6 +11,6 @@ var CONFIG = {
           layer_stroke_color: "#5791e1",
           layer_fill_color: "#ffffff",
         },
-        shapeRadius: 20
+        centroidRadius: 15
     }
 };
