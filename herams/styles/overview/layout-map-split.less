@@ -1,4 +1,4 @@
-.layout1 {
+.layout14,.layout13 {
 
   height: 67vh;
 
@@ -12,12 +12,16 @@
     display: table-cell;
     text-align: center;
     vertical-align:middle;
+
+    &.layout-map {
+      min-width: 500px;
+    }
   }
 
   .half {
     width: 50%;
 
-    .split-4 {
+    .split-4, .split-3 {
       display:table;
       width: 100%;
       height: 100%;
@@ -66,4 +70,10 @@
   }
   */
 
+}
+
+.layout13 {
+  .half .split-3 {
+    height: 50%;
+  }
 }
