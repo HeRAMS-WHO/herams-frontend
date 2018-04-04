@@ -8,6 +8,16 @@
  */
 angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$timeout,$window,$compile,$log,commonSvc,esriSvc,LayerPopupSvc) {
 
+    function disableZooming(pMap) {
+        pMap.touchZoom.disable();
+        pMap.doubleClickZoom.disable();
+        pMap.scrollWheelZoom.disable();
+        pMap.boxZoom.disable();
+    }
+
+    function showScaling(pMap) {
+        var saleIndic = L.control.scale().addTo(pMap);
+    }
 
     return {
 
@@ -20,11 +30,25 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
 
             /* Creating map */
             var map = L.map(container,
-                {zoomControl: false})
+                {
+                    minZoom: config.zoom_options.minZoom,
+                    maxZoom: config.zoom_options.maxZoom,
+                    zoomDelta: config.zoom_options.zoomDelta,
+                    dragging: false
+                })
                 .setView(
                     [config.center.lat, config.center.long],
-                    config.zoom
+                    config.zoom_options.zoom
                 );
+
+            map.zoomControl.setPosition('bottomright');
+
+
+            /!* No Zooming *!/
+            disableZooming(map);
+
+            // showScaling(map);
+
 
             /* Adding required basemaps - imagery, countrynames, etc.. */
             for (var i in config.basemaps) {
@@ -69,7 +93,6 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
         addcircleMarkerToMainMap: function(map, layers, statuses) {
             for (var i in layers) {
                 var status = statuses[layers[i].status];
-                console.log(status);
                 var latlng = L.latLng(layers[i].geodata.lat, layers[i].geodata.long);
                 var geojson = L.circleMarker(latlng, {
                             radius:CONFIG.home.centroidRadius,

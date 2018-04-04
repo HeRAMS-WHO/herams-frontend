@@ -2,14 +2,18 @@
   "results": {
     "config": {
       "basemaps": [
-          "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-          "https://server.arcgisonline.com/arcgis/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}"
+          "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
       ],
       "center": {
         "lat" : 34.553,
         "long": 18.048
       },
-      "zoom": 3.4,
+      "zoom_options": {
+        "zoom": 3.4,
+        "minZoom": 3.4,
+        "maxZoom":4.5,
+        "zoomDelta": 1
+      },
       "colors": {
           "donut_color1": "#0098fd",
           "donut_color2": "#eb8600",
