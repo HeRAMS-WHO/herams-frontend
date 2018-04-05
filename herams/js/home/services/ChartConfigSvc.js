@@ -8,14 +8,18 @@
  */
 angular.module('app-herams').service('ChartConfigSvc', function($log,commonSvc) {
 
-    var chartW = 105,
-        chartH = 105,
+    var chartW = 102,
+        chartH = 102,
         bgColor = '#42424b',
         tmpMainDonuts = {
            chart: {
                type: 'pie',
                animation: true,
-               margin: [0, 0, 0, 0],
+               margin: [0,0,0,0],
+               spacingBottom: 0,
+               spacingTop: 0,
+               spacingLeft: 0,
+               spacingRight: 0,
                backgroundColor: bgColor,
                height: chartW,
                width: chartH
@@ -35,7 +39,7 @@ angular.module('app-herams').service('ChartConfigSvc', function($log,commonSvc) 
            plotOptions: {
                pie: {
                    borderColor: 'transparent',
-                   innerSize: '90%',
+                   innerSize: '93%',
                    innerColor: 'white',
                    enableMouseTracking: true,
                    dataLabels: {
@@ -77,6 +81,12 @@ angular.module('app-herams').service('ChartConfigSvc', function($log,commonSvc) 
                    color: '#6c6b70'
                }
             ];
+
+            return custChart;
+        },
+        setTmpChartMultVal: function(data) {
+            var custChart = commonSvc.deepCopy(this.getGenPie());
+            custChart.series[0].data = data;
 
             return custChart;
         },

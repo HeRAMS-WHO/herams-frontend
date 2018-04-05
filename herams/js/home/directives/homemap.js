@@ -13,6 +13,17 @@
  */
 angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$log) {
 
+    /* Cross Browser window's size */
+    function getWindowWdth() {
+        var w = window,
+            d = document,
+            e = d.documentElement,
+            g = d.getElementsByTagName('body')[0];
+
+        return  w.innerWidth || e.clientWidth || g.clientWidth;
+        // * if height needed : * y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+    }
+
     return {
         templateUrl: '/js/home/directives/home-map.html',
         restrict: 'E',
@@ -25,18 +36,21 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
 
             $timeout(function() {
 
-                $log.info('homemap.js > $scope.mapdata: ',$scope.mapdata);
+                // $log.info('homemap.js > $scope.mapdata: ',$scope.mapdata);
 
                 /* create Map */
                 var mainMap = MainMapSvc.createMainMap('mapid',$scope.mapdata.config);
 
                 $scope.$on('collapse-click',function(evt,args) {
-                    $log.info('collapsed: ',args.collapsed);
 
-                    var wdth = $('.map-entry').innerWidth();
+                    var margin_expand = parseInt($(".map-entry").css('margin-left'));
+                    var wdth = (!args.collapsed)? getWindowWdth()-margin_expand : getWindowWdth();
+
+                     $log.info('homemap.js > wdth: ',wdth);
+
                     $("#mapid").width(wdth);
                     mainMap.invalidateSize();
-                    // mainMap.setView([mapdata.lat, mapdata.long]);
+
                 });
 
                 /* adding HeRams */
@@ -47,7 +61,6 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
                 MainMapSvc.addcircleMarkerToMainMap(mainMap,layers,statuses);
 
             })
-
 
         }
     }

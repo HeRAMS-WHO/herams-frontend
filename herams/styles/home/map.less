@@ -1,5 +1,6 @@
 .map-entry {
 
+  margin: 0; padding:0;
   margin-left: @home-sidebar-width;
 
   #mapid {
@@ -14,15 +15,19 @@
 
 .entry-popup {
 
-  width: 315px;
-  height: 260px;
+  width: 440px;
+  height: 300px;
 
   //.leaflet-popup-tip
-  .leaflet-popup-content-wrapper,
+  .leaflet-popup-content-wrapper
   {
     background: @home-popups-bgcolor;
+    border-radius: 5px;
+
     .leaflet-popup-content {
       margin: 0;
+      max-width: 440px;
+      height: 300px;
       width:100% !important;
     }
   }
@@ -31,11 +36,11 @@
   }
 
   .entry-popup-top {
-    height: 45px;
-    background-color: #33333b;
+    height: 40px;
+    background-color: #33333a;
     color: @txt-dark-bg;
 
-    border-radius: 12px;
+    border-radius: 5px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 
@@ -43,51 +48,92 @@
     align-items: center;
     justify-content: center;
 
-    :first-child {
-      padding-top: 6px;
-    }
+    font-size: 1.7em;
+    text-transform: uppercase;
 
   }
+
+  .entry-popup-subtitle {
+
+    .display-total {
+
+      height: 40px;
+      padding:8px 0 0;
+      margin: 0 20px;
+      border-bottom: 1px solid @sep-dark-color;
+
+      font-size: 1.14em;
+      font-weight: @light;
+      color: @txt-dark-bg;
+      text-align: center;
+
+      .highlight {
+        font-size: 1.2em;
+        font-weight: @medium;
+      }
+    }
+  }
+
   .entry-popup-main {
     height: 170px;
 
-    .row {
+    text-align:center;
+    font-size: 1em;
+    color: @txt-dark-bg;
+    width: 390px;
+    margin:auto;
 
-      text-align:center;
-      font-size: 0.9em;
-      color: @txt-dark-bg;
-      width: 305px;
+    .charts-titles {
+      padding: 0;
+      margin-top: 25px;
+      text-align: center;
+    }
+    .charts {
+      height: 102px; //charts height + dflt 20px
+      &>div {
+        padding-left:14px;
+      }
+    }
+    .charts-legends {
+      font-size: 0.7em;
+      // letter-spacing: -0.3px;
+      color: #cacaca;
+      text-align: left;
 
-      .col-sm-4 {
-        width: 105px;
+      &>div:nth-child(1),&>div:nth-child(2) {
+        padding-left:31px;
+      }
+      &>div:nth-child(3) {
+        letter-spacing: -0.3px;
+        padding-left:15px;
       }
 
-      &.charts-titles {
-        height: 34px;
-        padding: 0;
-        margin-top: 13px;
-
+      i {
+        font-size: 0.7em;
+        margin-right: 5px;
       }
-      &.charts {
-        height: 107px;
+    }
+
+    .charts-titles,.charts,.charts-legends, {
+        display:flex;
+        justify-content: space-evenly;
+
         &>div {
-          padding: 0;
-          margin:auto;
+          width: 130px;
         }
+    }
 
+    &.charts-icons {
+      position:absolute;
+      top:128px;
+      font-size: 1.8em;
+      color: @txt-dark-bg;
+      &:nth-child(1),&:nth-child(2),&:nth-child(3){
+        display:none;
       }
-      &.charts-percents {
-        position:absolute;
-        top:128px;
-        font-size: 1.8em;
-        color: @txt-dark-bg;
-        &:nth-child(1),&:nth-child(2),&:nth-child(3){
-          // display:none;
-        }
-      }
-      &.charts-cnts {
-        height: 32px;
-      }
+    }
+    &.charts-cnts {
+      height: 32px;
     }
   }
   .entry-popup-bottom {

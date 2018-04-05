@@ -37,6 +37,7 @@
     "layers": [
       {
         "name": "Nigeria",
+        "available":true,
         "status": "id2",
         "geodata": {
           "lat": 9.0820,
@@ -46,17 +47,99 @@
           "total": 182,
            "charts": [
             {
-              "title": "Fully functionning",
-              "total": 102,
-              "percentage": 56.6
+              "title": "Functionning",
+              "legend":[
+                {
+                  "label": "60% Fully",
+                  "color":"#00bc1a"
+                },{
+                  "label": "20% Partially",
+                  "color":"#adadad"
+                },{
+                  "label": "20% None",
+                  "color":"#ff0000"
+                }
+              ],
+              "data": [
+                 {
+                     "y": 60,
+                     "color": "#00bc1a",
+                     "noTooltip": false
+                 },
+                 {
+                     "y": 20,
+                     "color": "#adadad"
+                 },
+                 {
+                     "y": 20,
+                     "color": "#ff0000"
+                 }
+              ]
             },{
-              "title": "Partially functionning",
-              "total": 42,
-              "percentage": 23.1
+              "title": "Availability",
+              "legend":[
+                {
+                  "label": "70% Fully",
+                  "color":"#00bc1a"
+                },{
+                  "label": "20% Partially",
+                  "color":"#adadad"
+                },{
+                  "label": "10% None",
+                  "color":"#ff0000"
+                }
+              ],
+              "data": [
+                 {
+                     "y": 70,
+                     "color": "#00bc1a",
+                     "noTooltip": false
+                 },
+                 {
+                     "y": 20,
+                     "color": "#adadad"
+                 },
+                 {
+                     "y": 10,
+                     "color": "#ff0000"
+                 }
+              ]
             },{
-              "title": "Non functionning",
-              "total": 37,
-              "percentage": 20.3
+              "title": "Type",
+              "legend":[
+                {
+                  "label": "30% Health Post",
+                  "color":"#1c51a0"
+                },{
+                  "label": "40% Health Clinic",
+                  "color":"#4075c3"
+                },{
+                  "label": "20% Primary Health Center",
+                  "color":"#50afdf"
+                },{
+                  "label": "10% Primary Health Clinic",
+                  "color":"#c6e2f1"
+                }
+              ],
+              "data": [
+                 {
+                     "y": 30,
+                     "color": "#1c51a0",
+                     "noTooltip": false
+                 },
+                 {
+                     "y": 40,
+                     "color": "#4075c3"
+                 },
+                 {
+                     "y": 20,
+                     "color": "#50afdf"
+                 },
+                 {
+                     "y": 10,
+                     "color": "#c6e2f1"
+                 }
+              ]
             }
           ]
         }

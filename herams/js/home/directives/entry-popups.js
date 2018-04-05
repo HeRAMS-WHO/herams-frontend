@@ -19,6 +19,18 @@ angular.module('app-herams').directive('entryPopup', function($log,ChartConfigSv
         }
     }
 
+    function getLegendTmplt(legend,color) {
+        return "<div><i class='fas fa-circle' style='color:"+color+"'></i>"+ legend +"</div>";
+    }
+
+    function generateLegend(legends) {
+        var html = "";
+        for (var i in legends) {
+            html += getLegendTmplt(legends[i].label,legends[i].color);
+        }
+        return html;
+    }
+
     return {
         templateUrl: '/js/home/directives/entry-popups.html',
         restrict: 'E',
@@ -34,9 +46,9 @@ angular.module('app-herams').directive('entryPopup', function($log,ChartConfigSv
 
             $scope.data = layerData.stats;
 
-            var pie1 = ChartConfigSvc.setTmpChart(layerData.stats.charts[0].percentage,HOMEDATA.config.colors.donut_color1),
-                pie2 = ChartConfigSvc.setTmpChart(layerData.stats.charts[1].percentage,HOMEDATA.config.colors.donut_color2),
-                pie3 = ChartConfigSvc.setTmpChart(layerData.stats.charts[2].percentage,HOMEDATA.config.colors.donut_color3);
+            var pie1 = ChartConfigSvc.setTmpChartMultVal(layerData.stats.charts[0].data),
+                pie2 = ChartConfigSvc.setTmpChartMultVal(layerData.stats.charts[1].data),
+                pie3 = ChartConfigSvc.setTmpChartMultVal(layerData.stats.charts[2].data);
 
             ChartConfigSvc.setAfterAnimate(pie1,function() {
                 $('charts-percents:nth-child(1)').css('display','block');
@@ -46,6 +58,10 @@ angular.module('app-herams').directive('entryPopup', function($log,ChartConfigSv
             $('#indic1-chart').highcharts(pie1);
             $('#indic2-chart').highcharts(pie2);
             $('#indic3-chart').highcharts(pie3);
+
+            $('#chart1-legend').html(generateLegend(layerData.stats.charts[0].legend));
+            $('#chart2-legend').html(generateLegend(layerData.stats.charts[1].legend));
+            $('#chart3-legend').html(generateLegend(layerData.stats.charts[2].legend));
 
         }
     }
