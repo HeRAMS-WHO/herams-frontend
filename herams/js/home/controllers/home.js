@@ -3,14 +3,38 @@
 
 /**
  * @ngdoc controller
- * @name phc_dashboard.controller:BaseCtrl
+ * @name phc_dashboard.controller:HomeCtrl
  * @description
- *   This controller is used on all the pages except the HF card which doesn't inherit from base
+ *   Overall controller for the 'Home' page
  */
 angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$log) {
 
-    $scope.homedata = {};
+    /* - Collapsable Panel - */
+    var collapsed = false;
 
+    function setCollapse() {
+        $('.collapse-left-content').click(function() {
+            $('.menu-entry').addClass('reduced');
+            $('.map-entry').addClass('fullscreen');
+
+            collapsed = !collapsed;
+
+            $scope.$broadcast('collapse-click',{collapsed: collapsed});
+        });
+
+        $('.expand-left-content').click(function() {
+                $('.menu-entry').removeClass('reduced');
+                $('.map-entry').removeClass('fullscreen');
+
+            collapsed = !collapsed;
+
+            $scope.$broadcast('collapse-click',{collapsed: collapsed});
+        });
+    }
+
+
+    /* - Init - */
+    $scope.homedata = {};
     $scope.init = function() {
 
         return commonSvc.loadData('config/home_data.json').then(loadSuccess)
@@ -20,6 +44,8 @@ angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$l
         function loadSuccess(httpResponse) {
 
             $scope.homedata = httpResponse.data.results;
+            setCollapse();
+
             $log.info('loaded Home Data correctly: ',httpResponse);
         }
 
@@ -34,5 +60,7 @@ angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$l
     }
 
 });
+
+
 
 

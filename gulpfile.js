@@ -121,7 +121,7 @@ gulp.task('inject', function() {
 //CONNECT: Serves file for development
 gulp.task('connect', ['styles'], function() {
     var app = connect()
-    .use(connectLivereload({port: 35729}))
+    // .use(connectLivereload({port: 35729}))
     .use(serveStatic('.tmp'))
     .use(serveStatic('herams'))
     // paths to bower_components should be relative to the current file

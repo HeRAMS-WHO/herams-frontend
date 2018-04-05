@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="../bower_components/fontawesome/css/fontawesome.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
   <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
 
@@ -26,15 +26,18 @@
         <div class="home" ng-controller="HomeCtrl" ng-init="init()">
 
             <div class="menu-entry">
+                <div class="collapse-left-content">
+                    <i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="expand-left-content">
+                    <i class="fas fa-bars"></i>
+                </div>
                 <div class="Logo">
                     <img src="img/HeRAMS.png"/>
                 </div>
-                <div class="menu-items">
-                    <ul>
-                        <li><img src="img/flags/ng.svg"/> nigeria</li>
-                        <li><img src="img/flags/ua.svg"/> ukraine</li>
-                        <li><img src="img/flags/ye.svg"/> yemen</li>
-                    </ul>
+                <div class="menu-copy">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet risus nunc. Morbi viverra placerat vulputate. Maecenas lobortis dolor felis, in tempor augue consectetur commodo. Proin at erat blandit, iaculis augue non, dapibus ipsum. Maecenas ultrices diam dolor, eget eleifend eros commodo nec. Nunc dui enim, gravida quis mi vel, malesuada pharetra leo. Nulla blandit massa lorem.</p>
+                    <p><a href="#">More information...</a></p>
                 </div>
             </div>
 
@@ -83,7 +86,6 @@
   <script src="js/home/directives/homemap.js"></script>
   <script src="js/home/controllers/home.js"></script>
   <script src="js/overview/directives/hfmap.js"></script>
-  <script src="js/overview/controllers/overview.js"></script>
   <!-- directives -->
   <script src="js/home/directives/entry-popups.js"></script>
   <!-- services -->
@@ -92,11 +94,7 @@
   <script src="js/home/services/LayerPopupSvc.js"></script>
   <script src="js/home/services/ChartConfigSvc.js"></script>
   <script src="js/common/services/esritogeojsonSvc.js"></script>
-  <script src="js/overview/services/HFMapSvc.js"></script>
 
-  <!-- overview -->
-  <!-- controllers -->
-  <script src="js/overview/controllers/overview.js"></script>
 
 <!--
   <script src="components/version/version.js"></script>

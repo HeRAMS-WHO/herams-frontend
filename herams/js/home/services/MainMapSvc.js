@@ -33,8 +33,7 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
                 {
                     minZoom: config.zoom_options.minZoom,
                     maxZoom: config.zoom_options.maxZoom,
-                    zoomDelta: config.zoom_options.zoomDelta,
-                    dragging: false
+                    zoomDelta: config.zoom_options.zoomDelta
                 })
                 .setView(
                     [config.center.lat, config.center.long],

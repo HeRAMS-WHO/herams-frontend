@@ -30,6 +30,15 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
                 /* create Map */
                 var mainMap = MainMapSvc.createMainMap('mapid',$scope.mapdata.config);
 
+                $scope.$on('collapse-click',function(evt,args) {
+                    $log.info('collapsed: ',args.collapsed);
+
+                    var wdth = $('.map-entry').innerWidth();
+                    $("#mapid").width(wdth);
+                    mainMap.invalidateSize();
+                    // mainMap.setView([mapdata.lat, mapdata.long]);
+                });
+
                 /* adding HeRams */
                 var statuses = $scope.mapdata.config.statuses,
                     layers = $scope.mapdata.layers;
