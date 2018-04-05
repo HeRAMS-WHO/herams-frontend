@@ -13,6 +13,54 @@
 
 }
 
+.map-legend {
+
+  position:absolute;
+  right:54px;
+  bottom:10px;
+  width:135px;
+  z-index: 510;
+
+  .legend-part {
+    background-color: white;
+    border-radius: 5px;
+
+    font-size:0.7em;
+    color:@intermediate-grey;
+
+    &:nth-child(1) {
+     padding: 6px 10px 10px 10px;
+     height:75px;
+      &>div {
+        display: flex;
+        align-items:center;
+        height:20px;
+      }
+
+      img {
+        // font-size: 0.5em;
+        margin-right: 7px;
+      }
+    }
+
+    &:nth-child(2) {
+      margin-top:2px;
+      height:30px;
+      padding-left:4px;
+      &>div {
+        display: flex;
+        align-items:center;
+      }
+
+      img {
+        // font-size: 0.5em;
+        margin-right: 3px;
+      }
+   }
+  }
+
+}
+
 .entry-popup {
 
   width: 440px;
@@ -31,8 +79,11 @@
       width:100% !important;
     }
   }
-  .leaflet-popup-tip-container {
-    display: none;
+
+  .leaflet-popup-tip {
+    width:14px;
+    height: 14px;
+    background: @home-popups-bgcolor;
   }
 
   .entry-popup-top {
@@ -114,7 +165,7 @@
       }
     }
 
-    .charts-titles,.charts,.charts-legends, {
+    .charts-titles,.charts,.charts-legends,.charts-icons {
         display:flex;
         justify-content: space-evenly;
 
@@ -123,14 +174,10 @@
         }
     }
 
-    &.charts-icons {
-      position:absolute;
-      top:128px;
-      font-size: 1.8em;
-      color: @txt-dark-bg;
-      &:nth-child(1),&:nth-child(2),&:nth-child(3){
-        display:none;
-      }
+    .charts-icons {
+      position: fixed;
+      top: 157px;
+      align-items: center;
     }
     &.charts-cnts {
       height: 32px;

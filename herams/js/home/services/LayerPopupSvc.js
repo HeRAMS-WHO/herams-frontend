@@ -24,11 +24,13 @@ angular.module('app-herams').service('LayerPopupSvc', function($timeout,$compile
                 }
             });
 
+/*
             maplayer.on('mouseout', function(e) {
                 if ($('.entry-popup.layer'+cnt).length>0) {
                     $('.entry-popup.layer'+cnt).remove();
                 }
             });
+*/
 
             maplayer.on('click', function(e) {
                 commonSvc.gotoOverview();

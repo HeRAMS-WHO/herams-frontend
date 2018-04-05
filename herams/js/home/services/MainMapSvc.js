@@ -105,19 +105,20 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
                         }).addTo(map);
 
                 /* - MARKERS HOVERS - */
-                marker.on('mouseover',function(evt) {
-                    evt.target.setStyle({
-                        radius: CONFIG.home.centroidRadius+4,
-                        fillOpacity: 1
+                if (layers[i].available) {
+                    marker.on('mouseover', function (evt) {
+                        evt.target.setStyle({
+                            radius: CONFIG.home.centroidRadius + 3,
+                            fillOpacity: 1
+                        });
                     });
-                 });
-
-                marker.on('mouseout',function(evt) {
-                    evt.target.setStyle({
-                        radius: CONFIG.home.centroidRadius,
-                        fillOpacity: CONFIG.home.layersOpacity
+                    marker.on('mouseout', function (evt) {
+                        evt.target.setStyle({
+                            radius: CONFIG.home.centroidRadius,
+                            fillOpacity: CONFIG.home.layersOpacity
+                        });
                     });
-                 });
+                }
 
                 /* - MARKERS POPUPS - */
                 if (layers[i].stats != null) {
