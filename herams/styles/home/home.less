@@ -1,3 +1,102 @@
 .home {
   height:100%;
+
+  .user-profile {
+    position:absolute;
+    top: 20px;
+    right: 20px;
+
+    z-index: 600;
+
+    padding-top:0;
+    margin-top:0;
+    line-height:1em;
+
+    display:flex;
+    justify-content: flex-end;
+    align-items:center;
+
+  }
 }
+
+/* user profile txt infos */
+.user-profile > div:first-child {
+  font-size: 1em;
+  font-weight: medium;
+  color: @dark-grey;
+  text-align: right;
+}
+.user-profile > div:first-child .usrname {
+  text-transform: uppercase;
+  margin: 2px 0;
+  font-weight: @bold;
+}
+.user-profile > div:first-child .email {
+  font-size: 0.9em;
+  color: @dark-grey;
+  margin: 2px 0;
+}
+.user-profile > div:first-child .org {
+  margin: 10px 0;
+}
+.user-profile > div:first-child .org > span {
+  text-transform: uppercase;
+  color: @intermediate-grey;
+  border-radius:3px;
+  padding: 2px;
+  background-color: @dark-grey;
+  width: 40px;
+}
+
+/* user profile icons/pictures container */
+.user-profile > div:nth-child(2) {
+  display:flex;
+  justify-content: space-around;
+  align-items:center;
+
+  max-width: 90px;
+}
+
+/* user profile picture placeholder */
+.user-profile > div:nth-child(2) > i:first-child {
+  font-size: 4em;
+  color: #59585e;
+  padding: 0 10px;
+}
+/* arrow down */
+.user-profile > div:nth-child(2) > i:nth-child(2) {
+  font-size: 1.2em;
+  color: @dark-grey;
+  cursor: pointer;
+}
+
+
+
+/**
+    BOOTSTRAP POPOVER
+ */
+.hidden-popover{
+  display:none;
+}
+.popover.bottom>.arrow {
+  display: none;
+}
+.popover-content {
+  padding:0;
+  margin:0;
+}
+.log-popover > ul {
+  list-style:none;
+  padding:0;
+  margin:0
+}
+.log-popover > ul > li {
+  padding:5px 10px 5px 20px;
+  font-size: 1em;
+  font-family: Roboto, 'sans-serif';
+}
+.log-popover > ul > li:hover {
+  color: white;
+  background-color:#5791e1;
+}
+

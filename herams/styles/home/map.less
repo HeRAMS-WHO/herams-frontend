@@ -28,6 +28,8 @@
     font-size:0.7em;
     color:@intermediate-grey;
 
+    box-shadow: 0 3px 14px rgba(0,0,0,0.2);
+
     &:nth-child(1) {
      padding: 6px 10px 10px 10px;
      height:75px;
@@ -106,22 +108,45 @@
 
   .entry-popup-subtitle {
 
+    display:flex;
+    justify-content: center;
+    margin: 0 20px;
+    border-bottom: 1px solid @sep-dark-color;
+
     .display-total {
 
       height: 40px;
       padding:8px 0 0;
-      margin: 0 20px;
-      border-bottom: 1px solid @sep-dark-color;
 
       font-size: 1.14em;
       font-weight: @light;
       color: @txt-dark-bg;
       text-align: center;
 
+      display:flex;
+      justify-content: center;
+      align-items: center;
+
+      &:nth-child(1) {
+        padding-right: 30px;
+      }
+      &:nth-child(3) {
+        padding-left: 30px;
+      }
+
+      img {
+        margin-right: 3px;
+      }
+
       .highlight {
         font-size: 1.2em;
         font-weight: @medium;
       }
+    }
+
+    .sep {
+      border-left: solid 1px @intermediate-grey;
+      margin: 10px 0 5px 0; padding: 0;
     }
   }
 

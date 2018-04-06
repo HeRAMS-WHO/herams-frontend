@@ -23,8 +23,22 @@
   <![endif]-->
 
       <div class="mainWrapper">
-        <div class="home" ng-controller="HomeCtrl" ng-init="init()">
+        <div class="home content" ng-controller="HomeCtrl" ng-init="init()">
 
+            <!--  USER PROFILE -->
+            <div class="user-profile">
+                <div>
+                    <div class="usrname">Samuel Petragallo</div>
+                    <div class="email">petragallo@who.int</div>
+                    <div class="org"><span>who</span></div>
+                </div>
+                <div>
+                    <i class="fas fa-user-circle"></i>
+                    <i class="fas fa-angle-down" id="log"></i>
+                </div>
+            </div>
+
+            <!--  LEFT-HAND SIDE PANEL -->
             <div class="menu-entry">
                 <div class="collapse-left-content">
                     <img src="img/home/Menu_minimize.png"/>
@@ -41,7 +55,8 @@
                 </div>
             </div>
 
-            <div class="map-entry">
+            <!--  MAP -->
+             <div class="map-entry">
                <homemap mapdata="homedata" ng-cloak></homemap>
             </div>
 
@@ -58,11 +73,23 @@
         </div>
       </div>
 
+
+    <div id="popover-content" class="hidden-popover">
+        <div class="log-popover">
+        <ul>
+            <li>Profile</li>
+            <li>Logout</li>
+        </ul>
+        </div>
+    </div>
+
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
@@ -83,6 +110,10 @@
   <script src="../bower_components/highcharts/modules/exporting.js"></script>
 
   <script src="../node_modules/@esri/arcgis-to-geojson-utils/dist/arcgis-to-geojson.js"></script>
+
+
+  <!-- global -->
+  <script src="js/globalscripts/herams_global.js"></script>
 
   <!-- app -->
   <script src="config/config.js"></script>

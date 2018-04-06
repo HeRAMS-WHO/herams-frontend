@@ -2,7 +2,15 @@
     <div class="entry-popup-top">{{::countryname}}</div>
 
     <div class="entry-popup-subtitle">
-        <div class="display-total"><span class="highlight">{{::data.total}}</span> Health Facilities</div>
+        <div class="display-total">
+            <img src="img/home/HF_sm.png"/>
+            <div><span class="highlight">{{::data.total_hf}}</span> Health Facilities</div>
+        </div>
+        <div class="sep"></div>
+        <div class="display-total">
+            <img src="img/home/Contributors.png"/>
+            <div><span class="highlight">{{::data.total_contributors}}</span> Contributors</div>
+        </div>
     </div>
 
     <div class="entry-popup-main">

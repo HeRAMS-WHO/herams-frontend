@@ -44,7 +44,8 @@
           "long": 8.6753
         },
         "stats": {
-          "total": 182,
+          "total_hf": 182,
+          "total_contributors": 97,
            "charts": [
             {
               "title": "Functionning",
