@@ -27,6 +27,7 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
          *   returns a leaflet map object after creation according to params
          */
         createMainMap: function (container,config) {
+            $log.info('createMainMap called');
 
             /* Creating map */
             var map = L.map(container,

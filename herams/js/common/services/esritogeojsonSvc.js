@@ -76,7 +76,7 @@ angular.module('app-herams').service('esriSvc', function($timeout,$log,LayerPopu
         var geojson = L.geoJSON(geoJSON, {
                     style: {
                         color       : strokeCol,
-                        weight      : 1,
+                        weight      : CONFIG.home.dfltColors.layer_stroke_weight,
                         fillOpacity : CONFIG.home.layersOpacity,
                         fillColor   : fillCol
                     }

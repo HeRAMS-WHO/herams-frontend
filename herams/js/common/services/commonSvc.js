@@ -22,6 +22,7 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$window,
         loadData: function(url) {
             return $http({
                 'method': 'GET',
+                // 'method': 'JSONP',
                 'url': url,
                 'headers': {
                     // 'X-CSRFToken': csrfToken,

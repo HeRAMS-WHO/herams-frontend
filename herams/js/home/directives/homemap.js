@@ -34,31 +34,35 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
         controller: function($scope) {},
         link: function($scope, $el, $attr) {
 
-            $timeout(function() {
+            // $timeout(function() {
+            $scope.$watch('mapdata', function(homeData) {
 
-                // $log.info('homemap.js > $scope.mapdata: ',$scope.mapdata);
+                if (homeData.config) {
 
-                /* create Map */
-                var mainMap = MainMapSvc.createMainMap('mapid',$scope.mapdata.config);
+                     /* create Map */
+                    var mainMap = MainMapSvc.createMainMap('mapid',homeData.config);
 
-                $scope.$on('collapse-click',function(evt,args) {
+                    $scope.$on('collapse-click',function(evt,args) {
 
-                    var margin_expand = parseInt($(".map-entry").css('margin-left'));
-                    var wdth = (!args.collapsed)? getWindowWdth()-margin_expand : getWindowWdth();
+                        var margin_expand = parseInt($(".map-entry").css('margin-left'));
+                        var wdth = (!args.collapsed)? getWindowWdth()-margin_expand : getWindowWdth();
 
-                     $log.info('homemap.js > wdth: ',wdth);
+                         $log.info('homemap.js > wdth: ',wdth);
 
-                    $("#mapid").width(wdth);
-                    mainMap.invalidateSize();
+                        $("#mapid").width(wdth);
+                        mainMap.invalidateSize();
 
-                });
+                    });
 
-                /* adding HeRams */
-                var statuses = $scope.mapdata.config.statuses,
-                    layers = $scope.mapdata.layers;
+                    /* adding HeRams */
+                    var statuses = homeData.config.statuses,
+                        layers = homeData.layers;
 
-                // MainMapSvc.addLayersToMainMap(mainMap,layers,statuses);
-                MainMapSvc.addcircleMarkerToMainMap(mainMap,layers,statuses);
+                    // MainMapSvc.addLayersToMainMap(mainMap,layers,statuses);
+                    MainMapSvc.addcircleMarkerToMainMap(mainMap,layers,statuses);
+
+                }
+
 
             })
 

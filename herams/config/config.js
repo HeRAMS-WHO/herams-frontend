@@ -6,10 +6,11 @@ var CONFIG = {
         end: "%27%29&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=ADM0_NAME%2C+ISO_2_CODE&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json"
     },
     home: {
-        layersOpacity: 0.7,
+        layersOpacity: 0.6,
         dfltColors: {
-          layer_stroke_color: "#5791e1",
-          layer_fill_color: "#ffffff",
+          layer_stroke_color: "#7b7b7b",
+            layer_stroke_weight: 1.5,
+          layer_fill_color: "#ffffff"
         },
         centroidRadius: 15
     }

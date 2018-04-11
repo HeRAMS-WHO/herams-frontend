@@ -7,7 +7,7 @@
  * @description
  *   Overall controller for the 'Home' page
  */
-angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$log) {
+angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$log,$http) {
 
     /* - Collapsable Panel - */
     var collapsed = false;
@@ -37,16 +37,16 @@ angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$l
     $scope.homedata = {};
     $scope.init = function() {
 
-        return commonSvc.loadData('config/home_data.json').then(loadSuccess)
+        return commonSvc.loadData('https://herams-dev.westeurope.cloudapp.azure.com/aping/home?project=374').then(loadSuccess)
                     .catch(loadFailure)
                     .then(loadFinally);
 
         function loadSuccess(httpResponse) {
 
+            $log.info('loaded Home Data correctly: ',httpResponse);
+
             $scope.homedata = httpResponse.data.results;
             setCollapse();
-
-            $log.info('loaded Home Data correctly: ',httpResponse);
         }
 
         function loadFailure(httpResponse) {
