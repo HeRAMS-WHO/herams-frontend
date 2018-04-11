@@ -8,18 +8,25 @@
  */
 angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$timeout,$window,$compile,$log,esriSvc,commonSvc) {
 
-    var map;
 
-    function displayData() {
+    function displayData(map) {
         return commonSvc.loadData('config/overview_map_sample.json').then(loadSuccess)
                     .catch(loadFailure)
                     .then(loadFinally);
 
         function loadSuccess(httpResponse) {
 
-            var rslts = httpResponse.data.results;
+            var rslts = httpResponse.data.results,
+                typesSpecs = rslts.types;
 
-            $log.info('loaded Overview Map Data correctly: ',rslts);
+            for (var i in rslts.data) {
+                var myIcon = L.divIcon({
+                    className: 'herams-marker-icon',
+                    html:'<i class="fas fa-circle" style="color:'+ typesSpecs[rslts.data[i].type].color +'"></i>'
+                });
+                 L.marker(rslts.data[i].latlong, {icon: myIcon}).addTo(map);
+            }
+
         }
 
         function loadFailure(httpResponse) {
@@ -31,32 +38,6 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
         }
     }
 
-    /*
-    $scope.init = function() {
-
-        return commonSvc.loadData('config/home_data.json').then(loadSuccess)
-                    .catch(loadFailure)
-                    .then(loadFinally);
-
-        function loadSuccess(httpResponse) {
-
-            $scope.homedata = httpResponse.data.results;
-            setCollapse();
-
-            $log.info('loaded Home Data correctly: ',httpResponse);
-        }
-
-        function loadFailure(httpResponse) {
-            $log.info('There has been an error Home Data');
-        }
-
-        function loadFinally(httpResponse) {
-            $log.info('Home - last but not least');
-        }
-
-    }
-
-     */
 
     return {
 
@@ -80,7 +61,7 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
             }
 
 
-            displayData();
+            displayData(map);
 
             /* - adding ESRI layer - */
             esriSvc.getEsriShape(map, mapdata.layers[0]);

@@ -29,8 +29,6 @@ angular.module('app-herams').directive('layout14', function(HFMapSvc,$timeout,$l
         chart2_data.title.text = "Function";
         chart3_data.title.text = "Availability";
 
-        // chart-container
-        // chart1_data.colors = SAMPLECHART.bar_colors;
         Highcharts.chart('chart1', chart1_data);
         Highcharts.chart('chart2', config(chart2_data));
         Highcharts.chart('chart3', config(chart3_data));
