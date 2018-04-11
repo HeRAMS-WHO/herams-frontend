@@ -50,6 +50,12 @@ angular.module('app-herams').directive('entryPopup', function($log,ChartConfigSv
                 pie2 = ChartConfigSvc.setTmpChartMultVal(layerData.stats.charts[1].data),
                 pie3 = ChartConfigSvc.setTmpChartMultVal(layerData.stats.charts[2].data);
 
+
+            /* - OVERRIDING WS ISSUES - */
+            var tmp = [{y: 1, color: "#1c51a0", noTooltip: false},{y: 6, color: "#50afdf"},{y: 87, color: "#c6e2f1"},{y: 6, color: "#606060"}];
+            pie3 = ChartConfigSvc.setTmpChartMultVal(tmp);
+            $log.info('checking pie3 : ',tmp);
+
             ChartConfigSvc.setAfterAnimate(pie1,function() {
                 $('charts-percents:nth-child(1)').css('display','block');
             })
