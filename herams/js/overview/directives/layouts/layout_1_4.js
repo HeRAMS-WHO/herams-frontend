@@ -20,7 +20,7 @@ angular.module('app-herams').directive('layout14', function(HFMapSvc,$timeout,$l
 
     function loadcharts() {
 
-        var chart1_data = commonSvc.deepCopy(SAMPLECHART.stacked_chart),
+        var chart1_data = commonSvc.deepCopy(SAMPLECHART.bar_chart),
             chart2_data = commonSvc.deepCopy(SAMPLECHART.stacked_chart),
             chart3_data = commonSvc.deepCopy(SAMPLECHART.stacked_chart),
             chart4_data = commonSvc.deepCopy(SAMPLECHART.stacked_chart);
@@ -30,7 +30,8 @@ angular.module('app-herams').directive('layout14', function(HFMapSvc,$timeout,$l
         chart3_data.title.text = "Availability";
 
         // chart-container
-        Highcharts.chart('chart1', config(chart1_data));
+        // chart1_data.colors = SAMPLECHART.bar_colors;
+        Highcharts.chart('chart1', chart1_data);
         Highcharts.chart('chart2', config(chart2_data));
         Highcharts.chart('chart3', config(chart3_data));
     }

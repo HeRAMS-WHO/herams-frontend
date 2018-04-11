@@ -1,7 +1,7 @@
 (function() {
 
       $('#log').popover({
-        container: $('.content'),
+        container: $('.popover-base'),
         placement: 'bottom',
         content: function() {
             return $('#popover-content').html();
