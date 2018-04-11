@@ -1,0 +1,65 @@
+{
+  "results": {
+    "types": {
+        "type1": {
+          "label": "Health Post",
+          "color": "#dc4a8b"
+        },
+        "type2": {
+          "label": "Health Clinic",
+          "color": "#599d22"
+        },
+        "type3": {
+          "label": "Primary Health Center",
+          "color": "#52addc"
+        },
+        "type4": {
+          "label": "Primary Health Clinic",
+          "color": "#006958"
+        }
+      },
+    "filters": [],
+    "data": [
+      {
+        "type": "type2",
+        "latlong": [6.605874, 3.349149]
+      },
+      {
+        "type": "type3",
+        "latlong": [5.500187, 5.993834]
+      },
+      {
+        "type": "type1",
+        "latlong": [7.250771, 5.210266]
+      },
+      {
+        "type": "type4",
+        "latlong": [4.982873, 8.334503]
+      },
+      {
+        "type": "type2",
+        "latlong": [5.879698, 5.700531]
+      },
+      {
+        "type": "type4",
+        "latlong": [7.536318, 3.418143]
+      },
+      {
+        "type": "type3",
+        "latlong": [11.794242, 8.839032]
+      },
+      {
+        "type": "type1",
+        "latlong": [6.141312, 6.802949]
+      },
+      {
+        "type": "type2",
+        "latlong": [11.085541, 7.719945]
+      },
+      {
+        "type": "type3",
+        "latlong": [9.896527, 8.858331]
+      }
+    ]
+  }
+}
