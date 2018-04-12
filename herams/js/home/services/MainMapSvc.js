@@ -29,9 +29,17 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
         createMainMap: function (container,config) {
             $log.info('createMainMap called');
 
+
+            /* - Setting Map Bounds - */
+            var minNorth = L.latLng(84.922810, -179.973791),
+            maxSouth = L.latLng(-84.922810, 179.973791),
+            bounds = L.latLngBounds(minNorth, maxSouth);
+
+
             /* Creating map */
             var map = L.map(container,
                 {
+                    maxBounds: bounds,
                     minZoom: config.zoom_options.minZoom,
                     maxZoom: config.zoom_options.maxZoom,
                     zoomDelta: config.zoom_options.zoomDelta
