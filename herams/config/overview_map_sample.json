@@ -18,7 +18,29 @@
           "color": "#006958"
         }
       },
-    "filters": [],
+    "filters": [
+      {
+        "name": "Type",
+        "list_items": {
+          "type1": {
+            "label": "Health Post",
+            "color": "#dc4a8b"
+          },
+          "type2": {
+            "label": "Health Clinic",
+            "color": "#599d22"
+          },
+          "type3": {
+            "label": "Primary Health Center",
+            "color": "#52addc"
+          },
+          "type4": {
+            "label": "Primary Health Clinic",
+            "color": "#006958"
+          }
+        }
+      }
+    ],
     "data": [
       {
         "type": "type2",
