@@ -265,6 +265,18 @@
   opacity: 0.8;
 
 }
+
+         @-webkit-keyframes fadeIn {
+            0% {opacity: 0;}
+            100% {opacity: 1;}
+         }
+
+         @keyframes fadeIn {
+            0% {opacity: 0;}
+            100% {opacity: 1;}
+         }
+
+
 .partners-list {
   position: absolute;
   bottom:0;
@@ -281,14 +293,15 @@
 
   padding: 0 20px;
 
-  opacity: 0.2;
-  -webkit-transition: opaciy 1s; /* Safari */
-  transition: opacity 1s;
-  animation-timing-function: ease-in;
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+
 
   &.fullHeight {
-    //height:105px;
-    opacity: 1;
+            -webkit-animation-name: fadeIn;
+            animation-name: fadeIn;
   }
 
 }
