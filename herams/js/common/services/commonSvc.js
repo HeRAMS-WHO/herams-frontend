@@ -16,7 +16,8 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$window,
         *   returns a deep copy of an object
         */
         deepCopy: function(obj) {
-            return JSON.parse(JSON.stringify(obj));
+            // return JSON.parse(JSON.stringify(obj));
+            return $.extend(true, {}, obj);
         },
 
         loadData: function(url) {

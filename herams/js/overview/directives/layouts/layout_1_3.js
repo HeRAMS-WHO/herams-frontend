@@ -38,8 +38,20 @@ angular.module('app-herams').directive('layout13', function(HFMapSvc,$timeout,$l
         scope: {
             mapdata:"="
         },
+
         link: function(scope) {
-            loadcharts();
+            $timeout(function() {
+                $log.info('drawing charts');
+                loadcharts();
+            },300);
+        },
+
+        controller: function($scope) {
+            $(window).on('resize', function () {
+                $( "#chart1" ).empty();
+                $( "#chart2" ).empty();
+                loadcharts();
+            });
         }
 
      }

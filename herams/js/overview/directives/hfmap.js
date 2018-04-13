@@ -24,7 +24,6 @@ angular.module('app-herams').directive('hfmap', function(HFMapSvc,$timeout,$log)
         link: function($scope, $el, $attr) {
 
             $timeout(function() {
-
                 /* create Map */
                 HFMapSvc.createMap('mapid',$scope.mapdata);
             })

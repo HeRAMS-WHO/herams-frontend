@@ -22,7 +22,7 @@
 /* user profile txt infos */
 .user-profile > div:first-child {
   font-size: 1em;
-  font-weight: medium;
+  font-weight: @medium;
   color: @dark-grey;
   text-align: right;
 }
@@ -58,13 +58,25 @@
 }
 
 /* user profile picture placeholder */
+/*
 .user-profile > div:nth-child(2) > i:first-child {
   font-size: 4em;
   color: #59585e;
   padding: 0 10px;
 }
+*/
+.user-profile > div:nth-child(2) > img {
+  padding: 0 10px;
+}
 /* arrow down */
+/*
 .user-profile > div:nth-child(2) > i:nth-child(2) {
+  font-size: 1.2em;
+  color: @dark-grey;
+  cursor: pointer;
+}
+*/
+.user-profile > div:nth-child(2) > i {
   font-size: 1.2em;
   color: @dark-grey;
   cursor: pointer;
@@ -93,7 +105,7 @@
 .log-popover > ul > li {
   padding:5px 10px 5px 20px;
   font-size: 1em;
-  font-family: Roboto, 'sans-serif';
+  // font-family: @font-family-base;
 }
 .log-popover > ul > li:hover {
   color: white;

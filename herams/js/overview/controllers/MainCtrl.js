@@ -7,7 +7,7 @@
  * @description
  *   This controller is used on all the pages except the HF card which doesn't inherit from base
  */
-angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$log) {
+angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$log,HFMapSvc) {
 
 
     $scope.date = new Date();
@@ -39,5 +39,18 @@ angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$l
         }
 
     }
+
+    $(window).on('resize pageshow', function () {
+        HFMapSvc.refreshLayout();
+    });
+
+    /* Partners */
+    $('.partners-list-btn').click(function() {
+        $('.partners-list-grp').show();
+        $('.partners-list-cache').click(function() {
+            $('.partners-list-grp').hide();
+        });
+    });
+
 
 });

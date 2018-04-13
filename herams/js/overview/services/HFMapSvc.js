@@ -8,6 +8,7 @@
  */
 angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$timeout,$window,$compile,$log,esriSvc,commonSvc) {
 
+    var map,mapSpecs;
 
     function displayData(map) {
         return commonSvc.loadData('config/overview_map_sample.json').then(loadSuccess)
@@ -48,8 +49,10 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
         */
         createMap: function(container,mapdata) {
 
+            mapSpecs = mapdata;
+
             /* - creating map instance - */
-            var map = L.map(container, {
+            map = L.map(container, {
                 zoomControl:false,
                 center: [mapdata.lat, mapdata.long],
                 zoom: mapdata.zoom
@@ -60,21 +63,29 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
                var tmp = L.tileLayer(mapdata.basemaps[i]).addTo(map);
             }
 
-
             displayData(map);
 
             /* - adding ESRI layer - */
             esriSvc.getEsriShape(map, mapdata.layers[0]);
 
+
             /* - responsiveness - */
-            $(window).on('orientationchange pageshow resize', function () {
-                var hght = $('.map-container').innerHeight();
+            this.refreshLayout();
 
-                $("#mapid").height(hght);
-                map.invalidateSize();
-                map.setView([mapdata.lat, mapdata.long]);
-            }).trigger('resize');
+        },
+        refreshLayout: function() {
 
+            var viewportHght = $(window).height()-280;
+            viewportHght = (viewportHght>550)? viewportHght : 550;
+
+            $('.main-content').height(viewportHght);
+            $('.map-container').height(viewportHght);
+
+            var hght = $('.map-container').innerHeight();
+
+            $("#mapid").height(hght);
+            if (map) map.invalidateSize();
+            if (map) map.setView([mapSpecs.lat, mapSpecs.long]);
         }
     }
 });

@@ -15,6 +15,7 @@ angular.module('app-herams').directive('layout14', function(HFMapSvc,$timeout,$l
 
     function config(chart) {
        chart.colors = SAMPLECHART.colors;
+
        return chart;
     }
 
@@ -41,8 +42,22 @@ angular.module('app-herams').directive('layout14', function(HFMapSvc,$timeout,$l
         scope: {
             mapdata:"="
         },
+
         link: function(scope) {
-            loadcharts();
+            $timeout(function() {
+                $log.info('drawing charts');
+                loadcharts();
+            },300);
+        },
+
+        controller: function($scope) {
+            $(window).on('resize', function () {
+                $( "#chart1" ).empty();
+                $( "#chart2" ).empty();
+                $( "#chart3" ).empty();
+                $( "#chart4" ).empty();
+                loadcharts();
+            });
         }
 
      }

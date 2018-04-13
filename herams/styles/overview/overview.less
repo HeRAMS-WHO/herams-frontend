@@ -21,22 +21,46 @@
     background-color: @home-sidebar-bgcolor;
     z-index: 50;
 
+    .backhome{
+      padding:0;
+      margin: 10px 0 0 10px;
+       a {
+        color: #232323;
+        font-size: 0.9em;
+        margin:0;padding:0;
+        i {
+          font-size: 0.8em;
+          margin-right: 4px;
+        }
+        .highlight {
+          font-weight: @bold;
+        }
+        &:hover {
+          color: @brand-blue;
+        }
+      }
+    }
+
     .Logo {
       border-bottom: 1px solid @sep-color;
-      padding: 45px 0 43px 0;
+      padding: 43px 0 38px 0;
       margin-bottom: 35px;
       text-align:center;
 
-      cursor: pointer;
-
       img {
-        width: 220px;
+        width: 190px;
         margin: auto;
       }
 
     }
 
     .menu-items {
+      position:absolute;
+      background-color: white;
+      padding-bottom: 30px;
+      z-index:2;
+
+
       ul {
         list-style: none;
         padding:0;
@@ -46,15 +70,18 @@
           display: flex;
           justify-content: flex-start;
           align-items: center;
-          font-size: 1.2em;
+          font-size: 1.3em;
           font-weight: @medium;
           height:50px;
           padding-left: unit(@menu-padding-left,px);
 
-          &:hover {
+          &.selected {
             color: @brand-blue;
             border-left: unit(@menu-border-left,px) solid @brand-blue;
             padding-left: unit(@menu-hover-left,px);
+          }
+          &:hover {
+            color: @brand-blue;
           }
 
         }
@@ -119,7 +146,7 @@
       }
 
       .main-content {
-        margin-top: 20px;
+        margin: 20px 0 50px 0;
       }
 
     }
@@ -130,7 +157,7 @@
 
 .map-container {
   position: relative;
-  height:100%;
+  // height:100%;
   min-width: 400px;
 
   -webkit-border-radius: 5px;
@@ -174,7 +201,7 @@
       font-size: 1em;
       .filter-count {
         font-size: 0.8em;
-        font-weight: 500;
+        font-weight: @medium;
       }
     }
     .filter-input {
@@ -208,6 +235,54 @@
 
 
 /**
+    PARTNERS LIST
+ */
+.partners-list-btn {
+  position: absolute;
+  height: 30px;
+  bottom: 15px;
+  left:25px;
+
+  font-size: 1.2em;
+  color:@brand-blue;
+  z-index: 1;
+}
+.partners-list-grp, .partners-list-cache {
+  position: absolute;
+  top:0;
+  left: 0;
+  width:100%;
+  height:100%;
+
+}
+.partners-list-grp {
+  display: none;
+  z-index: 2000;
+}
+.partners-list-cache {
+
+  background-color: @dark-grey;
+  opacity: 0.8;
+
+}
+.partners-list {
+  position: absolute;
+  bottom:0;
+  left: 0;
+
+  width: 100%;
+  height:105px;
+  background-color: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 20px;
+}
+
+
+/**
     BOOTSTRAP POPOVER
  */
 .hidden-popover{
@@ -228,7 +303,7 @@
 .log-popover > ul > li {
   padding:5px 10px 5px 20px;
   font-size: 1em;
-  font-family: Roboto, 'sans-serif';
+  // font-family: Roboto, 'sans-serif';
 }
 .log-popover > ul > li:hover {
   color: white;

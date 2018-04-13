@@ -3,13 +3,18 @@
 @bw: 3px;  // border width
 
 .dataviz-table {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+
   .title {
     font-size: 1.2em;
-    font-weight: 700;
+    font-weight: @bold;
     color: @dark-grey;
 
     text-align: left;
-    margin: 10px 0 20px 0;
+    margin: 0 0 20px 0;
   }
 
   /* Tables
@@ -17,8 +22,14 @@
   .HRStable {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 0 3em 0;
+    // margin: 0 0 3em 0;
+    margin: 0;
     padding: 0;
+
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+       /* IE10+ CSS */
+      // width: 600px;
+    }
   }
   .HRStable-cell {
     box-sizing: border-box;
@@ -37,8 +48,7 @@
 
     &.row-header  {
       height: auto;
-      // font-size: 1em;
-      font-weight: 700;
+      font-weight: @bold;
       line-height: normal;
       padding: 10px;
       background-color: @light-grey;
@@ -52,9 +62,17 @@
 
     &.col-wider{
       width:46%;
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+         /* IE10+ CSS */
+        // width: 300px;
+      }
     }
     &.col-reg{
       width:18%;
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+         /* IE10+ CSS */
+        // width: 100px;
+      }
     }
 
     &.border-left {
@@ -63,22 +81,3 @@
   }
 
 }
-
-/*
-.dataviz-table {
-  .title {
-    font-size: 1.2em;
-    font-weight: 700;
-    color: @dark-grey;
-
-    text-align: left;
-    margin: 10px 0 20px 0;
-  }
-
-  .table thead th {
-    border: none;
-    background-color: #efefef;
-    font-weight:700;
-  }
-}
-*/
