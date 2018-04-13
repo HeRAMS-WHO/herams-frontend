@@ -47,8 +47,10 @@ angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$l
     /* Partners */
     $('.partners-list-btn').click(function() {
         $('.partners-list-grp').show();
+        $('.partners-list').addClass('fullHeight');
         $('.partners-list-cache').click(function() {
             $('.partners-list-grp').hide();
+            $('.partners-list').removeClass('fullHeight');
         });
     });
 

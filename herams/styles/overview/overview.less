@@ -272,6 +272,7 @@
 
   width: 100%;
   height:105px;
+  // height:10px;
   background-color: white;
 
   display: flex;
@@ -279,6 +280,17 @@
   align-items: center;
 
   padding: 0 20px;
+
+  opacity: 0.2;
+  -webkit-transition: opaciy 1s; /* Safari */
+  transition: opacity 1s;
+  animation-timing-function: ease-in;
+
+  &.fullHeight {
+    //height:105px;
+    opacity: 1;
+  }
+
 }
 
 
