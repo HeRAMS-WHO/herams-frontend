@@ -9,24 +9,39 @@
  */
 angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$log,HFMapSvc) {
 
+    /* - CONTROLLER'S METHODS - */
+    function setUI() {
 
-    $scope.date = new Date();
+        $(window).on('resize pageshow', function () {
+            HFMapSvc.refreshLayout();
+        });
 
-    /* ui-router */
-    $scope.home = function() {
-        commonSvc.home();
+        /* Partners */
+        $('.partners-list-btn').click(function() {
+            $('.partners-list-grp').show();
+            $('.partners-list').addClass('fullHeight');
+            $('.partners-list-cache').click(function() {
+                $('.partners-list-grp').hide();
+                $('.partners-list').removeClass('fullHeight');
+            });
+        });
+
+        $(window).scroll(function() {
+            $('.partners-list-grp').hide();
+            $('.partners-list').removeClass('fullHeight');
+        });
+
     }
 
-    /* Data Load */
-    $scope.init = function() {
 
+    function init(scope) {
         return commonSvc.loadData('config/overview_data.json').then(loadSuccess)
                     .catch(loadFailure)
                     .then(loadFinally);
 
         function loadSuccess(httpResponse) {
 
-            $scope.heramdata = httpResponse.data.results;
+            scope.heramdata = httpResponse.data.results;
             $log.info('loaded Overview Data correctly: ',$scope.heramdata);
         }
 
@@ -37,22 +52,25 @@ angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$l
         function loadFinally(httpResponse) {
             $log.info('Overview - last but not least');
         }
-
     }
 
-    $(window).on('resize pageshow', function () {
-        HFMapSvc.refreshLayout();
-    });
 
-    /* Partners */
-    $('.partners-list-btn').click(function() {
-        $('.partners-list-grp').show();
-        $('.partners-list').addClass('fullHeight');
-        $('.partners-list-cache').click(function() {
-            $('.partners-list-grp').hide();
-            $('.partners-list').removeClass('fullHeight');
-        });
-    });
+    /* - MISC SETUP CALLS - */
+    setUI();
+
+
+    /* - SCOPE METHODS - */
+    $scope.date = new Date();
+
+    /* ui-router */
+    $scope.home = function() {
+        commonSvc.home();
+    };
+
+    /* Data Load */
+    $scope.init = function() {
+        init($scope);
+    }
 
 
 });

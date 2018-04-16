@@ -21,6 +21,8 @@ angular.module('app-herams').directive('layout14', function(HFMapSvc,$timeout,$l
 
     function loadcharts() {
 
+        // $log.info(JSON.stringify(SAMPLECHART));
+
         var chart1_data = commonSvc.deepCopy(SAMPLECHART.bar_chart),
             chart2_data = commonSvc.deepCopy(SAMPLECHART.stacked_chart),
             chart3_data = commonSvc.deepCopy(SAMPLECHART.stacked_chart),
