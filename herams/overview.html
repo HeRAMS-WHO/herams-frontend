@@ -36,11 +36,14 @@
                     <img src="img/HeRAMS_NGA.svg"/>
                 </div>
                 <div class="menu-items">
-                    <ul>
+                    <ul ng-cloak>
+                        <li ng-repeat="category in categories" ng-class="{'selected': category.id==catIDSelect }">{{category.name}}</li>
+<!--
                         <li class="selected">Overview</li>
                         <li>Health infrastructure</li>
                         <li>Health services</li>
                         <li>Resources</li>
+-->
                     </ul>
                 </div>
                <div class="partners-list-btn">Partners</div>
@@ -79,8 +82,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="main-content"><layout14 mapdata="::heramdata" ng-cloak></layout14></div>
-                    <!--<layout13 mapdata="::heramdata" ng-cloak></layout13>-->
+                    <!--<div class="main-content"><layout14 mapdata="::heramdata" ng-cloak></layout14></div>-->
                </div>
             </div>
 

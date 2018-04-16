@@ -9,6 +9,9 @@
  */
 angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$log,HFMapSvc) {
 
+    $scope.categories = [];
+    $scope.catIDSelect = null;
+
     /* - CONTROLLER'S METHODS - */
     function setUI() {
 
@@ -33,16 +36,51 @@ angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$l
 
     }
 
+    function loadMapData(map_url) {
+        return commonSvc.loadData(map_url).then(loadSuccess)
+                    .catch(loadFailure)
+                    .then(loadFinally);
+
+        function loadSuccess(httpResponse) {
+            $log.info('load map info: ',httpResponse.data.results);
+        }
+    }
+
+    function loadCharts(charts_url) {
+        return commonSvc.loadData(charts_url).then(loadSuccess)
+                    .catch(loadFailure)
+                    .then(loadFinally);
+
+        function loadSuccess(httpResponse) {
+            $log.info('load charts info: ',httpResponse.data.results);
+        }
+    }
+
+    function launchLayout(cat) {
+
+        // scope.heramdata =
+        // layout / ws_chart_url / ws_map_url
+        loadMapData(cat.ws_map_url);
+        loadCharts(cat.ws_chart_url);
+
+    }
+
 
     function init(scope) {
-        return commonSvc.loadData('config/overview_data.json').then(loadSuccess)
+        //https://herams-dev.westeurope.cloudapp.azure.com/aping/categories
+        // return commonSvc.loadData('config/overview_data.json').then(loadSuccess)
+        return commonSvc.loadData('https://herams-dev.westeurope.cloudapp.azure.com/aping/categories').then(loadSuccess)
                     .catch(loadFailure)
                     .then(loadFinally);
 
         function loadSuccess(httpResponse) {
 
-            scope.heramdata = httpResponse.data.results;
-            $log.info('loaded Overview Data correctly: ',$scope.heramdata);
+            // scope.heramdata = httpResponse.data.results;
+            scope.categories = httpResponse.data;
+            $scope.catIDSelect = scope.categories[0].id;
+
+            launchLayout(scope.categories[0]);
+            $log.info('loaded Overview Data correctly: ',httpResponse.data);
         }
 
         function loadFailure(httpResponse) {

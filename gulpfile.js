@@ -4,19 +4,19 @@
 
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-// var del = require('del');
+var del = require('del');
 var plumber = require('gulp-plumber');
 var less = require('gulp-less');
 var autoprefixer = require('gulp-autoprefixer');
-// var lazypipe = require('lazypipe');
+var lazypipe = require('lazypipe');
 var runSequence = require('run-sequence');
-// var csso = require('gulp-csso');
+var csso = require('gulp-csso');
 // var replace = require('gulp-replace');
-// var useref = require('gulp-useref');
-// var gulpif = require('gulp-if');
-// var uglify = require('gulp-uglify');
-// var ngAnnotate = require('gulp-ng-annotate');
-// var minifyHtml = require('gulp-minify-html');
+var useref = require('gulp-useref');
+var gulpif = require('gulp-if');
+var uglify = require('gulp-uglify');
+var ngAnnotate = require('gulp-ng-annotate');
+var minifyHtml = require('gulp-minify-html');
 var mainBowerFiles = require('main-bower-files');
 var filter = require('gulp-filter');
 var flatten = require('gulp-flatten');
@@ -30,9 +30,9 @@ var connectLivereload = require('connect-livereload');
 var livereload = require('gulp-livereload');
 // var opn = require('opn');
 var inject = require('gulp-inject');
-// var imagemin = require('gulp-imagemin'),
- //    pngquant = require('imagemin-pngquant');
-// var cachebust = new CacheBuster();                   -- important to avoid caching data
+var imagemin = require('gulp-imagemin'),
+    pngquant = require('imagemin-pngquant');
+var cachebust = new CacheBuster();                   // important to avoid caching data
 var argv = require('yargs').argv;
 
 
@@ -53,23 +53,11 @@ gulp.task('styles', function(success) {
     .pipe(gulp.dest('.tmp/styles'));
 });
 
-//Copies fonts files into a single folder
-gulp.task('fonts', function() {
-    return gulp.src(mainBowerFiles().concat('herams/styles/fonts/**/*'))
-    .pipe(filter('**/*.{eot,svg,ttf,woff,woff2}'))
-    .pipe(flatten())
-    .pipe(gulp.dest('dist/fonts'))
-    .pipe(gulp.dest('.tmp/fonts'));
-});
-
 //WIREDEP: Injects bower dependencies automatically
 gulp.task('wiredep', function() {
     var str = wiredep.stream;
     var exclude = [
-    '/jquery/',
-    'es5-shim',
-    'json3',
-    'angular-scenario'
+    '/jquery/'
     ];
 
     gulp.src('herams/styles/!*.less')
@@ -92,18 +80,8 @@ gulp.task('wiredep', function() {
 //INJECT: Injects automatically developement js files in index
 gulp.task('inject', function() {
     var target = gulp.src('herams/index.html');
-    var environment;
-    switch (argv.environment) {
-      case 'dev':
-        environment = 'dev';
-        break;
-      case 'phcpm':
-        environment = 'phcpm';
-        break;
-      default:
-        environment = 'amazon';
-    }
-    var configFolder = 'herams/config/'+environment+'/*.js';
+
+    var configFolder = 'herams/config/*.js';
 
     // It's not necessary to read the files (will speed up things), we're only after their paths:
     var sources = gulp.src(['herams/js/**/*.js',configFolder, '!herams/js/app.js'], {read: false});
@@ -111,6 +89,99 @@ gulp.task('inject', function() {
   return target.pipe(inject(sources,{ignorePath:"herams/",addRootSlash:false}))
     .pipe(gulp.dest('herams'));
 });
+
+gulp.task('inject-index', function() {
+    var target = gulp.src('herams/index.html');
+
+    var configFolder = 'herams/config/*.js';
+
+    // It's not necessary to read the files (will speed up things), we're only after their paths:
+    var sources = gulp.src(['herams/js/**/*.js',configFolder, '!herams/js/app.js'], {read: false});
+
+  return target.pipe(inject(sources,{ignorePath:"herams/",addRootSlash:false}))
+    .pipe(gulp.dest('herams'));
+});
+gulp.task('inject-overview', function() {
+    var target = gulp.src('herams/overview.html');
+
+    var configFolder = 'herams/config/*.js';
+
+    // It's not necessary to read the files (will speed up things), we're only after their paths:
+    var sources = gulp.src(['herams/js/**/*.js',configFolder, '!herams/js/app.js'], {read: false});
+
+  return target.pipe(inject(sources,{ignorePath:"herams/",addRootSlash:false}))
+    .pipe(gulp.dest('herams'));
+});
+
+
+//Copies all extra files into the dist folder
+gulp.task('extras', function() {
+    return gulp.src([
+        'app/*.*',
+        '!app/*.html'
+        ], {
+            dot: true
+        }).pipe(gulp.dest('dist'));
+});
+
+//GZIP: Gzip the files in the dist folder
+gulp.task('gzip', [],
+    function() {
+        return gulp.src('dist/**/*').pipe(size({title: 'build', gzip: true}));
+    }
+);
+
+//CONFIG: Copies and avoid cache for config files
+gulp.task('config', function() {
+    return gulp.src('herams/config/**/*')
+    .pipe(gulpif('*.js',cachebust.resources()))
+    .pipe(gulp.dest('dist/config'));
+});
+
+//UNCACHE: Makes sure to add a hash to each resource file (css, js) so that is not cached if it changed
+gulp.task('uncache', function () {
+    return gulp.src('dist/*')
+        .pipe(cachebust.references())
+        .pipe(gulp.dest('dist'));
+});
+
+
+//IMAGES: Copies images to the dist folder and compress them
+gulp.task('images', function() {
+    return gulp.src('herams/img/**/*')
+    .pipe(imagemin({
+            progressive: true,
+            use: [pngquant()]
+        }))
+    .pipe(gulp.dest('dist/img'));
+});
+
+//CLEAN: Empty the dist folder before build
+gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
+
+
+//HTML: Minifies html, concatenates assets into a single file (based on the meta-tags specified in index.html)
+gulp.task('html', ['styles'], function() {
+    var cssChannel = lazypipe()
+    .pipe(csso);
+
+    var assets = useref({searchPath: '{.tmp,herams}'});
+
+    return gulp.src('herams/**/*.html')
+    .pipe(assets)
+    .pipe(useref({searchPath: '{.tmp,herams}'}))
+    .pipe(gulpif('*.js', ngAnnotate()))
+    .pipe(gulpif('*.js', uglify()))
+    .pipe(gulpif('*.css', cssChannel()))
+    //.pipe(assets.restore())
+    .pipe(useref())
+    .pipe(gulpif('*.html', minifyHtml({conditionals: true, loose: true})))
+    // .pipe(gulpif('*.css',cachebust.resources()))
+    // .pipe(gulpif('*.js',cachebust.resources()))
+    .pipe(gulp.dest('dist'));
+});
+
+
 
 /** ===============================================================  **/
 /** =================    Dev Tasks  ===============================  **/
@@ -183,14 +254,15 @@ gulp.task('servedist', function() {
 gulp.task('dist', function(callback) {
     runSequence('wiredep',
         'inject',
+        'inject-index',
+        'inject-overview',
         'clean',
         'html',
         'images',
         'config',
-        'fonts',
         'uncache',
         'extras',
-        ['gzip'],
-        'servedist',
+        'styles',
+        // ['gzip'],
         callback);
 });
