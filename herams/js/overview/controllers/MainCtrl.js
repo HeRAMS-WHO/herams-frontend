@@ -7,11 +7,12 @@
  * @description
  *   This controller is used on all the pages except the HF card which doesn't inherit from base
  */
-angular.module('app-herams').controller('MainCtrl', function($scope,$log,commonSvc,HFMapSvc) {
+angular.module('app-herams').controller('MainCtrl', function($scope,$compile,$log,commonSvc,HFMapSvc) {
 
     $scope.categories = [];
     $scope.catIDSelect = null;
     $scope.mapdata = {};
+    $scope.catdata = {};
 
     /* - CONTROLLER'S METHODS - */
     function setUI() {
@@ -37,7 +38,7 @@ angular.module('app-herams').controller('MainCtrl', function($scope,$log,commonS
 
     }
 
-    function loadMapData(scope,map_url) {
+    function loadMapData(map_url) {
         return commonSvc.loadData(map_url).then(loadSuccess)
                     .catch(loadFailure)
                     .then(loadFinally);
@@ -66,7 +67,8 @@ angular.module('app-herams').controller('MainCtrl', function($scope,$log,commonS
                     .then(loadFinally);
 
         function loadSuccess(httpResponse) {
-            $log.info('load charts info: ',httpResponse.data.results);
+            $log.info('load charts info: ',httpResponse.data.stats);
+            $scope.catdata = httpResponse.data.stats;
         }
 
         function loadFailure(err) {
@@ -78,31 +80,46 @@ angular.module('app-herams').controller('MainCtrl', function($scope,$log,commonS
         }
     }
 
+
+    function setLayout(layoutType) {
+
+        var rawLayout;
+        switch(layoutType) {
+            case "layout14":
+                rawLayout = "<layout14 data='catdata' ng-cloak></layout14>";
+                break;
+            case "layout13":
+                rawLayout = "<layout13 data='catdata' ng-cloak></layout13>";
+                break;
+        }
+        return rawLayout
+
+    }
+
     function launchLayout(scope,cat) {
 
-        // scope.heramdata =
+         var rawlayout = setLayout(cat.layout);
+         var linkFn = $compile(rawlayout);
+         var layout = linkFn(scope);
+
+        $('.main-content').html(layout);
+
+
         // layout / ws_chart_url / ws_map_url
-        loadMapData(scope,cat.ws_map_url);
-        // loadCharts(cat.ws_chart_url);
+        loadMapData(cat.ws_map_url);
+        loadCharts(cat.ws_chart_url);
 
     }
 
 
     function init(scope) {
-        //https://herams-dev.westeurope.cloudapp.azure.com/aping/categories
-        // return commonSvc.loadData('config/overview_data.json').then(loadSuccess)
-        return commonSvc.loadData('https://herams-dev.westeurope.cloudapp.azure.com/aping/categories').then(loadSuccess)
+         return commonSvc.loadData('https://herams-dev.westeurope.cloudapp.azure.com/aping/categories').then(loadSuccess)
                     .catch(loadFailure)
                     .then(loadFinally);
 
         function loadSuccess(httpResponse) {
-
-            // scope.heramdata = httpResponse.data.results;
             scope.categories = httpResponse.data;
             $scope.catIDSelect = scope.categories[0].id;
-            $log.info('loaded Overview Data correctly: ',httpResponse.data);
-
-            // launchLayout(scope.categories[0]);
         }
 
         function loadFailure(httpResponse) {

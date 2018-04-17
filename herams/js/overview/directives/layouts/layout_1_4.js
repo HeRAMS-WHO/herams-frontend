@@ -11,55 +11,45 @@
  * @example
  *   <entry-popup />
  */
-angular.module('app-herams').directive('layout14', function(HFMapSvc,$timeout,$log,commonSvc) {
+angular.module('app-herams').directive('layout14', function(chartsSvc,$timeout,$log) {
 
-    function config(chart) {
-       chart.colors = SAMPLECHART.colors;
+    var chartdata;
 
-       return chart;
+    function setWindowResize() {
+        $(window).on('resize', function () {
+            $( "#chart1" ).empty();
+            $( "#chart2" ).empty();
+            $( "#chart3" ).empty();
+            $( "#chart4" ).empty();
+            loadcharts();
+        });
     }
 
     function loadcharts() {
+        $log.info('----- drawing charts -----');
 
-        $log.info('bar_chart: ',JSON.stringify(CONFIG.overview.charts.common));
-
-        var chart_common_config = commonSvc.deepCopy(CONFIG.overview.charts.common);
-
-        var chart1_data = Object.assign(commonSvc.deepCopy(chart_common_config),CONFIG.overview.charts.bar);
-        var chart2_data = Object.assign(commonSvc.deepCopy(chart_common_config),CONFIG.overview.charts.stacked);
-        var chart3_data = Object.assign(commonSvc.deepCopy(chart_common_config),CONFIG.overview.charts.stacked);
-
-        chart1_data.title.text = "Damage";
-        chart2_data.title.text = "Function";
-        chart3_data.title.text = "Availability";
-
-        Highcharts.chart('chart1', chart1_data);
-        Highcharts.chart('chart2', config(chart2_data));
-        Highcharts.chart('chart3', config(chart3_data));
-    }
+        chartsSvc.loadChart(chartdata[0],'chart1');
+        chartsSvc.loadChart(chartdata[1],'chart2');
+        chartsSvc.loadChart(chartdata[2],'chart3');
+        chartsSvc.loadChart(chartdata[3],'chart4');
+   }
 
     return {
         templateUrl: '/js/overview/directives/layouts/layout_1_4.html',
         restrict: 'E',
         replace: true,
         scope: {
-            mapdata:"="
+            data:"="
         },
-
-        link: function(scope) {
-            $timeout(function() {
-                $log.info('drawing charts');
-                loadcharts();
-            },300);
-        },
-
         controller: function($scope) {
-            $(window).on('resize', function () {
-                $( "#chart1" ).empty();
-                $( "#chart2" ).empty();
-                $( "#chart3" ).empty();
-                $( "#chart4" ).empty();
-                loadcharts();
+            $scope.$watch('data',function(data){
+                if (data.length>0) {
+                    chartdata = data;
+                    $timeout(function() {
+                       loadcharts();
+                       setWindowResize();
+                    },300);
+                }
             });
         }
 

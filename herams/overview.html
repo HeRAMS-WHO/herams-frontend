@@ -58,8 +58,8 @@
                     <div class="header container-fluid">
                         <div class="row">
                             <div class="col-sm-6 col-lg-8">
-                                <div class="breadcrumbs"><a href="/">&lt; Back</a></div>
-                                <div class="title"><span>Overview</span></div>
+                                <div class="breadcrumbs"><a href="/"><i class="fas fa-chevron-left"></i> Back</a></div>
+                                <div class="title" ng-cloak><span>{{categories[0].name}}</span></div>
                             </div>
                             <div class="col-sm-6 col-lg-4">
                                 <div class="user-profile">
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <div class="main-content">
-                        <layout14 mapdata="dataforMap" ng-cloak></layout14>
+                        <!--<layout14 data="catdata" ng-cloak></layout14>-->
                     </div>
                </div>
             </div>
@@ -170,8 +170,9 @@
   <script src="js/common/services/commonSvc.js"></script>
   <script src="js/common/services/esritogeojsonSvc.js"></script>
   <script src="js/common/services/LayerPopupSvc.js"></script>
-  <script src="js/overview/directives/hfmap.js"></script>
   <script src="js/overview/controllers/MainCtrl.js"></script>
+  <script src="js/overview/directives/hfmap.js"></script>
+  <script src="js/overview/services/chartsSvc.js"></script>
   <script src="js/overview/services/HFMapSvc.js"></script>
   <script src="js/overview/directives/dataviz/dataviz-table.js"></script>
   <script src="js/overview/directives/layouts/layout_1_3.js"></script>

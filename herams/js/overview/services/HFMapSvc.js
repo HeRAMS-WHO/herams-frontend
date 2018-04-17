@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc service
- * @name app-herams.service:MainMapSvc
+ * @name app-herams.service:HFMapSvc
  * @description
- *   This service provides a set of methods to handle leaflet on the main page
+ *   This service provides a set of methods to create a Map on the workspace page
  */
 angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$timeout,$window,$compile,$log,esriSvc,commonSvc) {
 
