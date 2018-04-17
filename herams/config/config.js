@@ -13,5 +13,21 @@ var CONFIG = {
           layer_fill_color: "#ffffff"
         },
         centroidRadius: 15
+    },
+    overview: {
+        map: {
+            "zoom": 6.4,
+            "lat" : 9.0820,
+
+            "long": 8.6753,
+            "basemaps": [
+              "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+            ],
+            "layers": [
+              {
+                "name": "Nigeria"
+              }
+            ]
+        }
     }
 };

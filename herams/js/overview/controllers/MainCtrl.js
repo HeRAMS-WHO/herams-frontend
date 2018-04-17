@@ -7,10 +7,11 @@
  * @description
  *   This controller is used on all the pages except the HF card which doesn't inherit from base
  */
-angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$log,HFMapSvc) {
+angular.module('app-herams').controller('MainCtrl', function($scope,$log,commonSvc,HFMapSvc) {
 
     $scope.categories = [];
     $scope.catIDSelect = null;
+    $scope.mapdata = {};
 
     /* - CONTROLLER'S METHODS - */
     function setUI() {
@@ -36,13 +37,26 @@ angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$l
 
     }
 
-    function loadMapData(map_url) {
+    function loadMapData(scope,map_url) {
         return commonSvc.loadData(map_url).then(loadSuccess)
                     .catch(loadFailure)
                     .then(loadFinally);
 
         function loadSuccess(httpResponse) {
             $log.info('load map info: ',httpResponse.data.results);
+
+            $scope.mapdata = httpResponse.data.results;
+            HFMapSvc.createMap('mapid',$scope.mapdata);
+
+            $log.info('load map info: ',$scope.dataforMap);
+        }
+
+        function loadFailure(err) {
+            $log.info('Error loading Map Data: ',err);
+        }
+
+        function loadFinally() {
+            $log.info('Ready to process after map load');
         }
     }
 
@@ -54,14 +68,22 @@ angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$l
         function loadSuccess(httpResponse) {
             $log.info('load charts info: ',httpResponse.data.results);
         }
+
+        function loadFailure(err) {
+            $log.info('Error loading Charts Data: ',err);
+        }
+
+        function loadFinally(httpResponse) {
+            $log.info('Ready to process after charts load');
+        }
     }
 
-    function launchLayout(cat) {
+    function launchLayout(scope,cat) {
 
         // scope.heramdata =
         // layout / ws_chart_url / ws_map_url
-        loadMapData(cat.ws_map_url);
-        loadCharts(cat.ws_chart_url);
+        loadMapData(scope,cat.ws_map_url);
+        // loadCharts(cat.ws_chart_url);
 
     }
 
@@ -78,9 +100,9 @@ angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$l
             // scope.heramdata = httpResponse.data.results;
             scope.categories = httpResponse.data;
             $scope.catIDSelect = scope.categories[0].id;
-
-            launchLayout(scope.categories[0]);
             $log.info('loaded Overview Data correctly: ',httpResponse.data);
+
+            // launchLayout(scope.categories[0]);
         }
 
         function loadFailure(httpResponse) {
@@ -89,6 +111,7 @@ angular.module('app-herams').controller('MainCtrl', function($scope,commonSvc,$l
 
         function loadFinally(httpResponse) {
             $log.info('Overview - last but not least');
+            launchLayout(scope,scope.categories[0]);
         }
     }
 

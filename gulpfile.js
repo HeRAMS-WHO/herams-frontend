@@ -84,7 +84,7 @@ gulp.task('inject', function() {
     var configFolder = 'herams/config/*.js';
 
     // It's not necessary to read the files (will speed up things), we're only after their paths:
-    var sources = gulp.src(['herams/js/**/*.js',configFolder, '!herams/js/app.js'], {read: false});
+    var sources = gulp.src([configFolder, 'herams/js/**/*.js','!herams/js/app.js'], {read: false});
 
   return target.pipe(inject(sources,{ignorePath:"herams/",addRootSlash:false}))
     .pipe(gulp.dest('herams'));
@@ -96,7 +96,7 @@ gulp.task('inject-index', function() {
     var configFolder = 'herams/config/*.js';
 
     // It's not necessary to read the files (will speed up things), we're only after their paths:
-    var sources = gulp.src(['herams/js/**/*.js',configFolder, '!herams/js/app.js'], {read: false});
+    var sources = gulp.src([configFolder, 'herams/js/**/*.js', '!herams/js/app.js','!herams/js/overview/**/*.js'], {read: false});
 
   return target.pipe(inject(sources,{ignorePath:"herams/",addRootSlash:false}))
     .pipe(gulp.dest('herams'));
@@ -107,7 +107,7 @@ gulp.task('inject-overview', function() {
     var configFolder = 'herams/config/*.js';
 
     // It's not necessary to read the files (will speed up things), we're only after their paths:
-    var sources = gulp.src(['herams/js/**/*.js',configFolder, '!herams/js/app.js'], {read: false});
+    var sources = gulp.src([configFolder, 'herams/js/**/*.js','!herams/js/app.js','!herams/js/home/**/*.js'], {read: false});
 
   return target.pipe(inject(sources,{ignorePath:"herams/",addRootSlash:false}))
     .pipe(gulp.dest('herams'));
@@ -253,7 +253,7 @@ gulp.task('servedist', function() {
 //DIST: Creates the dist folder that should be released in Prod
 gulp.task('dist', function(callback) {
     runSequence('wiredep',
-        'inject',
+        // 'inject',
         'inject-index',
         'inject-overview',
         'clean',

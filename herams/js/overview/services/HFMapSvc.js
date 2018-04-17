@@ -10,33 +10,19 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
 
     var map,mapSpecs;
 
-    function displayData(map) {
-        return commonSvc.loadData('config/overview_map_sample.json').then(loadSuccess)
-                    .catch(loadFailure)
-                    .then(loadFinally);
+    function displayData(map,serverData) {
 
-        function loadSuccess(httpResponse) {
+        var listHF = serverData.hf_list,
+            colorsSpecs = serverData.config.colors;
 
-            var rslts = httpResponse.data.results,
-                typesSpecs = rslts.types;
-
-            for (var i in rslts.data) {
-                var myIcon = L.divIcon({
-                    className: 'herams-marker-icon',
-                    html:'<i class="fas fa-circle" style="color:'+ typesSpecs[rslts.data[i].type].color +'"></i>'
-                });
-                 L.marker(rslts.data[i].latlong, {icon: myIcon}).addTo(map);
-            }
-
+        for (var i in listHF) {
+            var myIcon = L.divIcon({
+                className: 'herams-marker-icon',
+                html:'<i class="fas fa-circle" style="color:'+ colorsSpecs[listHF[i].type] +'"></i>'
+            });
+             L.marker(listHF[i].coord, {icon: myIcon}).addTo(map);
         }
 
-        function loadFailure(httpResponse) {
-            $log.info('There has been an error Overview Map Data');
-        }
-
-        function loadFinally(httpResponse) {
-            $log.info('Overview Map - last but not least');
-        }
     }
 
 
@@ -47,26 +33,27 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
         * @description
         *   returns a leaflet map object after creation according to params
         */
-        createMap: function(container,mapdata) {
+        createMap: function(container,serverData) {
 
-            mapSpecs = mapdata;
+            mapSpecs = CONFIG.overview.map;
 
             /* - creating map instance - */
             map = L.map(container, {
                 zoomControl:false,
-                center: [mapdata.lat, mapdata.long],
-                zoom: mapdata.zoom
+                center: [mapSpecs.lat, mapSpecs.long],
+                zoom: mapSpecs.zoom
             });
 
             /* - adding basemaps - */
-            for (var i in mapdata.basemaps) {
-               var tmp = L.tileLayer(mapdata.basemaps[i]).addTo(map);
+            for (var i in mapSpecs.basemaps) {
+               var tmp = L.tileLayer(mapSpecs.basemaps[i]).addTo(map);
             }
 
-            displayData(map);
+            /* - adding HF markers - */
+            displayData(map,serverData);
 
             /* - adding ESRI layer - */
-            esriSvc.getEsriShape(map, mapdata.layers[0]);
+            esriSvc.getEsriShape(map, mapSpecs.layers[0]);
 
 
             /* - responsiveness - */
