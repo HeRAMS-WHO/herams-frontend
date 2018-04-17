@@ -75,7 +75,7 @@ var CONFIG = {
                     color: '#ffffff'
                 },
                 formatter: function () {
-                    return '<b>' + this.point.custom + '</b>';
+                    return '<b>' + this.point.y + '</b>';
                 },
                 positioner: function(labelWidth, labelHeight, point) {
                     var tooltipX = point.plotX + 100;
@@ -101,6 +101,9 @@ var CONFIG = {
                   align: "left",
                   dataLabels: {
                     enabled: true,
+                    formatter: function () {
+                        return '<b>' + this.point.custom + '</b>';
+                    },
                     style: {
                       fontSize: "12px",
                       fontWeight: "bold"
