@@ -67,14 +67,19 @@
             </div>
 
             <div class="map-legend">
-                <div class="legend-part">
+                <div class="legend-part" ng-cloak>
+                    <div ng-repeat="statusspec in  statuses"><i class="fas fa-circle" style="color:{{statusspec.color}}"></i><span>{{statusspec.label}}</span></div>
+                    <!--
                     <div><img src="img/home/Legend_1.png"/><span>Target</span></div>
                     <div><img src="img/home/Legend_2.png"/><span>Baseline established</span></div>
                     <div><img src="img/home/Legend_3.png"/><span>Regular monitoring</span></div>
+-->
                 </div>
+<!--
                 <div class="legend-part">
                     <div><img src="img/home/Legend_available.png"/>Available project</div>
-            </div>
+                </div>
+-->
 
         </div>
       </div>

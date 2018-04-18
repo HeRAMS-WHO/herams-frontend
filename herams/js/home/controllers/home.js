@@ -35,6 +35,8 @@ angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$l
 
     /* - Init - */
     $scope.homedata = {};
+    $scope.statuses = [];
+
     $scope.init = function() {
 
         return commonSvc.loadData('https://herams-dev.westeurope.cloudapp.azure.com/aping/home?project=374').then(loadSuccess)
@@ -46,6 +48,13 @@ angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$l
             $log.info('loaded Home Data correctly: ',httpResponse);
 
             $scope.homedata = httpResponse.data.results;
+
+            var statuses = $scope.homedata.config.statuses;
+            for (var i in statuses) {
+                $log.info(statuses[i]);
+                $scope.statuses.push(statuses[i]);
+            }
+
             setCollapse();
         }
 
