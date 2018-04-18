@@ -19,6 +19,33 @@
 
   /* Tables
   ================================== */
+
+  table {
+    width: 100%;
+  }
+
+  td,th {
+    text-align: left;
+
+    &.wider {
+      width: 50%;
+    }
+  }
+
+  tr {
+    height: 25px;
+    border-bottom: solid 1px @light-grey;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  th {
+    background-color: @light-grey;
+    border-bottom: solid 2px @intermediate-grey;
+  }
+
+  /* Tables (CSS - not compliant with IE)
+  ================================== */
   .HRStable {
     display: flex;
     flex-wrap: wrap;

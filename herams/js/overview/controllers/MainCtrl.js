@@ -8,111 +8,30 @@
  *   This controller is used on all the pages except the HF card which doesn't inherit from base
  */
 angular.module('app-herams')
-    .controller('MainCtrl', function($scope,$compile,$log,commonSvc,HFMapSvc) {
+    .controller('MainCtrl', function($scope,$compile,$log,commonSvc,HFMapSvc,chartsSvc) {
 
-        /* - CONTROLLER'S METHODS - */
-        function setUI() {
 
-            $(window).on('resize pageshow', function () {
-                HFMapSvc.refreshLayout();
-            });
-
-            /* Partners */
-            $('.partners-list-btn').click(function() {
-                $('.partners-list-grp').show();
-                $('.partners-list').addClass('fullHeight');
-                $('.partners-list-cache').click(function() {
-                    $('.partners-list-grp').hide();
-                    $('.partners-list').removeClass('fullHeight');
-                });
-            });
-
-            $(window).scroll(function() {
-                $('.partners-list-grp').hide();
-                $('.partners-list').removeClass('fullHeight');
-            });
-
+        /* - WINDOW EVENTS - */
+        function scrollPartners() {
+            $('.partners-list-grp').hide();
+            $('.partners-list').removeClass('fullHeight');
         }
 
-        function loadMapData(map_url) {
-            return commonSvc.loadData(map_url).then(loadSuccess)
-                        .catch(loadFailure)
-                        .then(loadFinally);
+        function resizer() {
 
-            function loadSuccess(httpResponse) {
-                $log.info('load map info: ',httpResponse.data.results);
-
-                $scope.mapdata = httpResponse.data.results;
-                HFMapSvc.createMap('mapid',$scope.mapdata);
-
-                $log.info('load map info: ',$scope.dataforMap);
+            for (var i=0;i<$scope.catdata.length;i++) {
+                var targ = '#chart'+(i+1);
+                $( targ ).empty();
             }
 
-            function loadFailure(err) {
-                $log.info('Error loading Map Data: ',err);
-            }
+            chartsSvc.destroyCharts();
+            chartsSvc.setCHarts($scope.catdata);
 
-            function loadFinally() {
-                $log.info('Ready to process after map load');
-            }
-        }
-
-        function loadCharts(charts_url) {
-            return commonSvc.loadData(charts_url).then(loadSuccess)
-                        .catch(loadFailure)
-                        .then(loadFinally);
-
-            function loadSuccess(httpResponse) {
-                $log.info('load charts info: ',httpResponse.data.stats);
-                $scope.catdata = (httpResponse.data.stats)? httpResponse.data.stats : httpResponse.data;
-            }
-
-            function loadFailure(err) {
-                $log.info('Error loading Charts Data: ',err);
-            }
-
-            function loadFinally(httpResponse) {
-                $log.info('Ready to process after charts load');
-            }
+            HFMapSvc.refreshLayout();
         }
 
 
-        function setLayout(layoutType) {
-
-            var rawLayout;
-            switch(layoutType) {
-                case "layout14":
-                    rawLayout = "<layout14></layout14>";
-                    break;
-                case "layout13":
-                    rawLayout = "<layout13></layout13>";
-                    break;
-            }
-            return rawLayout
-
-        }
-
-        function launchLayout(scope,cat) {
-
-            $log.info('launchLayout : ', cat);
-
-            $( ".main-content" ).empty();
-            scope.catdata = {};
-            scope.catNameSelect = cat.name;
-
-             var rawlayout = setLayout(cat.layout);
-             var linkFn = $compile(rawlayout);
-             var layout = linkFn(scope);
-
-            $('.main-content').html(layout);
-
-
-            // layout / ws_chart_url / ws_map_url
-            loadMapData(cat.ws_map_url);
-            loadCharts(cat.ws_chart_url);
-
-        }
-
+        /* - LOADs - */
 
         function init(scope) {
              return commonSvc.loadData('https://herams-dev.westeurope.cloudapp.azure.com/aping/categories').then(loadSuccess)
@@ -129,14 +48,119 @@ angular.module('app-herams')
             }
 
             function loadFinally(httpResponse) {
-                $log.info('Overview - last but not least');
                 launchLayout(scope,scope.categories[0]);
              }
         }
 
+        function loadMapData(map_url) {
+            return commonSvc.loadData(map_url).then(loadSuccess)
+                        .catch(loadFailure)
+                        .then(loadFinally);
+
+            function loadSuccess(httpResponse) {
+                $log.info('load map info: ',httpResponse.data.results);
+
+                $scope.mapdata = httpResponse.data.results;
+                HFMapSvc.createMap('mapid',$scope.mapdata);
+            }
+
+            function loadFailure(err) {
+                $log.info('Error loading Map Data: ',err);
+            }
+
+            function loadFinally() {
+                $log.info('Ready to process after map load');
+
+                $(window).off('resize', resizer);
+                $(window).resize(resizer);
+
+                resizer();
+            }
+        }
+
+        function loadCharts(charts_url,callback) {
+            return commonSvc.loadData(charts_url).then(loadSuccess)
+                        .catch(loadFailure)
+                        .then(loadFinally);
+
+            function loadSuccess(httpResponse) {
+                $log.info('load charts info: ',httpResponse.data.stats);
+                $scope.catdata = (httpResponse.data.stats)? httpResponse.data.stats : httpResponse.data;
+            }
+
+            function loadFailure(err) {
+                $log.info('Error loading Charts Data: ',err);
+            }
+
+            function loadFinally(httpResponse) {
+                callback();
+            }
+        }
+
+
+        /* - UI - */
+        function setPartnersClick() {
+
+            /* Partners */
+            $('.partners-list-btn').click(function() {
+                $('.partners-list-grp').show();
+                $('.partners-list').addClass('fullHeight');
+                $('.partners-list-cache').click(function() {
+                    $('.partners-list-grp').hide();
+                    $('.partners-list').removeClass('fullHeight');
+                });
+            });
+
+            $(window).scroll(scrollPartners);
+
+        }
+
+        function getLayout(layoutType) {
+
+            var rawLayout;
+            switch(layoutType) {
+                case "layout14":
+                    rawLayout = "<layout14></layout14>";
+                    break;
+                case "layout13":
+                    rawLayout = "<layout13></layout13>";
+                    break;
+            }
+            return rawLayout
+
+        }
+
+        function launchLayout(scope,cat) {
+
+            // DEBUG
+            $log.info('launchLayout : ', cat.name);
+
+            // RESETS
+            $( ".main-content" ).empty();
+            chartsSvc.destroyCharts();
+
+            scope.catdata = {};
+            scope.catNameSelect = cat.name;
+
+            // LAYOUTS (as directives)
+             var rawlayout = getLayout(cat.layout);
+             var linkFn = $compile(rawlayout);
+             var layout = linkFn(scope);
+
+            $('.main-content').html(layout);
+
+
+            // LOADS
+            var f = function() {
+                loadMapData(cat.ws_map_url)
+            }
+            loadCharts(cat.ws_chart_url,f);
+
+        }
+
 
         /* - MISC SETUP CALLS - */
-        setUI();
+        setPartnersClick();
 
 
         /* - SCOPE VARS - */
@@ -168,85 +192,21 @@ angular.module('app-herams')
 
 
     })
-    .directive('layout14', function(chartsSvc,$timeout,$log) {
-
-        var chartdata;
-
-        function setWindowResize() {
-            $(window).on('resize', function () {
-                $( "#chart1" ).empty();
-                $( "#chart2" ).empty();
-                $( "#chart3" ).empty();
-                $( "#chart4" ).empty();
-                loadcharts();
-            });
-        }
-
-        function loadcharts() {
-            $log.info('----- drawing charts (layout14) -----');
-
-            chartsSvc.loadChart(chartdata[0],'chart1');
-            chartsSvc.loadChart(chartdata[1],'chart2');
-            chartsSvc.loadChart(chartdata[2],'chart3');
-            chartsSvc.loadChart(chartdata[3],'chart4');
-       }
+    .directive('layout14', function($timeout,$log) {
 
         return {
             templateUrl: '/js/overview/directives/layouts/layout_1_4.html',
             restrict: 'E',
-            replace: true,
-            controller: function($scope) {
-                $scope.$watch('catdata',function(data){
-                    if (data.length>0) {
-                        chartdata = data;
-                        $timeout(function() {
-                           loadcharts();
-                           setWindowResize();
-                        },300);
-                    }
-                });
-            }
-
+            replace: true
          }
 
     })
-    .directive('layout13', function(chartsSvc,$timeout,$log) {
-
-        var chartdata;
-
-        function setWindowResize() {
-            $(window).on('resize', function () {
-                $( "#chart1" ).empty();
-                $( "#chart2" ).empty();
-                loadcharts();
-            });
-        }
-
-        function loadcharts() {
-            $log.info('----- drawing charts (layout13) -----');
-
-            chartsSvc.loadChart(chartdata[0],'chart1');
-            chartsSvc.loadChart(chartdata[1],'chart2');
-       }
+    .directive('layout13', function($timeout,$log) {
 
         return {
             templateUrl: '/js/overview/directives/layouts/layout_1_3.html',
             restrict: 'E',
-            replace: true,
-            controller: function($scope) {
-                $scope.$watch('catdata',function(data){
-                    if (data.length>0) {
-                        chartdata = data;
-                        $log.info('layout13 : ',$scope.catdata);
-                        $timeout(function() {
-                           loadcharts();
-                           setWindowResize();
-                        },300);
-                    }
-                });
-            }
-
+            replace: true
          }
 
-    })
-;
+    });

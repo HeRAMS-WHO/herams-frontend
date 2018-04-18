@@ -1,5 +1,6 @@
 <div class="dataviz-table">
   <div class="title">{{catdata[2].name}}</div>
+<!--
   <div class="HRStable">
 
     <div class="HRStable-cell row-header col-wider">LGA Name</div>
@@ -15,5 +16,27 @@
     </div>
 
 
+  </div>
+-->
+  <div>
+    <table>
+		<thead>
+		<tr>
+          <th>Title 1</th>
+          <th>Title 2</th>
+          <th>Title 3</th>
+          <th>Title 4</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="row in catdata[2].rows track by $index">
+			<td class="wider">{{ row["name"] }}</td>
+			<td>{{ row["damaged percentage"] }}</td>
+			<td>{{ row["cause"] }}</td>
+			<td>{{ row["cause_pc"] }}</td>
+		<tr>
+		</tr>
+		</tbody>
+	</table>
   </div>
 </div>
