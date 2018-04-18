@@ -35,11 +35,13 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$window,
         home: function() {
             // $state.go('home');
             $window.location = "index.html";
+            // $window.location = "/";
         },
 
         gotoOverview: function() {
             // $state.go('overview');
             $window.location = "overview.html";
+            // $window.location = "/projects/374";
         }
     }
 });

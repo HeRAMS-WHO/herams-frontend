@@ -8,9 +8,9 @@ var CONFIG = {
     home: {
         layersOpacity: 0.6,
         dfltColors: {
-          layer_stroke_color: "#7b7b7b",
+            layer_stroke_color: "#7b7b7b",
             layer_stroke_weight: 1.5,
-          layer_fill_color: "#ffffff"
+            layer_fill_color: "#ffffff"
         },
         centroidRadius: 15
     },
@@ -205,6 +205,7 @@ var CONFIG = {
                   y: -10,
                   align: "left",
                   style: {
+                      width:"200px",
                     fontSize: "14px"
                   }
                 }

@@ -1,5 +1,5 @@
 <div class="dataviz-table">
-    <div class="title">Title</div>
+  <div class="title">{{catdata[2].name}}</div>
   <div class="HRStable">
 
     <div class="HRStable-cell row-header col-wider">LGA Name</div>
@@ -7,32 +7,13 @@
     <div class="HRStable-cell row-header col-reg border-left">Main Underlying cause</div>
     <div class="HRStable-cell row-header col-reg border-left">Main Underlying cause (%)</div>
 
-    <div class="HRStable-cell col-wider">#</div>
-    <div class="HRStable-cell col-reg border-left">00</div>
-    <div class="HRStable-cell col-reg border-left">#</div>
-    <div class="HRStable-cell col-reg border-left">00</div>
+    <div class="HRStable-row-container" ng-repeat="row in catdata[2].rows track by $index">
+      <div class="HRStable-cell col-wider">{{ row["name"] }}</div>
+      <div class="HRStable-cell col-reg border-left">{{ row["damaged percentage"] }}</div>
+      <div class="HRStable-cell col-reg border-left">{{ row["cause"] }}</div>
+      <div class="HRStable-cell col-reg border-left">{{ row["cause_pc"] }}</div>
+    </div>
 
-    <div class="HRStable-cell col-wider">#</div>
-    <div class="HRStable-cell col-reg border-left">00</div>
-    <div class="HRStable-cell col-reg border-left">#</div>
-    <div class="HRStable-cell col-reg border-left">00</div>
-
-<!--
-    <div class="HRStable-cell col-wider">#</div>
-    <div class="HRStable-cell col-reg border-left">00</div>
-    <div class="HRStable-cell col-reg border-left">#</div>
-    <div class="HRStable-cell col-reg border-left">00</div>
-
-    <div class="HRStable-cell col-wider">#</div>
-    <div class="HRStable-cell col-reg border-left">00</div>
-    <div class="HRStable-cell col-reg border-left">#</div>
-    <div class="HRStable-cell col-reg border-left">00</div>
-
-    <div class="HRStable-cell col-wider">#</div>
-    <div class="HRStable-cell col-reg border-left">00</div>
-    <div class="HRStable-cell col-reg border-left">#</div>
-    <div class="HRStable-cell col-reg border-left">00</div>
--->
 
   </div>
 </div>

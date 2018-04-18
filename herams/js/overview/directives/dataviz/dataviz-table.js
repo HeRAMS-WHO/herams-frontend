@@ -16,8 +16,7 @@ angular.module('app-herams').directive('datavizTable', function() {
     return {
         templateUrl: '/js/overview/directives/dataviz/dataviz-table.html',
         restrict: 'E',
-        replace: true,
-        scope: {}
+        replace: true
      }
 
 });

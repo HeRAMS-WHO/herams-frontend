@@ -40,7 +40,10 @@
                 </div>
                 <div class="menu-items">
                     <ul ng-cloak>
-                        <li ng-repeat="category in categories" ng-class="{'selected': category.id==catIDSelect }">{{category.name}}</li>
+                        <li ng-repeat="category in categories" ng-class="{'selected': category.id==catIDSelect }">
+                            <a ng-click="launchLayout(category)" ng-if="category.id!=catIDSelect">{{category.name}}</a>
+                            <span ng-if="category.id==catIDSelect">{{category.name}}</span>
+                        </li>
 <!--
                         <li class="selected">Overview</li>
                         <li>Health infrastructure</li>
@@ -59,7 +62,7 @@
                         <div class="row">
                             <div class="col-sm-6 col-lg-8">
                                 <div class="breadcrumbs"><a href="/"><i class="fas fa-chevron-left"></i> Back</a></div>
-                                <div class="title" ng-cloak><span>{{categories[0].name}}</span></div>
+                                <div class="title" ng-cloak><span>{{ catNameSelect }}</span></div>
                             </div>
                             <div class="col-sm-6 col-lg-4">
                                 <div class="user-profile">
@@ -175,8 +178,6 @@
   <script src="js/overview/services/chartsSvc.js"></script>
   <script src="js/overview/services/HFMapSvc.js"></script>
   <script src="js/overview/directives/dataviz/dataviz-table.js"></script>
-  <script src="js/overview/directives/layouts/layout_1_3.js"></script>
-  <script src="js/overview/directives/layouts/layout_1_4.js"></script>
   <!-- endinject -->
   <!-- endbuild -->
 
