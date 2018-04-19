@@ -1,4 +1,5 @@
 <div class="map-container" ng-cloak>
+<!--------------------- DO NOT REMOVE --------------------->
 <!--
     <div class="map-filters">
         <div class="regfiltr">
@@ -14,5 +15,19 @@
         </div>
     </div>
 -->
+<!-------------------- END DO NOT REMOVE ------------------->
+
     <div id="mapid"></div>
+        <div class="map-legend">
+            <div class="legend-part" ng-cloak>
+<!--
+                <div ng-repeat="statusspec in  statuses"><i class="fas fa-circle" style="color:{{statusspec.color}}"></i><span>{{statusspec.label}}</span></div>
+-->
+                <div><i class="fas fa-circle" style="color:#00e765"></i><span>A1</span></div>
+                <div><i class="fas fa-circle" style="color:#efd759"></i><span>A2</span></div>
+                <div><i class="fas fa-circle" style="color:#f7931e"></i><span>A3</span></div>
+                <div><i class="fas fa-circle" style="color:#f71752"></i><span>A4</span></div>
+                <div><i class="fas fa-circle" style="color:#337ab7"></i><span>A5</span></div>
+            </div>
+        </div>
 </div>

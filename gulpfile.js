@@ -228,7 +228,7 @@ gulp.task('watch', function() {
 //DEV: prepares files to be served for development
 gulp.task('dev', function(callback) {
     argv.environment = 'dev';
-    runSequence('inject-index','inject-overview','wiredep', 'styles', 'connect', 'fonts', 'watch', callback);
+    runSequence('inject-index','inject-overview','wiredep', 'styles', 'fonts', 'watch', callback);
 });
 
 gulp.task('default', function(callback) {

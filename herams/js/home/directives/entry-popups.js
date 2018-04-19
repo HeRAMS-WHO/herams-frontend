@@ -11,7 +11,7 @@
  * @example
  *   <entry-popup />
  */
-angular.module('app-herams').directive('entryPopup', function($log,ChartConfigSvc) {
+angular.module('app-herams').directive('entryPopup', function($log,chartsSvc) {
 
     function getLayerDataFromName(allLayers,countryname) {
         for (var i in allLayers) {
@@ -31,6 +31,18 @@ angular.module('app-herams').directive('entryPopup', function($log,ChartConfigSv
         return html;
     }
 
+    function customPieHome(piechart) {
+
+        var c = piechart;
+
+        c.chart.backgroundColor = '#42424b';
+        c.chart.height = 102;
+        c.chart.width = 102;
+
+        return c;
+
+    }
+
     return {
         templateUrl: '/js/home/directives/entry-popups.html',
         restrict: 'E',
@@ -39,24 +51,19 @@ angular.module('app-herams').directive('entryPopup', function($log,ChartConfigSv
             countryname:"@"
         },
         controller: function($scope) {},
-        link: function($scope, $el, $attr) {
+        link: function($scope) {
 
             var HOMEDATA = $scope.$parent.homedata;
             var layerData = getLayerDataFromName(HOMEDATA.layers,$scope.countryname);
 
             $scope.data = layerData.stats;
 
-            var pie1 = ChartConfigSvc.setTmpChartMultVal(layerData.stats.charts[0].data),
-                pie2 = ChartConfigSvc.setTmpChartMultVal(layerData.stats.charts[1].data),
-                pie3 = ChartConfigSvc.setTmpChartMultVal(layerData.stats.charts[2].data);
+            var pie1 = customPieHome(chartsSvc.getPie(layerData.stats.charts[0].data)),
+                pie2 = customPieHome(chartsSvc.getPie(layerData.stats.charts[1].data)),
+                pie3 = customPieHome(chartsSvc.getPie(layerData.stats.charts[2].data));
 
 
-            /* - OVERRIDING WS ISSUES - */
-            // var tmp = [{y: 1, color: "#1c51a0", noTooltip: false},{y: 6, color: "#50afdf"},{y: 87, color: "#c6e2f1"},{y: 6, color: "#606060"}];
-            // pie3 = ChartConfigSvc.setTmpChartMultVal(tmp);
-            // $log.info('checking pie3 : ',tmp);
-
-            ChartConfigSvc.setAfterAnimate(pie1,function() {
+            chartsSvc.setAfterAnimateHome(pie1,function() {
                 $('charts-percents:nth-child(1)').css('display','block');
             })
 
