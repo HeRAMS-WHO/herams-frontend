@@ -13,6 +13,8 @@
  */
 angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$log) {
 
+    var mainMap;
+
     /* Cross Browser window's size */
     function getWindowWdth() {
         var w = window,
@@ -22,6 +24,10 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
 
         return  w.innerWidth || e.clientWidth || g.clientWidth;
         // * if height needed : * y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+    }
+
+    function resizer () {
+
     }
 
     return {
@@ -40,17 +46,11 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
                 if (homeData.config) {
 
                      /* create Map */
-                    var mainMap = MainMapSvc.createMainMap('mapid',homeData.config);
+                    mainMap = MainMapSvc.createMainMap('mapid',homeData.config);
 
-                    $scope.$on('collapse-click',function(evt,args) {
-
-                        var margin_expand = parseInt($(".map-entry").css('margin-left'));
-                        var wdth = (!args.collapsed)? getWindowWdth()-margin_expand : getWindowWdth();
-
-                        $("#mapid").width(wdth);
-                        mainMap.invalidateSize();
-
-                    });
+                    /* redraw map on changes */
+                    $scope.$on('collapse-click',resizer);
+                    $(window).resize(resizer);
 
                     /* adding HeRams */
                     var statuses = homeData.config.statuses,
