@@ -41,7 +41,7 @@
                 <div>
                     <img src="img/Profile_black.png"/>
                     <i class="fas fa-angle-down" id="log"></i>
-                </div>
+                 </div>
             </div>
 
             <!--  LEFT-HAND SIDE PANEL -->
@@ -63,30 +63,17 @@
 
             <!--  MAP -->
              <div class="map-entry fullscreen">
-               <homemap mapdata="homedata" ng-cloak></homemap>
+              <homemap mapdata="homedata" ng-cloak></homemap>
             </div>
 
             <div class="map-legend">
                 <div class="legend-part" ng-cloak>
-                    <div ng-repeat="statusspec in  statuses"><i class="fas fa-circle" style="color:{{statusspec.color}}"></i><span>{{statusspec.label}}</span></div>
+                    <div ng-repeat="statusspec in statuses"><i class="fas fa-circle" style="color:{{statusspec.color}}"></i><span>{{statusspec.label}}</span></div>
                 </div>
-<!--
-                <div class="legend-part">
-                    <div><img src="img/home/Legend_available.png"/>Available project</div>
-                </div>
--->
+            </div>
 
-        </div>
       </div>
 
-    </div>
-    <div id="popover-content" class="hidden-popover">
-        <div class="log-popover">
-        <ul>
-            <li>Profile</li>
-            <li>Logout</li>
-        </ul>
-        </div>
     </div>
 
   <!-- In production use:
@@ -129,15 +116,15 @@
   <!-- inject:js -->
   <script src="config/config.js"></script>
   <script src="config/tmp_chart.js"></script>
-  <script src="js/globalscripts/herams_global.js"></script>
+  <script src="js/common/directives/user_popover.js"></script>
   <script src="js/common/services/chartsSvc.js"></script>
   <script src="js/common/services/commonSvc.js"></script>
   <script src="js/common/services/esritogeojsonSvc.js"></script>
   <script src="js/common/services/LayerPopupSvc.js"></script>
   <script src="js/home/controllers/home.js"></script>
+  <script src="js/home/services/MainMapSvc.js"></script>
   <script src="js/home/directives/entry-popups.js"></script>
   <script src="js/home/directives/homemap.js"></script>
-  <script src="js/home/services/MainMapSvc.js"></script>
   <!-- endinject -->
   <!-- endbuild -->
 

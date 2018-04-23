@@ -6,7 +6,7 @@
  * @description
  *   This service provides a set of common handful methods
  */
-angular.module('app-herams').service('commonSvc', function($state,$http,$window,$log) {
+angular.module('app-herams').service('commonSvc', function($state,$http,$compile,$window,$log) {
 
     return {
 
@@ -38,10 +38,43 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$window,
             // $window.location = "/";
         },
 
-        gotoOverview: function() {
+        gotoProject: function() {
             // $state.go('overview');
             $window.location = "overview.html";
             // $window.location = "/projects/374";
+        },
+
+        showUsrProfile: function() {
+            $log.info('show user profile');
+            $window.location = "/user/settings/profile";
+        },
+
+        logout: function() {
+            $log.info('show user profile');
+            $window.location = "/user/logout";
+        },
+
+        setLoginPopover: function(scope) {
+            $log.info(' !! setLoginPopover !! - ');
+
+            scope.logout = this.logout;
+            scope.viewProfile = this.showUsrProfile;
+
+            $('#log').popover({
+                container: $('.popover-base'),
+                placement: 'bottom',
+                boundary: 'window',
+                // appendToBody: true,
+                content: function() {
+                    var template = "<userpopover></userpopover>";
+                    var linkFn = $compile(template);
+                    var content = linkFn(scope);
+
+                    return content;
+                },
+                html: true
+            });
+
         }
     }
 });

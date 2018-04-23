@@ -10,6 +10,38 @@
 angular.module('app-herams')
     .controller('MainCtrl', function($scope,$compile,$log,commonSvc,HFMapSvc,chartsSvc) {
 
+        /* - SCOPE VARS - */
+        $scope.categories = [];
+        $scope.catIDSelect = null;
+        $scope.catNameSelect = null;
+        $scope.mapdata = {};
+        $scope.catdata = {};
+
+        $scope.tableData = [];
+
+        /* - SCOPE METHODS - */
+        $scope.date = new Date();
+
+        /* ui-router */
+        $scope.home = function() {
+            commonSvc.home();
+        };
+
+        /* Data Load */
+        $scope.init = function() {
+            init($scope);
+        }
+
+        /* layout launch */
+        $scope.launchLayout = function(cat) {
+            $scope.catIDSelect = cat.id;
+            launchLayout($scope,cat);
+        }
+
+        /* - MISC SETUP CALLS - */
+        setPartnersClick();
+        commonSvc.setLoginPopover($scope);
+
 
         /* - WINDOW EVENTS - */
         function scrollPartners() {
@@ -86,6 +118,10 @@ angular.module('app-herams')
             function loadSuccess(httpResponse) {
                 $log.info('load charts info: ',httpResponse.data.stats);
                 $scope.catdata = (httpResponse.data.stats)? httpResponse.data.stats : httpResponse.data;
+
+                for (var i in $scope.catdata) {
+                    if ($scope.catdata[i].type == "table") $scope.tableData.push(processTableData($scope.catdata[i].rows));
+                }
             }
 
             function loadFailure(err) {
@@ -136,6 +172,9 @@ angular.module('app-herams')
             $log.info('launchLayout : ', cat.name);
 
             // RESETS
+            $scope.mapdata = {};
+            $scope.catdata = {};
+            $scope.tableData = [];
             $( ".main-content" ).empty();
             chartsSvc.destroyCharts();
 
@@ -159,36 +198,24 @@ angular.module('app-herams')
         }
 
 
-        /* - MISC SETUP CALLS - */
-        setPartnersClick();
+        /* - LAYOUTS DATA - */
+        function processTableData(table_rows) {
 
+            var table_data = {};
 
-        /* - SCOPE VARS - */
-        $scope.categories = [];
-        $scope.catIDSelect = null;
-        $scope.catNameSelect = null;
-        $scope.mapdata = {};
-        $scope.catdata = {};
+            table_data.col_names = Object.getOwnPropertyNames(table_rows[0]);
 
-        /* - SCOPE METHODS - */
-        $scope.date = new Date();
+            table_data.rows = [];
+            for (var i in table_rows) {
+                var tmp = [];
+                for(var o in table_rows[i]) {
+                    tmp.push(table_rows[i][o]);
+                }
+                table_data.rows.push(tmp);
+            }
 
-        /* ui-router */
-        $scope.home = function() {
-            commonSvc.home();
-        };
-
-        /* Data Load */
-        $scope.init = function() {
-            init($scope);
+            return table_data;
         }
-
-        /* layout launch */
-        $scope.launchLayout = function(cat) {
-            $scope.catIDSelect = cat.id;
-            launchLayout($scope,cat);
-        }
-
 
 
     })
@@ -205,6 +232,15 @@ angular.module('app-herams')
 
         return {
             templateUrl: '/js/overview/directives/layouts/layout_1_3.html',
+            restrict: 'E',
+            replace: true
+         }
+
+    })
+    .directive('datavizTable', function() {
+
+        return {
+            templateUrl: '/js/overview/directives/dataviz/dataviz-table.html',
             restrict: 'E',
             replace: true
          }

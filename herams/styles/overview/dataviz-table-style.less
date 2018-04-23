@@ -27,14 +27,26 @@
   td,th {
     text-align: left;
 
+    font-size: 0.9em;
+    color: @dark-grey;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 20px;
+
     &.wider {
-      width: 50%;
+      width: 30%;
     }
+
+    &.border-left {
+      border-left: solid 1px @light-grey;
+    }
+
   }
 
   tr {
     height: 25px;
     border-bottom: solid 1px @light-grey;
+
     &:last-of-type {
       border-bottom: none;
     }
@@ -42,6 +54,7 @@
   th {
     background-color: @light-grey;
     border-bottom: solid 2px @intermediate-grey;
+    padding-top: 15px;
   }
 
   /* Tables (CSS - not compliant with IE)

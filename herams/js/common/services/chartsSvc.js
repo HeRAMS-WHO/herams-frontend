@@ -9,7 +9,7 @@
 angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
 
     var chartsInstances = [],
-        displayTot;
+        displayTot_null;
 
     function insertCenterTxt(chart,val) {
 
@@ -20,7 +20,7 @@ angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
         span = $(chart.renderTo).find('.pieChartCenterTxt');
         span.css('top', textY);
 
-        displayTot = val;
+        // displayTot = val;
     };
 
     function updtCenterTxt(chart,val) {
@@ -28,7 +28,7 @@ angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
         var span = $(chart.renderTo).find('.pieChartCenterTxt');
         span.html(val);
 
-        displayTot = val;
+        // displayTot = val;
     };
 
     function setChart(container,distData) {
@@ -68,14 +68,16 @@ angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
             // $log.info('chart_dist_data.type = ',chart_dist_data.type);
             if (chart_dist_data.type == "pie") {
 
+                var displayTot = chart_dist_data.total;
+
                 insertCenterTxt(chart,chart_dist_data.total);
 
                 $(chart.series[0].data).each(function(i, e) {
                     e.legendItem.on('click', function() {
                         if (!e.sliced) {
-                            var val = displayTot - e.custom;
+                            var val = displayTot - e.y;
                         } else {
-                            var val = displayTot + e.custom;
+                            var val = displayTot + e.y;
                         }
                         e.slice(!e.sliced);
                         updtCenterTxt(chart,val)
@@ -84,8 +86,6 @@ angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
             }
         });
         chartsInstances.push(chart);
-
-
 
     }
 

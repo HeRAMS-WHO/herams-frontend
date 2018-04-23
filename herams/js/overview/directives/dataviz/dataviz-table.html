@@ -1,42 +1,19 @@
 <div class="dataviz-table">
   <div class="title">{{catdata[2].name}}</div>
-<!--
-  <div class="HRStable">
-
-    <div class="HRStable-cell row-header col-wider">LGA Name</div>
-    <div class="HRStable-cell row-header col-reg border-left">Overall Service Availability(%)</div>
-    <div class="HRStable-cell row-header col-reg border-left">Main Underlying cause</div>
-    <div class="HRStable-cell row-header col-reg border-left">Main Underlying cause (%)</div>
-
-    <div class="HRStable-row-container" ng-repeat="row in catdata[2].rows track by $index">
-      <div class="HRStable-cell col-wider">{{ row["name"] }}</div>
-      <div class="HRStable-cell col-reg border-left">{{ row["damaged percentage"] }}</div>
-      <div class="HRStable-cell col-reg border-left">{{ row["cause"] }}</div>
-      <div class="HRStable-cell col-reg border-left">{{ row["cause_pc"] }}</div>
-    </div>
-
-
-  </div>
--->
   <div>
     <table>
 		<thead>
 		<tr>
-          <th>Title 1</th>
-          <th>Title 2</th>
-          <th>Title 3</th>
-          <th>Title 4</th>
-		</tr>
+          <th ng-repeat="colname in tableData[0].col_names track by $index">{{ colname }}</th>
+ 		</tr>
 		</thead>
 		<tbody>
-		<tr ng-repeat="row in catdata[2].rows track by $index">
-			<td class="wider">{{ row["name"] }}</td>
-			<td>{{ row["damaged percentage"] }}</td>
-			<td>{{ row["cause"] }}</td>
-			<td>{{ row["cause_pc"] }}</td>
+		<tr ng-repeat="row in tableData[0].rows">
+			<td ng-repeat="val in row track by $index" ng-class="{'border-left': $index>0, 'wider': $index==0}">{{ val }}</td>
 		<tr>
 		</tr>
 		</tbody>
 	</table>
   </div>
 </div>
+

@@ -228,7 +228,16 @@ gulp.task('watch', function() {
 //DEV: prepares files to be served for development
 gulp.task('dev', function(callback) {
     argv.environment = 'dev';
-    runSequence('inject-index','inject-overview','wiredep', 'styles', 'fonts', 'watch', callback);
+    //runSequence('inject-index','inject-overview','wiredep', 'styles', 'fonts', 'watch', callback);
+    runSequence('wiredep',
+        // 'inject',
+        'inject-index',
+        'inject-overview',
+        'extras',
+        'styles',
+        // ['gzip'],
+        callback);
+
 });
 
 gulp.task('default', function(callback) {

@@ -31,7 +31,7 @@ angular.module('app-herams').service('LayerPopupSvc', function($timeout,$compile
             });
 
             maplayer.on('click', function(e) {
-                commonSvc.gotoOverview();
+                commonSvc.gotoProject();
             });
         }
     }
