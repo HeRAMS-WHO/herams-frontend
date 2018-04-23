@@ -26,6 +26,7 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
         }
 
         var maxLatLongs = (latlongList.length <200)? latlongList.length : 200;
+        //var maxLatLongs = latlongList.length;
         dynBounds = new L.LatLngBounds(latlongList.slice(0,maxLatLongs));
         map.fitBounds(dynBounds);
         $log.info("latlongList = ",latlongList.slice(0,10));
