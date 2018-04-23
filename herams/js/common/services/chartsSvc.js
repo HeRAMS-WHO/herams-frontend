@@ -65,7 +65,7 @@ angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
         $log.info('loadChart :: chart_dist_data = ',chart_dist_data);
 
         var chart = new Highcharts.Chart(setChart(chart_html_container,chart_dist_data),function(chart){
-            // $log.info('chart_dist_data.type = ',chart_dist_data.type);
+
             if (chart_dist_data.type == "pie") {
 
                 var displayTot = chart_dist_data.total;
@@ -73,14 +73,15 @@ angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
                 insertCenterTxt(chart,chart_dist_data.total);
 
                 $(chart.series[0].data).each(function(i, e) {
+
                     e.legendItem.on('click', function() {
                         if (!e.sliced) {
-                            var val = displayTot - e.y;
+                            displayTot -= e.y;
                         } else {
-                            var val = displayTot + e.y;
+                            displayTot += e.y;
                         }
                         e.slice(!e.sliced);
-                        updtCenterTxt(chart,val)
+                        updtCenterTxt(chart,displayTot)
                     });
                 });
             }
