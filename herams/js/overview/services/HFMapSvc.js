@@ -8,12 +8,13 @@
  */
 angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$timeout,$window,$compile,$log,esriSvc,commonSvc) {
 
-    var map,mapSpecs;
+    var map,mapSpecs,dynBounds;
 
     function displayData(map,serverData) {
 
         var listHF = serverData.hf_list,
-            colorsSpecs = serverData.config.colors;
+            colorsSpecs = serverData.config.colors,
+            latlongList = [];
 
         for (var i in listHF) {
             var myIcon = L.divIcon({
@@ -21,7 +22,14 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
                 html:'<i class="fas fa-circle" style="color:'+ colorsSpecs[listHF[i].type] +'"></i>'
             });
              L.marker(listHF[i].coord, {icon: myIcon}).addTo(map);
+             latlongList.push(listHF[i].coord);
         }
+
+        var maxLatLongs = (latlongList.length <200)? latlongList.length : 200;
+        dynBounds = new L.LatLngBounds(latlongList.slice(0,maxLatLongs));
+        map.fitBounds(dynBounds);
+        $log.info("latlongList = ",latlongList.slice(0,10));
+        $log.info("bounds = ",dynBounds);
 
     }
 
@@ -38,11 +46,15 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
             mapSpecs = CONFIG.overview.map;
 
             /* - creating map instance - */
+/*
             map = L.map(container, {
                 zoomControl:false,
                 center: [mapSpecs.lat, mapSpecs.long],
                 zoom: mapSpecs.zoom
             });
+*/
+            map = L.map(container);
+
 
             /* - adding basemaps - */
             for (var i in mapSpecs.basemaps) {
@@ -72,7 +84,8 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
 
             $("#mapid").height(hght);
             if (map) map.invalidateSize();
-            if (map) map.setView([mapSpecs.lat, mapSpecs.long]);
+            // if (map) map.setView([mapSpecs.lat, mapSpecs.long]);
+            if (map) map.fitBounds(dynBounds);
         }
     }
 });

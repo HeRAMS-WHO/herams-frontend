@@ -190,7 +190,7 @@ var CONFIG = {
                 categories: ["placeholder 1", "placeholder 2", "placeholder 3"],
                 labels: {
                     x: 0,
-                    y: -8,
+                    y: -6.5,
                     align: "left",
                     style: {
                         width: "200px",
@@ -201,7 +201,7 @@ var CONFIG = {
             plotOptions: {
                 series: {
                     stacking: "normal",
-                    pointWidth: 10
+                    pointWidth: 6
                 }
             },
             series: [

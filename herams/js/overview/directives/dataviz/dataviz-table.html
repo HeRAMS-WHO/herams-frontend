@@ -4,13 +4,12 @@
     <table>
 		<thead>
 		<tr>
-          <th ng-repeat="colname in tableData[0].col_names track by $index">{{ colname }}</th>
+          <th ng-repeat="col in tableData[0].cols track by $index" ng-class="{'wider': col.class=='wide'}">{{ col.label }}</th>
  		</tr>
 		</thead>
 		<tbody>
-		<tr ng-repeat="row in tableData[0].rows">
-			<td ng-repeat="val in row track by $index" ng-class="{'border-left': $index>0, 'wider': $index==0}">{{ val }}</td>
-		<tr>
+		<tr ng-repeat="row in tableData[0].rows track by $index" ng-class="{'no-border-bottom': $index==tableData[0].rows.length-1}">
+			<td ng-repeat="val in row track by $index" ng-class="{'border-left': $index>0}">{{ val }}</td>
 		</tr>
 		</tbody>
 	</table>

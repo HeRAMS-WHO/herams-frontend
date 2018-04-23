@@ -44,11 +44,16 @@
   }
 
   tr {
-    height: 25px;
+    // height: 25px;
+    height: 30px;
     border-bottom: solid 1px @light-grey;
 
-    &:last-of-type {
+    &.no-border-bottom {
       border-bottom: none;
+    }
+
+    td {
+      padding-top: 6px;
     }
   }
   th {

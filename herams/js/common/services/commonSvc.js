@@ -34,8 +34,8 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$compile
 
         home: function() {
             // $state.go('home');
-            $window.location = "index.html";
-            // $window.location = "/";
+            // $window.location = "index.html";
+            $window.location = "/";
         },
 
         gotoProject: function() {

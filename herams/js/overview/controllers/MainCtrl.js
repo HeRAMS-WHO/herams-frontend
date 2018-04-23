@@ -120,7 +120,7 @@ angular.module('app-herams')
                 $scope.catdata = (httpResponse.data.stats)? httpResponse.data.stats : httpResponse.data;
 
                 for (var i in $scope.catdata) {
-                    if ($scope.catdata[i].type == "table") $scope.tableData.push(processTableData($scope.catdata[i].rows));
+                    if ($scope.catdata[i].type == "table") $scope.tableData.push(processTableData($scope.catdata[i]));
                 }
             }
 
@@ -199,11 +199,13 @@ angular.module('app-herams')
 
 
         /* - LAYOUTS DATA - */
-        function processTableData(table_rows) {
+        function processTableData(data) {
 
-            var table_data = {};
+            var table_data = {},
+                table_rows = data.rows;
 
-            table_data.col_names = Object.getOwnPropertyNames(table_rows[0]);
+            // table_data.col_names = Object.getOwnPropertyNames(table_rows[0]);
+            table_data.cols = data.columns
 
             table_data.rows = [];
             for (var i in table_rows) {
