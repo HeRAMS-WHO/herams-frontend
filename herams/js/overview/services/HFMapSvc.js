@@ -55,6 +55,7 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
             });
 */
             map = L.map(container);
+            map.zoomControl.setPosition('topright');
 
 
             /* - adding basemaps - */

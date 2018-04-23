@@ -204,7 +204,9 @@ angular.module('app-herams')
             var table_data = {},
                 table_rows = data.rows;
 
-            // table_data.col_names = Object.getOwnPropertyNames(table_rows[0]);
+            table_data.name = data.name;
+;
+             // table_data.col_names = Object.getOwnPropertyNames(table_rows[0]);
             table_data.cols = data.columns
 
             table_data.rows = [];

@@ -47,8 +47,6 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
                         var margin_expand = parseInt($(".map-entry").css('margin-left'));
                         var wdth = (!args.collapsed)? getWindowWdth()-margin_expand : getWindowWdth();
 
-                         $log.info('homemap.js > wdth: ',wdth);
-
                         $("#mapid").width(wdth);
                         mainMap.invalidateSize();
 

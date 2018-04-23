@@ -44,12 +44,6 @@
                             <a ng-click="launchLayout(category)" ng-if="category.id!=catIDSelect">{{category.name}}</a>
                             <span ng-if="category.id==catIDSelect">{{category.name}}</span>
                         </li>
-<!--
-                        <li class="selected">Overview</li>
-                        <li>Health infrastructure</li>
-                        <li>Health services</li>
-                        <li>Resources</li>
--->
                     </ul>
                 </div>
                <div class="partners-list-btn">Partners</div>
@@ -74,7 +68,8 @@
                                     <div>
                                         <!--<i class="fas fa-user-circle"></i>-->
                                         <img src="img/Profile_white.png"/>
-                                        <i class="fas fa-angle-down" id="log"></i>
+                                        <!--<i class="fas fa-angle-down" id="log"></i>-->
+                                        <button popover-placement="left-bottom" uib-popover="On the left-bottom" type="button" class="btn btn-default"><i class="fas fa-angle-down"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -88,18 +83,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="main-content" ng-cloak>
-                        <!--<layout14 data="catdata" ng-cloak></layout14>-->
-                    </div>
+                    <div class="main-content" ng-cloak></div>
                </div>
             </div>
 
         </div>
 
       </div>
-
-
-    <!--<div class="partners-list-btn">Partners</div>-->
 
     <div class="partners-list-grp">
         <div class="partners-list-cache"></div>

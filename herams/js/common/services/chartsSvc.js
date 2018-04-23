@@ -38,6 +38,11 @@ angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
              var chart_common_config = commonSvc.deepCopy(CONFIG.charts.common);
              var chart = $.extend(commonSvc.deepCopy(chart_common_config), CONFIG.charts.stacked);
 
+             // var titleFrmtd = (distData.total != undefined)? distData.title + ' <span class="chart-title-total">(distData.total)</span>' : distData.title;
+             var titleFrmtd = (distData.total != undefined)? distData.title + ' <span class="chart-title-total">(distData.total)</span>' : distData.title + ' <span class="chart-title-total">(<i style="color:#ff0000;"> !missing </i>)</span>';
+
+             chart.title.useHTML = true;
+             chart.title.text = titleFrmtd;
              chart.xAxis.categories = distData.labels;
              chart.series = distData.series;
 
@@ -47,14 +52,13 @@ angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
 
             var chart = commonSvc.deepCopy(CONFIG.charts.pie);
 
+            chart.title.text = distData.title;
             chart.tooltip = CONFIG.charts.tooltip_pie;
             chart.series[0].data = distData.data;
 
          }
 
          chart.chart.renderTo = container;
-
-         chart.title.text = distData.title;
          chart.legend = CONFIG.charts.legend_cust;
 
          return chart;

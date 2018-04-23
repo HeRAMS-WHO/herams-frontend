@@ -190,7 +190,7 @@ var CONFIG = {
                 categories: ["placeholder 1", "placeholder 2", "placeholder 3"],
                 labels: {
                     x: 0,
-                    y: -6.5,
+                    y: -6,
                     align: "left",
                     style: {
                         width: "200px",
