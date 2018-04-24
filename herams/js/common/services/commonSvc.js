@@ -54,6 +54,16 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$compile
             $window.location = "/user/logout";
         },
 
+        getWindowWdth: function() {
+            var w = window,
+                d = document,
+                e = d.documentElement,
+                g = d.getElementsByTagName('body')[0];
+
+            return  w.innerWidth || e.clientWidth || g.clientWidth;
+            // * if height needed : * y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+        },
+
         setLoginPopover: function(scope) {
             $log.info(' !! setLoginPopover !! - ');
 
@@ -64,16 +74,19 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$compile
                 container: $('.popover-base'),
                 placement: 'bottom',
                 boundary: 'window',
-                // appendToBody: true,
-                content: function() {
-                    var template = "<userpopover></userpopover>";
-                    var linkFn = $compile(template);
-                    var content = linkFn(scope);
-
-                    return content;
-                },
+                content: '<span class="popover-spacer">this is a test</span>',
                 html: true
             });
+
+            $('#log').on('shown.bs.popover', function () {
+
+                var template = "<userpopover></userpopover>";
+                var linkFn = $compile(template);
+                var content = linkFn(scope);
+
+                $('.popover-body').html(content);
+            })
+
 
         }
     }

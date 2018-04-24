@@ -27,7 +27,7 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
     }
 
     function resizer () {
-
+        // $log.info('resizer HOME');
     }
 
     return {
@@ -40,7 +40,6 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
         controller: function($scope) {},
         link: function($scope, $el, $attr) {
 
-            // $timeout(function() {
             $scope.$watch('mapdata', function(homeData) {
 
                 if (homeData.config) {
@@ -60,7 +59,6 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
                     MainMapSvc.addcircleMarkerToMainMap(mainMap,layers,statuses);
 
                 }
-
 
             })
 
