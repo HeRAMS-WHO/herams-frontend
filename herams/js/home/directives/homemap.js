@@ -15,19 +15,8 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
 
     var mainMap;
 
-    /* Cross Browser window's size */
-    function getWindowWdth() {
-        var w = window,
-            d = document,
-            e = d.documentElement,
-            g = d.getElementsByTagName('body')[0];
-
-        return  w.innerWidth || e.clientWidth || g.clientWidth;
-        // * if height needed : * y = w.innerHeight|| e.clientHeight|| g.clientHeight;
-    }
-
     function resizer () {
-        // $log.info('resizer HOME');
+        $log.info('resizer HOME');
     }
 
     return {
@@ -41,6 +30,8 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
         link: function($scope, $el, $attr) {
 
             $scope.$watch('mapdata', function(homeData) {
+
+                $log.info('test home data');
 
                 if (homeData.config) {
 

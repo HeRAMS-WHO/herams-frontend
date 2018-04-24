@@ -27,8 +27,6 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
          *   returns a leaflet map object after creation according to params
          */
         createMainMap: function (container,config) {
-            $log.info('createMainMap called');
-
 
             /* - Setting Map Bounds - */
             var minNorth = L.latLng(84.922810, -179.973791),
@@ -49,6 +47,8 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
                     config.zoom_options.zoom
                 );
 
+
+            $log.info('test home map config: ', config);
             map.zoomControl.setPosition('bottomright');
 
 

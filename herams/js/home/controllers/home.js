@@ -48,20 +48,18 @@ angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$l
 
         function loadSuccess(httpResponse) {
 
-            $log.info('loaded Home Data correctly: ',httpResponse);
+            // $log.info('loaded Home Data correctly: ',httpResponse);
 
             $scope.homedata = httpResponse.data.results;
 
             var statuses = $scope.homedata.config.statuses;
             for (var i in statuses) {
-                $log.info(statuses[i]);
                 $scope.statuses.push(statuses[i]);
-
-                var hexcolor = commonSvc.hashCode(statuses[i].color);
-                $log.info('color converson for IE: ',statuses[i].color, ' - ', hexcolor);
             }
 
             setCollapse();
+
+            $('.loading').hide();
 
         }
 
@@ -70,7 +68,7 @@ angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$l
         }
 
         function loadFinally(httpResponse) {
-            $log.info('Home - last but not least');
+            // $log.info('Home - last but not least');
         }
 
     }

@@ -49,6 +49,7 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
             map = L.map(container);
             map.zoomControl.setPosition('topright');
 
+
             /* - adding basemaps - */
             for (var i in mapSpecs.basemaps) {
                var tmp = L.tileLayer(mapSpecs.basemaps[i]).addTo(map);
@@ -75,7 +76,7 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
 
             var hght = $('.map-container').innerHeight();
 
-            $("#mapid").height(hght);
+            $("#mapid-wkspace").height(hght);
             if (map) map.invalidateSize();
 
             if (map) map.fitBounds(dynBounds);

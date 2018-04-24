@@ -8,7 +8,7 @@
  *   This controller is used on all the pages except the HF card which doesn't inherit from base
  */
 angular.module('app-herams')
-    .controller('MainCtrl', function($scope,$compile,$log,commonSvc,HFMapSvc,chartsSvc) {
+    .controller('MainCtrl', function($scope,$compile,$log,$timeout,commonSvc,HFMapSvc,chartsSvc) {
 
         /* - SCOPE VARS - */
         $scope.categories = [];
@@ -90,10 +90,10 @@ angular.module('app-herams')
                         .then(loadFinally);
 
             function loadSuccess(httpResponse) {
-                $log.info('load map info: ',httpResponse.data.results);
+                // $log.info('load map info: ',httpResponse.data.results);
 
                 $scope.mapdata = httpResponse.data.results;
-                HFMapSvc.createMap('mapid',$scope.mapdata);
+                HFMapSvc.createMap('mapid-wkspace',$scope.mapdata);
             }
 
             function loadFailure(err) {
@@ -101,12 +101,18 @@ angular.module('app-herams')
             }
 
             function loadFinally() {
-                $log.info('Ready to process after map load');
+                // $log.info('Ready to process after map load');
+
+                $('.loading').hide();
+                $('.main-content').show();
 
                 $(window).off('resize', resizer);
                 $(window).resize(resizer);
 
-                resizer();
+                $timeout(function() {
+                    resizer();
+                },100);
+
             }
         }
 
@@ -116,7 +122,7 @@ angular.module('app-herams')
                         .then(loadFinally);
 
             function loadSuccess(httpResponse) {
-                $log.info('load charts info: ',httpResponse.data.stats);
+
                 $scope.catdata = (httpResponse.data.stats)? httpResponse.data.stats : httpResponse.data;
 
                 for (var i in $scope.catdata) {
@@ -169,7 +175,7 @@ angular.module('app-herams')
         function launchLayout(scope,cat) {
 
             // DEBUG
-            $log.info('launchLayout : ', cat.name);
+            // $log.info('launchLayout : ', cat.name);
 
             // RESETS
             $scope.mapdata = {};
@@ -187,13 +193,17 @@ angular.module('app-herams')
              var layout = linkFn(scope);
 
             $('.main-content').html(layout);
+            $('.main-content').hide();
+            $('.loading').show();
 
 
             // LOADS
-            var f = function() {
-                loadMapData(cat.ws_map_url)
-            }
-            loadCharts(cat.ws_chart_url,f);
+            $timeout(function() {
+                var f = function() {
+                    loadMapData(cat.ws_map_url);
+                }
+                loadCharts(cat.ws_chart_url,f);
+            },1500)
 
         }
 

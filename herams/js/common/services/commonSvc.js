@@ -10,20 +10,15 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$compile
 
     return {
 
-        /**
-        * @name commonSvc.deepCopy(OBJ)
-        * @description
-        *   returns a deep copy of an object
-        */
+        /* - ARRAYS DEEP COPY (charts config) -*/
         deepCopy: function(obj) {
-            // return JSON.parse(JSON.stringify(obj));
             return $.extend(true, {}, obj);
         },
 
+        /* - GET REQUESTS -*/
         loadData: function(url) {
             return $http({
                 'method': 'GET',
-                // 'method': 'JSONP',
                 'url': url,
                 'headers': {
                     // 'X-CSRFToken': csrfToken,
@@ -32,6 +27,7 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$compile
             });
         },
 
+        /* NAVIGATION / ROUTING -*/
         home: function() {
             // $state.go('home');
             // $window.location = "index.html";
@@ -45,27 +41,16 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$compile
         },
 
         showUsrProfile: function() {
-            $log.info('show user profile');
             $window.location = "/user/settings/profile";
         },
 
         logout: function() {
-            $log.info('show user profile');
+            // $log.info('show user profile');
             $window.location = "/user/logout";
         },
 
-        getWindowWdth: function() {
-            var w = window,
-                d = document,
-                e = d.documentElement,
-                g = d.getElementsByTagName('body')[0];
-
-            return  w.innerWidth || e.clientWidth || g.clientWidth;
-            // * if height needed : * y = w.innerHeight|| e.clientHeight|| g.clientHeight;
-        },
-
+        /* LOGIN / USR POPOVER -*/
         setLoginPopover: function(scope) {
-            $log.info(' !! setLoginPopover !! - ');
 
             scope.logout = this.logout;
             scope.viewProfile = this.showUsrProfile;
@@ -87,6 +72,17 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$compile
                 $('.popover-body').html(content);
             })
 
+        },
+
+        /* Cross Browser window's size */
+        getWindowWdth: function() {
+            var w = window,
+                d = document,
+                e = d.documentElement,
+                g = d.getElementsByTagName('body')[0];
+
+            return  w.innerWidth || e.clientWidth || g.clientWidth;
+            // * if height needed : * y = w.innerHeight|| e.clientHeight|| g.clientHeight;
         }
     }
 });

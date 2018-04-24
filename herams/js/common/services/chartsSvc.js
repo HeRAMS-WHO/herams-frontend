@@ -8,8 +8,7 @@
  */
 angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
 
-    var chartsInstances = [],
-        displayTot_null;
+    var chartsInstances = [];
 
     function insertCenterTxt(chart,val) {
 
@@ -20,7 +19,6 @@ angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
         span = $(chart.renderTo).find('.pieChartCenterTxt');
         span.css('top', textY);
 
-        // displayTot = val;
     };
 
     function updtCenterTxt(chart,val) {
@@ -28,8 +26,13 @@ angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
         var span = $(chart.renderTo).find('.pieChartCenterTxt');
         span.html(val);
 
-        // displayTot = val;
     };
+
+    function setSackedMaxWdth(chart,container) {
+        var wdth = $('#'+container).innerWidth(),
+            hght = $('#'+container).innerHeight()- 30;
+        chart.setSize (wdth, hght);
+    }
 
     function setChart(container,distData) {
 
@@ -39,7 +42,7 @@ angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
              var chart = $.extend(commonSvc.deepCopy(chart_common_config), CONFIG.charts.stacked);
 
              // var titleFrmtd = (distData.total != undefined)? distData.title + ' <span class="chart-title-total">(distData.total)</span>' : distData.title;
-             var titleFrmtd = (distData.total != undefined)? distData.title + ' <span class="chart-title-total">(distData.total)</span>' : distData.title + ' <span class="chart-title-total">(<i style="color:#ff0000;"> !missing </i>)</span>';
+             var titleFrmtd = (distData.total != undefined)? distData.title + ' <span class="chart-title-total">('+ distData.total + ')</span>' : distData.title + ' <span class="chart-title-total">(<i style="color:#ff0000;"> !missing </i>)</span>';
 
              chart.title.useHTML = true;
              chart.title.text = titleFrmtd;
@@ -66,14 +69,13 @@ angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
 
     function loadChart (chart_dist_data,chart_html_container) {
 
-        $log.info('loadChart :: chart_dist_data = ',chart_dist_data);
+        // $log.info('loadChart :: chart_dist_data = ',chart_dist_data);
 
         var chart = new Highcharts.Chart(setChart(chart_html_container,chart_dist_data),function(chart){
 
             if (chart_dist_data.type == "pie") {
 
                 var displayTot = chart_dist_data.total;
-
                 insertCenterTxt(chart,chart_dist_data.total);
 
                 $(chart.series[0].data).each(function(i, e) {
@@ -88,6 +90,8 @@ angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
                         updtCenterTxt(chart,displayTot)
                     });
                 });
+            } else if (chart_dist_data.type == "stacked") {
+                setSackedMaxWdth(chart,chart_html_container);
             }
         });
         chartsInstances.push(chart);
