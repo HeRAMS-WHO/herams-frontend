@@ -21,7 +21,7 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$compile
                 'method': 'GET',
                 'url': url,
                 'headers': {
-                    // 'X-CSRFToken': csrfToken,
+                    // 'heramsToken': tokenConfig,
                     'Content-Type': 'application/json;charset=UTF-8'
                 }
             });
@@ -46,7 +46,7 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$compile
 
         logout: function() {
             // $log.info('show user profile');
-            $window.location = "/user/logout";
+            $window.location = "/site/logout";
         },
 
         /* LOGIN / USR POPOVER -*/
