@@ -81,6 +81,13 @@ angular.module('app-herams')
 
             function loadFinally(httpResponse) {
                 launchLayout(scope,scope.categories[0]);
+
+/*
+                $( window ).scroll(function() {
+                  $log.info('window has been scrolled');
+                  $('.partners-list').css('bottom',0);
+                });
+*/
              }
         }
 

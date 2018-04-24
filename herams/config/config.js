@@ -164,7 +164,7 @@ var CONFIG = {
                     color: '#ffffff'
                 },
                 formatter: function () {
-                    return '<b>' + this.y + '</b>';
+                    return '<b>' + this.y + '%</b>';
                 },
                 positioner: function (labelWidth, labelHeight, point) {
                     var tooltipX = point.plotX - labelWidth - 10;
@@ -276,7 +276,7 @@ var CONFIG = {
                 var factor = Math.pow(10, 1);
                 var val = Math.round(this.point.percentage * factor) / factor;
 
-                return '<b>' + val + '</b>';
+                return '<b>' + val + '%</b>';
             },
             positioner: function (labelWidth, labelHeight, point) {
                 var tooltipX = point.plotX + 10;
