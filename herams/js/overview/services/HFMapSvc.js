@@ -25,12 +25,11 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
              latlongList.push(listHF[i].coord);
         }
 
+        /* constraints to max 200 first coords working better fro Nigeria */
         var maxLatLongs = (latlongList.length <200)? latlongList.length : 200;
-        //var maxLatLongs = latlongList.length;
+
         dynBounds = new L.LatLngBounds(latlongList.slice(0,maxLatLongs));
         map.fitBounds(dynBounds);
-        $log.info("latlongList = ",latlongList.slice(0,10));
-        $log.info("bounds = ",dynBounds);
 
     }
 
@@ -47,16 +46,8 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
             mapSpecs = CONFIG.overview.map;
 
             /* - creating map instance - */
-/*
-            map = L.map(container, {
-                zoomControl:false,
-                center: [mapSpecs.lat, mapSpecs.long],
-                zoom: mapSpecs.zoom
-            });
-*/
             map = L.map(container);
             map.zoomControl.setPosition('topright');
-
 
             /* - adding basemaps - */
             for (var i in mapSpecs.basemaps) {
@@ -69,11 +60,11 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
             /* - adding ESRI layer - */
             esriSvc.getEsriShape(map, mapSpecs.layers[0]);
 
-
             /* - responsiveness - */
             this.refreshLayout();
 
         },
+
         refreshLayout: function() {
 
             var viewportHght = $(window).height()-280;
@@ -86,8 +77,9 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
 
             $("#mapid").height(hght);
             if (map) map.invalidateSize();
-            // if (map) map.setView([mapSpecs.lat, mapSpecs.long]);
+
             if (map) map.fitBounds(dynBounds);
+
         }
     }
 });

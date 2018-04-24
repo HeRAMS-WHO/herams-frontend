@@ -87,7 +87,6 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$compile
                 $('.popover-body').html(content);
             })
 
-
         }
     }
 });

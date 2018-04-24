@@ -68,7 +68,7 @@
 
             <div class="map-legend">
                 <div class="legend-part" ng-cloak>
-                    <div ng-repeat="statusspec in statuses"><i class="fas fa-circle" style="color:{{statusspec.color}}"></i><span>{{statusspec.label}}</span></div>
+                    <div ng-repeat="statusspec in statuses"><i class="fas fa-circle" ng-style="{'color':statusspec.color}"></i><span>{{statusspec.label}}</span></div>
                 </div>
             </div>
 

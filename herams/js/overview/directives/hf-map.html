@@ -20,7 +20,10 @@
     <div id="mapid"></div>
         <div class="map-legend">
             <div class="legend-part" ng-cloak>
-                <div ng-repeat="legendItem in  legend track by $index"><i class="fas fa-circle" style="color:{{legendItem.color}}"></i><span>{{legendItem.label}}</span></div>
+                <div ng-repeat="legendItem in  legend track by $index">
+                    <i class="fas fa-circle" ng-style="{'color':legendItem.color}"></i>
+                    <span>{{legendItem.label}}</span>
+                </div>
             </div>
         </div>
 </div>

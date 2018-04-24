@@ -56,6 +56,9 @@ angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$l
             for (var i in statuses) {
                 $log.info(statuses[i]);
                 $scope.statuses.push(statuses[i]);
+
+                var hexcolor = commonSvc.hashCode(statuses[i].color);
+                $log.info('color converson for IE: ',statuses[i].color, ' - ', hexcolor);
             }
 
             setCollapse();
