@@ -15,10 +15,11 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
         pMap.boxZoom.disable();
     }
 
+/*
     function showScaling(pMap) {
         var saleIndic = L.control.scale().addTo(pMap);
     }
-
+*/
     return {
 
         /**
@@ -48,14 +49,12 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
                 );
 
 
-            $log.info('test home map config: ', config);
+            // $log.info('test home map config: ', config);
             map.zoomControl.setPosition('bottomright');
 
 
             /!* No Zooming *!/
             disableZooming(map);
-
-            // showScaling(map);
 
 
             /* Adding required basemaps - imagery, countrynames, etc.. */

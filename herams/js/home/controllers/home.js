@@ -41,14 +41,11 @@ angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$l
 
         commonSvc.setLoginPopover($scope);
 
-
         return commonSvc.loadData('https://herams-dev.westeurope.cloudapp.azure.com/aping/home?project=374').then(loadSuccess)
                     .catch(loadFailure)
                     .then(loadFinally);
 
         function loadSuccess(httpResponse) {
-
-            // $log.info('loaded Home Data correctly: ',httpResponse);
 
             $scope.homedata = httpResponse.data.results;
 
