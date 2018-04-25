@@ -43,18 +43,18 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
                     maxZoom: config.zoom_options.maxZoom,
                     zoomDelta: config.zoom_options.zoomDelta
                 })
+                .setView([21.9162, 95.9560], 3);
+/*
                 .setView(
                     [config.center.lat, config.center.long],
                     config.zoom_options.zoom
                 );
+*/
 
-
-            // $log.info('test home map config: ', config);
             map.zoomControl.setPosition('bottomright');
 
-
             /!* No Zooming *!/
-            disableZooming(map);
+            // disableZooming(map);
 
 
             /* Adding required basemaps - imagery, countrynames, etc.. */

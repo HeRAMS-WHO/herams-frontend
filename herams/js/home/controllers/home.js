@@ -41,7 +41,7 @@ angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$l
 
         commonSvc.setLoginPopover($scope);
 
-        return commonSvc.loadData('https://herams-dev.westeurope.cloudapp.azure.com/aping/home?project=374').then(loadSuccess)
+        return commonSvc.loadData(commonSvc.getWSPaths('home')).then(loadSuccess)
                     .catch(loadFailure)
                     .then(loadFinally);
 

@@ -66,7 +66,7 @@ angular.module('app-herams')
         /* - LOADs - */
 
         function init(scope) {
-             return commonSvc.loadData('https://herams-dev.westeurope.cloudapp.azure.com/aping/categories').then(loadSuccess)
+             return commonSvc.loadData(commonSvc.getWSPaths('overview')).then(loadSuccess)
                         .catch(loadFailure)
                         .then(loadFinally);
 

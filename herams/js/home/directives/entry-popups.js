@@ -20,7 +20,7 @@ angular.module('app-herams').directive('entryPopup', function($log,chartsSvc) {
     }
 
     function getLegendTmplt(legend,color) {
-        return "<div><i class='fas fa-circle' style='color:"+color+"'></i>"+ legend +"</div>";
+        return (legend.indexOf('N/A')==-1)? "<div><i class='fas fa-circle' style='color:"+color+"'></i>"+ legend +"</div>" : "<div style='text-align:center;width:72px;'>"+ legend +"</div>";
     }
 
     function generateLegend(legends) {

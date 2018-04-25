@@ -6,7 +6,12 @@
  * @description
  *   This service provides a set of common handful methods
  */
-angular.module('app-herams').service('commonSvc', function($state,$http,$compile,$window,$log) {
+angular.module('app-herams').factory('commonSvc', function($state,$http,$compile,$window,$log) {
+
+    var ws_paths = {
+        home: ENV_VARS.host+'home',
+        overview: ENV_VARS.host+'categories'
+    }
 
     return {
 
@@ -16,28 +21,39 @@ angular.module('app-herams').service('commonSvc', function($state,$http,$compile
         },
 
         /* - GET REQUESTS -*/
-        loadData: function(url) {
+        loadData: function(url,params) {
+            var dfltParams = {
+                    'token': tokenConfig
+                };
+
+            if (params) dfltParams = $.extend(dfltParams,params);
+
             return $http({
                 'method': 'GET',
                 'url': url,
+                'params': dfltParams,
                 'headers': {
-                    // 'heramsToken': tokenConfig,
                     'Content-Type': 'application/json;charset=UTF-8'
                 }
             });
         },
 
         /* NAVIGATION / ROUTING -*/
+
+        isLocal: function() {
+            return (window.location.hostname == 'localhost');
+        },
+
+        getWSPaths: function(page) {
+            return ws_paths[page];
+        },
+
         home: function() {
-            // $state.go('home');
-            // $window.location = "index.html";
             $window.location = "/";
         },
 
-        gotoProject: function() {
-            // $state.go('overview');
-            $window.location = "overview.html";
-            // $window.location = "/projects/374";
+        gotoProject: function(projectID) {
+            $window.location = (this.isLocal)? "overview.html" : "/projects/"+projectID;
         },
 
         showUsrProfile: function() {

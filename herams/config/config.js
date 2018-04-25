@@ -16,7 +16,7 @@ var CONFIG = {
     },
     overview: {
         map: {
-            zoom: 6.4,
+            zoom: 5.4,
             lat : 9.0820,
             long: 8.6753,
             basemaps: [
@@ -164,6 +164,10 @@ var CONFIG = {
                     color: '#ffffff'
                 },
                 formatter: function () {
+
+                    // console.log('test stacked tooltip :: ');
+                    // console.log(this);
+
                     return '<b>' + this.y + '%</b>';
                 },
                 positioner: function (labelWidth, labelHeight, point) {
@@ -276,7 +280,7 @@ var CONFIG = {
                 var factor = Math.pow(10, 1);
                 var val = Math.round(this.point.percentage * factor) / factor;
 
-                return '<b>' + val + '%</b>';
+                return 'n=' + this.point.y + '<br/><b>' + val + '%</b>';
             },
             positioner: function (labelWidth, labelHeight, point) {
                 var tooltipX = point.plotX + 10;

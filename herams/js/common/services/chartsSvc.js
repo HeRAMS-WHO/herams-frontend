@@ -6,7 +6,7 @@
  * @description
  *   This service provides a set of methods to handle charts in the workspace pages
  */
-angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
+angular.module('app-herams').factory('chartsSvc', function($log,commonSvc) {
 
     var chartsInstances = [];
 
@@ -41,9 +41,8 @@ angular.module('app-herams').service('chartsSvc', function($log,commonSvc) {
              var chart_common_config = commonSvc.deepCopy(CONFIG.charts.common);
              var chart = $.extend(commonSvc.deepCopy(chart_common_config), CONFIG.charts.stacked);
 
-             // var titleFrmtd = (distData.total != undefined)? distData.title + ' <span class="chart-title-total">(distData.total)</span>' : distData.title;
-             var titleFrmtd = (distData.total != undefined)? distData.title + ' <span class="chart-title-total">('+ distData.total + ')</span>' : distData.title + ' <span class="chart-title-total">(<i style="color:#ff0000;"> !missing </i>)</span>';
-
+             var titleFrmtd = (distData.total != undefined)? distData.title + '<span class="chart-title-total"> ('+ distData.total + ')</span>' : distData.title;
+              
              chart.title.useHTML = true;
              chart.title.text = titleFrmtd;
              chart.xAxis.categories = distData.labels;

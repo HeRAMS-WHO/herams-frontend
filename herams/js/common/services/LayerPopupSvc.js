@@ -32,9 +32,13 @@ angular.module('app-herams').service('LayerPopupSvc', function($timeout,$compile
             });
 */
 
-            maplayer.on('click', function(e) {
-                commonSvc.gotoProject();
-            });
+            $log.info();
+            if (layerdata.pid != undefined) {
+                var projectID = layerdata.pid;
+                maplayer.on('click', function(e) {
+                    commonSvc.gotoProject(projectID);
+                });
+            }
         }
     }
 });
