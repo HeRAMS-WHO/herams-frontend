@@ -30,8 +30,8 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
         createMainMap: function (container,config) {
 
             /* - Setting Map Bounds - */
-            var minNorth = L.latLng(84.922810, -179.973791),
-            maxSouth = L.latLng(-84.922810, 179.973791),
+            var minNorth = L.latLng(87.8750,  -30.535486),
+            maxSouth = L.latLng(-71.1879, 160.769861),
             bounds = L.latLngBounds(minNorth, maxSouth);
 
 
@@ -41,15 +41,19 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
                     maxBounds: bounds,
                     minZoom: config.zoom_options.minZoom,
                     maxZoom: config.zoom_options.maxZoom,
-                    zoomDelta: config.zoom_options.zoomDelta
-                })
-                .setView([21.9162, 95.9560], 3);
-/*
+                    zoomDelta: config.zoom_options.zoomDelta,
+                    center: [40.056073, 78.883203],
+                    zoom: 3
+                });
+
+            map.fitBounds(bounds);
+                // .setView([22.3964, 114.1095], 3);
+                /*
                 .setView(
                     [config.center.lat, config.center.long],
                     config.zoom_options.zoom
                 );
-*/
+                */
 
             map.zoomControl.setPosition('bottomright');
 

@@ -20,7 +20,8 @@ angular.module('app-herams').directive('entryPopup', function($log,chartsSvc) {
     }
 
     function getLegendTmplt(legend,color) {
-        return (legend.indexOf('N/A')==-1)? "<div><i class='fas fa-circle' style='color:"+color+"'></i>"+ legend +"</div>" : "<div style='text-align:center;width:72px;'>"+ legend +"</div>";
+        return (legend.indexOf('N/A')==-1)?
+            "<div><i class='fas fa-circle' style='color:"+color+"'></i>"+ legend +"</div>" : "<div style='text-align:center;width:72px;'>"+ legend +"</div>";
     }
 
     function generateLegend(legends) {
@@ -75,6 +76,10 @@ angular.module('app-herams').directive('entryPopup', function($log,chartsSvc) {
             $('#chart1-legend').html(generateLegend(layerData.stats.charts[0].legend));
             $('#chart2-legend').html(generateLegend(layerData.stats.charts[1].legend));
             $('#chart3-legend').html(generateLegend(layerData.stats.charts[2].legend));
+
+            /* opacity on Service Availability's icon set down if no data */
+            var serv_avail_Lgd = layerData.stats.charts[2].legend[0].label;
+            if (serv_avail_Lgd.indexOf('N/A')!=-1) $('.charts-icons>div:nth-child(3)').css('opacity', 0.3);
 
         }
     }
