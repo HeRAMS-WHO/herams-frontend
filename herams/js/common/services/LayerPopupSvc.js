@@ -11,7 +11,7 @@ angular.module('app-herams').service('LayerPopupSvc', function($timeout,$compile
 
                     var popup_content = '<entry-popup countryname="' + layerdata.name + '"></entry-popup>';
 
-                    var popup = L.popup({className: 'entry-popup layer' + cnt, closeButton: false})
+                    var popup = L.popup({className: 'entry-popup layer' + cnt, closeButton: true})
                         .setLatLng([layerdata.geodata.lat, layerdata.geodata.long])
                         .setContent(popup_content)
                         .openOn(map);

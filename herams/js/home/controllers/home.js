@@ -39,8 +39,6 @@ angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$l
 
     $scope.init = function() {
 
-        commonSvc.setLoginPopover($scope);
-
         return commonSvc.loadData(commonSvc.getWSPaths('home')).then(loadSuccess)
                     .catch(loadFailure)
                     .then(loadFinally);
@@ -48,6 +46,9 @@ angular.module('app-herams').controller('HomeCtrl', function($scope,commonSvc,$l
         function loadSuccess(httpResponse) {
 
             $scope.homedata = httpResponse.data.results;
+
+            commonSvc.setUsrInfo($scope,$scope.homedata.userinfo);
+            commonSvc.setLoginPopover($scope);
 
             var statuses = $scope.homedata.config.statuses;
             for (var i in statuses) {

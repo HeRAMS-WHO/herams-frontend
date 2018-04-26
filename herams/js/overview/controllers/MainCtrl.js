@@ -28,19 +28,13 @@ angular.module('app-herams')
         };
 
         /* Data Load */
-        $scope.init = function() {
-            init($scope);
-        }
+        init();
 
         /* layout launch */
-        $scope.launchLayout = function(cat) {
-            $scope.catIDSelect = cat.id;
-            launchLayout($scope,cat);
-        }
+        $scope.launchLayout = launchLayout;
 
         /* - MISC SETUP CALLS - */
         setPartnersClick();
-        commonSvc.setLoginPopover($scope);
 
 
         /* - WINDOW EVENTS - */
@@ -65,14 +59,18 @@ angular.module('app-herams')
 
         /* - LOADs - */
 
-        function init(scope) {
+        function init() {
              return commonSvc.loadData(commonSvc.getWSPaths('overview')).then(loadSuccess)
                         .catch(loadFailure)
                         .then(loadFinally);
 
             function loadSuccess(httpResponse) {
-                scope.categories = httpResponse.data;
-                $scope.catIDSelect = scope.categories[0].id;
+                $log.info('success: ',httpResponse.data.results);
+
+                $scope.categories = httpResponse.data.results.categories;
+
+                commonSvc.setUsrInfo($scope,httpResponse.data.results.userinfo);
+                commonSvc.setLoginPopover($scope);
             }
 
             function loadFailure(httpResponse) {
@@ -80,15 +78,8 @@ angular.module('app-herams')
             }
 
             function loadFinally(httpResponse) {
-                launchLayout(scope,scope.categories[0]);
-
-/*
-                $( window ).scroll(function() {
-                  $log.info('window has been scrolled');
-                  $('.partners-list').css('bottom',0);
-                });
-*/
-             }
+                launchLayout($scope.categories[0]);
+            }
         }
 
         function loadMapData(map_url) {
@@ -179,10 +170,10 @@ angular.module('app-herams')
 
         }
 
-        function launchLayout(scope,cat) {
+        function launchLayout(cat) {
 
             // DEBUG
-            // $log.info('launchLayout : ', cat.name);
+            $log.info('launchLayout : ', cat);
 
             // RESETS
             $scope.mapdata = {};
@@ -191,13 +182,13 @@ angular.module('app-herams')
             $( ".main-content" ).empty();
             chartsSvc.destroyCharts();
 
-            scope.catdata = {};
-            scope.catNameSelect = cat.name;
+            $scope.catNameSelect = cat.name;
+            $scope.catIDSelect = cat.id;
 
             // LAYOUTS (as directives)
              var rawlayout = getLayout(cat.layout);
              var linkFn = $compile(rawlayout);
-             var layout = linkFn(scope);
+             var layout = linkFn($scope);
 
             $('.main-content').html(layout);
             $('.main-content').hide();

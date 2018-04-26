@@ -90,6 +90,14 @@ angular.module('app-herams').factory('commonSvc', function($state,$http,$compile
 
         },
 
+        setUsrInfo: function(scope,obj) {
+
+            var usrData = (obj)? obj : {email:"hardtest@novel-t.ch",first_name:"Sam",last_name:"Petragallo"};
+
+            scope.usr_name = usrData.first_name + ' ' + usrData.last_name;
+            scope.usr_email = usrData.email;
+        },
+
         /* Cross Browser window's size */
         getWindowWdth: function() {
             var w = window,
