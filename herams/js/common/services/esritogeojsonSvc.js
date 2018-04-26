@@ -6,7 +6,7 @@
  * @description
  *   This service provides a set of methods to imporr ESRI data into Leaflet
  */
-angular.module('app-herams').service('esriSvc', function($timeout,$log,LayerPopupSvc) {
+angular.module('app-herams').service('esriSvc', function($timeout,$log, $http, LayerPopupSvc) {
 
     var refMap;
 
@@ -32,9 +32,22 @@ angular.module('app-herams').service('esriSvc', function($timeout,$log,LayerPopu
     */
     function importEsri(layerData,pColor) {
         var urlEsri = getEsriURL(layerData.name);
+/*
         $.getJSON( urlEsri, function(data) {
             convertToGeoJSON (data.features,layerData,pColor);
         });
+*/
+
+        $http({
+                'method': 'GET',
+                'url': urlEsri,
+                'headers': {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                }
+            }).then(function success(data) {
+                // $log.info('esri import ok', data);
+                convertToGeoJSON (data.data.features,layerData,pColor);
+            });
     }
 
     /**

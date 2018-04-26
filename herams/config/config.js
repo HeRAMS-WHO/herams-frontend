@@ -280,7 +280,7 @@ var CONFIG = {
                 var factor = Math.pow(10, 1);
                 var val = Math.round(this.point.percentage * factor) / factor;
 
-                return 'n=' + this.point.y + '<br/><b>' + val + '%</b>';
+                return 'n = ' + this.point.y + '<br/><b>' + val + '%</b>';
             },
             positioner: function (labelWidth, labelHeight, point) {
                 var tooltipX = point.plotX + 10;
