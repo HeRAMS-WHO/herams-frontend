@@ -173,7 +173,7 @@ angular.module('app-herams')
         function launchLayout(cat) {
 
             // DEBUG
-            $log.info('launchLayout : ', cat);
+            // $log.info('launchLayout : ', cat);
 
             // RESETS
             $scope.mapdata = {};
