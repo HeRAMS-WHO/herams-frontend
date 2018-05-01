@@ -20,6 +20,8 @@ angular.module('app-herams')
 
         $scope.tables = [];
 
+        $scope.filters = [];
+
         /* - SCOPE METHODS - */
         $scope.date = new Date();
 
@@ -79,7 +81,28 @@ angular.module('app-herams')
             }
 
             function loadFinally(httpResponse) {
+                loadFilters();
                 launchLayout($scope.categories[0]);
+            }
+        }
+
+        function loadFilters() {
+             return commonSvc.loadData('config/filters.json').then(loadSuccess)
+                        .catch(loadFailure)
+                        .then(loadFinally);
+
+            function loadSuccess(httpResponse) {
+
+                $scope.filters = httpResponse.data.results.filters;
+
+            }
+
+            function loadFailure(httpResponse) {
+                $log.info('There has been an error loading Filters');
+            }
+
+            function loadFinally(httpResponse) {
+                $log.info('load filters finally');
             }
         }
 

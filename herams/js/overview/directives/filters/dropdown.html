@@ -6,7 +6,7 @@
       </a>
       <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="directive-dropdown">
         <li ng-repeat="choice in items">
-          <a ng-click="select(choice)">{{choice}}</a>
+          <a ng-click="select(choice.label)">{{choice.label}}</a>
         </li>
       </ul>
     </span>
