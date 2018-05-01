@@ -8,9 +8,11 @@
  */
 angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$timeout,$window,$compile,$log,esriSvc,commonSvc) {
 
-    var map,mapSpecs,dynBounds;
+    var map,
+        mapSpecs,
+        dynBounds;
 
-    function displayData(map,serverData) {
+    function addMarkers(map,serverData) {
 
         var listHF = serverData.hf_list,
             colorsSpecs = serverData.config.colors,
@@ -22,6 +24,7 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
                 html:'<i class="fas fa-circle" style="color:'+ colorsSpecs[listHF[i].type] +'"></i>'
             });
              L.marker(listHF[i].coord, {icon: myIcon}).addTo(map);
+
              latlongList.push(listHF[i].coord);
         }
 
@@ -32,7 +35,6 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
         map.fitBounds(dynBounds);
 
     }
-
 
     return {
 
@@ -49,17 +51,16 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
             map = L.map(container);
             map.zoomControl.setPosition('topright');
 
-
             /* - adding basemaps - */
             for (var i in mapSpecs.basemaps) {
                var tmp = L.tileLayer(mapSpecs.basemaps[i]).addTo(map);
             }
 
-            /* - adding HF markers - */
-            displayData(map,serverData);
-
-            /* - adding ESRI layer - */
+            /* - adding Country / specific area layer - */
             esriSvc.getEsriShape(map, mapSpecs.layers[0]);
+
+            /* - adding HF markers - */
+            addMarkers(map,serverData);
 
             /* - responsiveness - */
             this.refreshLayout();
@@ -82,5 +83,6 @@ angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$tim
             if (map) map.fitBounds(dynBounds);
 
         }
+
     }
 });

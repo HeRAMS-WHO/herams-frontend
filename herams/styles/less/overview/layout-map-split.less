@@ -34,11 +34,26 @@
       }
 
       .box-1, .box-2, .box-3, .box-4 {
+        position: relative;
         text-align: center;
         vertical-align:middle;
         display:table-cell;
         width: 50%;
         height: 50%;
+
+        .tools {
+          position:absolute;
+          top:10px;
+          right:20px;
+
+          z-index: 200;
+          display: none;
+
+          img {
+            width: 15px;
+          }
+        }
+
       }
 
     }

@@ -11,7 +11,7 @@
  * @example
  *   <entry-popup />
  */
-angular.module('app-herams').directive('entryPopup', function($log,chartsSvc) {
+angular.module('app-herams').directive('entryPopup', function($log,commonSvc) {
 
     function getLayerDataFromName(allLayers,countryname) {
         for (var i in allLayers) {
@@ -25,16 +25,25 @@ angular.module('app-herams').directive('entryPopup', function($log,chartsSvc) {
     }
 
     function generateLegend(legends) {
-        var html = "";
+        var legends_html = "";
         for (var i in legends) {
-            html += getLegendTmplt(legends[i].label,legends[i].color);
+            legends_html += getLegendTmplt(legends[i].label,legends[i].color);
         }
-        return html;
+        return legends_html;
     }
 
-    function customPieHome(piechart) {
+    function dfltPieHome(data) {
 
-        var c = piechart;
+        var dflt = commonSvc.deepCopy(CONFIG.charts.pie);
+        dflt.chart.margin = [0, 0, 0, 0];
+        dflt.series[0].data = data;
+
+        return dflt;
+    }
+
+    function customPieHome(data) {
+
+        var c = dfltPieHome(data);
 
         c.chart.backgroundColor = '#42424b';
         c.chart.height = 102;
@@ -42,6 +51,11 @@ angular.module('app-herams').directive('entryPopup', function($log,chartsSvc) {
 
         return c;
 
+    }
+
+    function setAfterAnimate(piechart,f) {
+        piechart.plotOptions.pie.events = {};
+        piechart.plotOptions.pie.events.afterAnimate = f();
     }
 
     return {
@@ -59,12 +73,12 @@ angular.module('app-herams').directive('entryPopup', function($log,chartsSvc) {
 
             $scope.data = layerData.stats;
 
-            var pie1 = customPieHome(chartsSvc.getPie(layerData.stats.charts[0].data)),
-                pie2 = customPieHome(chartsSvc.getPie(layerData.stats.charts[1].data)),
-                pie3 = customPieHome(chartsSvc.getPie(layerData.stats.charts[2].data));
+            var pie1 = customPieHome(layerData.stats.charts[0].data),
+                pie2 = customPieHome(layerData.stats.charts[1].data),
+                pie3 = customPieHome(layerData.stats.charts[2].data);
 
 
-            chartsSvc.setAfterAnimateHome(pie1,function() {
+            setAfterAnimate(pie1,function() {
                 $('charts-percents:nth-child(1)').css('display','block');
             })
 

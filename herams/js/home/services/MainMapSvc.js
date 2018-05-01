@@ -113,7 +113,8 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
                             color: layers[i].available? "white" : status.color,
                             weight: layers[i].available? 3 : 0,
                             opacity: 1,
-                            fillOpacity: CONFIG.home.layersOpacity
+                            fillOpacity: CONFIG.home.layersOpacity,
+                            className: layers[i].stats? '' : 'disable-cursor'
                         }).addTo(map);
 
                 /* - MARKERS HOVERS - */

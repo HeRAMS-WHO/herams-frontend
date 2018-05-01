@@ -15,7 +15,10 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/normalize.css">
     <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/main.css">
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <!--<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />-->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
     <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
     <!-- endbower -->
     <!-- endbuild -->
@@ -82,9 +85,9 @@
 
                         <div class="row">
                             <div class="col-12 filters">
-                                <div class="filter-location"><img src="img/filter_where.svg"/>Nigeria</div>
-                                <div class="filter-calendar"><img src="img/filter_when.svg"/>{{date | date:'yyyy-MM-dd'}}</div>
-                                <div class="filter-freesearch"><img src="img/filter_who.svg"/><i style="color:#343a40">nc</i></div>
+                                <div class="filter-location"><dropdown icon="img/filter_where.svg" val="val xxx"/></div>
+                                <div class="filter-calendar"><datepicker date="date"></datepicker></div>
+                                <div class="freesearch"><dropdown icon="img/filter_who.svg" val="val yyy"/></div>
                             </div>
                         </div>
                     </div>
@@ -168,13 +171,15 @@
   <!-- inject:js -->
   <script src="config/config.js"></script>
   <script src="js/common/directives/user_popover.js"></script>
-  <script src="js/common/services/chartsSvc.js"></script>
   <script src="js/common/services/commonSvc.js"></script>
   <script src="js/common/services/esritogeojsonSvc.js"></script>
   <script src="js/common/services/LayerPopupSvc.js"></script>
   <script src="js/overview/controllers/MainCtrl.js"></script>
   <script src="js/overview/directives/hfmap.js"></script>
+  <script src="js/overview/services/chartsSvc.js"></script>
   <script src="js/overview/services/HFMapSvc.js"></script>
+  <script src="js/overview/directives/filters/datepicker.js"></script>
+  <script src="js/overview/directives/filters/dropdown.js"></script>
   <!-- endinject -->
   <!-- endbuild -->
 
@@ -183,5 +188,11 @@
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
 -->
+
+  <!-- highcharts export/print -->
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <!-- optional -->
+    <script src="http://code.highcharts.com/modules/offline-exporting.js"></script>
+
 </body>
 </html>

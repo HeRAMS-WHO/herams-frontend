@@ -10,7 +10,7 @@ var less = require('gulp-less');
 var autoprefixer = require('gulp-autoprefixer');
 var lazypipe = require('lazypipe');
 var runSequence = require('run-sequence');
-var csso = require('gulp-csso');
+var cssclean = require('gulp-clean-css');
 // var replace = require('gulp-replace');
 var useref = require('gulp-useref');
 var gulpif = require('gulp-if');
@@ -21,7 +21,7 @@ var mainBowerFiles = require('main-bower-files');
 var filter = require('gulp-filter');
 var flatten = require('gulp-flatten');
 var CacheBuster = require('gulp-cachebust');
-// var size = require('gulp-size');
+var size = require('gulp-size');
 var wiredep = require('wiredep');
 var serveStatic = require('serve-static');
 var serveIndex = require('serve-index');
@@ -44,11 +44,12 @@ var argv = require('yargs').argv;
 //STYLES: Compiles less styles into a single css file
 gulp.task('styles', function(success) {
     return gulp.src([
-        'herams/styles/main.less'
+        'herams/styles/less/main.less'
         ])
     .pipe(plumber())
     .pipe(less())
     //.pipe(autoprefixer({browsers: ['last 1 version']}))
+    .pipe(gulp.dest('herams/styles'))
     .pipe(gulp.dest('dist/styles'))
     .pipe(gulp.dest('.tmp/styles'));
 });
@@ -162,8 +163,7 @@ gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 //HTML: Minifies html, concatenates assets into a single file (based on the meta-tags specified in index.html)
 gulp.task('html', ['styles'], function() {
-    var cssChannel = lazypipe()
-    .pipe(csso);
+    var cssChannel = lazypipe().pipe(cssclean);
 
     var assets = useref({searchPath: '{.tmp,herams}'});
 
@@ -172,8 +172,8 @@ gulp.task('html', ['styles'], function() {
     .pipe(useref({searchPath: '{.tmp,herams}'}))
     .pipe(gulpif('*.js', ngAnnotate()))
     .pipe(gulpif('*.js', uglify()))
-    .pipe(gulpif('*.css', cssChannel()))
-    //.pipe(assets.restore())
+    .pipe(gulpif('*.css', cssChannel({debug: true})))
+    // .pipe(assets.restore())
     .pipe(useref())
     .pipe(gulpif('*.html', minifyHtml({conditionals: true, loose: true})))
     // .pipe(gulpif('*.css',cachebust.resources()))
@@ -235,7 +235,7 @@ gulp.task('dev', function(callback) {
         'inject-overview',
         'extras',
         'styles',
-        // ['gzip'],
+        ['gzip'],
         callback);
 
 });
@@ -272,6 +272,6 @@ gulp.task('dist', function(callback) {
         'uncache',
         'extras',
         'styles',
-        // ['gzip'],
+        ['gzip'],
         callback);
 });

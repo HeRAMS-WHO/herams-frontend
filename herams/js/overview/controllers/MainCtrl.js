@@ -11,13 +11,14 @@ angular.module('app-herams')
     .controller('MainCtrl', function($scope,$compile,$log,$timeout,commonSvc,HFMapSvc,chartsSvc) {
 
         /* - SCOPE VARS - */
+        $scope.charts = {};
+
         $scope.categories = [];
         $scope.catIDSelect = null;
         $scope.catNameSelect = null;
         $scope.mapdata = {};
-        $scope.catdata = {};
 
-        $scope.tableData = [];
+        $scope.tables = [];
 
         /* - SCOPE METHODS - */
         $scope.date = new Date();
@@ -45,13 +46,13 @@ angular.module('app-herams')
 
         function resizer() {
 
-            for (var i=0;i<$scope.catdata.length;i++) {
+            for (var i=0;i<$scope.charts.length;i++) {
                 var targ = '#chart'+(i+1);
                 $( targ ).empty();
             }
 
             chartsSvc.destroyCharts();
-            chartsSvc.setCHarts($scope.catdata);
+            chartsSvc.setCharts($scope.charts);
 
             HFMapSvc.refreshLayout();
         }
@@ -82,7 +83,30 @@ angular.module('app-herams')
             }
         }
 
-        function loadMapData(map_url) {
+        function loadCharts(charts_url, callback) {
+            return commonSvc.loadData(charts_url).then(loadSuccess)
+                        .catch(loadFailure)
+                        .then(loadFinally);
+
+            function loadSuccess(httpResponse) {
+
+                $scope.charts = (httpResponse.data.stats)? httpResponse.data.stats : httpResponse.data;
+
+                for (var i in $scope.charts) {
+                    if ($scope.charts[i].type == "table") $scope.tables.push(processTableData($scope.charts[i]));
+                }
+            }
+
+            function loadFailure(err) {
+                $log.info('Error loading Charts Data: ',err);
+            }
+
+            function loadFinally(httpResponse) {
+                callback();
+            }
+        }
+
+        function loadMap(map_url) {
             return commonSvc.loadData(map_url).then(loadSuccess)
                         .catch(loadFailure)
                         .then(loadFinally);
@@ -111,29 +135,6 @@ angular.module('app-herams')
                     resizer();
                 },100);
 
-            }
-        }
-
-        function loadCharts(charts_url,callback) {
-            return commonSvc.loadData(charts_url).then(loadSuccess)
-                        .catch(loadFailure)
-                        .then(loadFinally);
-
-            function loadSuccess(httpResponse) {
-
-                $scope.catdata = (httpResponse.data.stats)? httpResponse.data.stats : httpResponse.data;
-
-                for (var i in $scope.catdata) {
-                    if ($scope.catdata[i].type == "table") $scope.tableData.push(processTableData($scope.catdata[i]));
-                }
-            }
-
-            function loadFailure(err) {
-                $log.info('Error loading Charts Data: ',err);
-            }
-
-            function loadFinally(httpResponse) {
-                callback();
             }
         }
 
@@ -170,25 +171,22 @@ angular.module('app-herams')
 
         }
 
-        function launchLayout(cat) {
-
-            // DEBUG
-            // $log.info('launchLayout : ', cat);
+        function launchLayout(category) {
 
             // RESETS
             $scope.mapdata = {};
-            $scope.catdata = {};
-            $scope.tableData = [];
+            $scope.charts  = {};
+            $scope.tables  = [];
             $( ".main-content" ).empty();
             chartsSvc.destroyCharts();
 
-            $scope.catNameSelect = cat.name;
-            $scope.catIDSelect = cat.id;
+            $scope.catNameSelect = category.name;
+            $scope.catIDSelect   = category.id;
 
             // LAYOUTS (as directives)
-             var rawlayout = getLayout(cat.layout);
-             var linkFn = $compile(rawlayout);
-             var layout = linkFn($scope);
+             var rawlayout = getLayout(category.layout);
+             var linkFn    = $compile(rawlayout);
+             var layout    = linkFn($scope);
 
             $('.main-content').html(layout);
             $('.main-content').hide();
@@ -198,10 +196,10 @@ angular.module('app-herams')
             // LOADS
             $timeout(function() {
                 var f = function() {
-                    loadMapData(cat.ws_map_url);
-                }
-                loadCharts(cat.ws_chart_url,f);
-            },1500)
+                    loadMap(category.ws_map_url);
+                };
+                loadCharts(category.ws_chart_url,f);
+            }, 1500)
 
         }
 
@@ -213,11 +211,10 @@ angular.module('app-herams')
                 table_rows = data.rows;
 
             table_data.name = data.name;
-;
-             // table_data.col_names = Object.getOwnPropertyNames(table_rows[0]);
-            table_data.cols = data.columns
 
+            table_data.cols = data.columns;
             table_data.rows = [];
+
             for (var i in table_rows) {
                 var tmp = [];
                 for(var o in table_rows[i]) {
@@ -231,7 +228,7 @@ angular.module('app-herams')
 
 
     })
-    .directive('layout14', function($timeout,$log) {
+    .directive('layout14', function() {
 
         return {
             templateUrl: '/js/overview/directives/layouts/layout_1_4.html',
@@ -240,7 +237,7 @@ angular.module('app-herams')
          }
 
     })
-    .directive('layout13', function($timeout,$log) {
+    .directive('layout13', function() {
 
         return {
             templateUrl: '/js/overview/directives/layouts/layout_1_3.html',

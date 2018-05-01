@@ -216,6 +216,33 @@
   display: none;
 }
 */
+/**
+*
+*   *** BOOTSTRAP ***
+*
+*/
+.uib-datepicker-popup .h6 {
+  font-size: 0.8rem;
+}
+.uib-day .btn {
+  background-color: white;
+}
+.filter-dropdown a {
+  margin-left: 10px;
+  color: #42424b;
+}
+.filter-dropdown .open > .dropdown-menu {
+  display: block;
+}
+.filter-dropdown .dropdown-menu {
+  min-width: 7.5rem;
+}
+.filter-dropdown .dropdown-menu li:hover {
+  background-color: #e0e0e0;
+}
+.filter-dropdown .dropdown-toggle::after {
+  display: none;
+}
 .home {
   height: 100%;
 }
@@ -614,6 +641,9 @@
   border-top: 1px solid #6c6b70;
   color: white;
   text-align: center;
+}
+.disable-cursor {
+  cursor: auto;
 }
 .mainWrapper .overview {
   height: 100%;
@@ -1019,11 +1049,52 @@
 .layout13 .half .split-4 .box-4,
 .layout14 .half .split-3 .box-4,
 .layout13 .half .split-3 .box-4 {
+  position: relative;
   text-align: center;
   vertical-align: middle;
   display: table-cell;
   width: 50%;
   height: 50%;
+}
+.layout14 .half .split-4 .box-1 .tools,
+.layout13 .half .split-4 .box-1 .tools,
+.layout14 .half .split-3 .box-1 .tools,
+.layout13 .half .split-3 .box-1 .tools,
+.layout14 .half .split-4 .box-2 .tools,
+.layout13 .half .split-4 .box-2 .tools,
+.layout14 .half .split-3 .box-2 .tools,
+.layout13 .half .split-3 .box-2 .tools,
+.layout14 .half .split-4 .box-3 .tools,
+.layout13 .half .split-4 .box-3 .tools,
+.layout14 .half .split-3 .box-3 .tools,
+.layout13 .half .split-3 .box-3 .tools,
+.layout14 .half .split-4 .box-4 .tools,
+.layout13 .half .split-4 .box-4 .tools,
+.layout14 .half .split-3 .box-4 .tools,
+.layout13 .half .split-3 .box-4 .tools {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  z-index: 200;
+  display: none;
+}
+.layout14 .half .split-4 .box-1 .tools img,
+.layout13 .half .split-4 .box-1 .tools img,
+.layout14 .half .split-3 .box-1 .tools img,
+.layout13 .half .split-3 .box-1 .tools img,
+.layout14 .half .split-4 .box-2 .tools img,
+.layout13 .half .split-4 .box-2 .tools img,
+.layout14 .half .split-3 .box-2 .tools img,
+.layout13 .half .split-3 .box-2 .tools img,
+.layout14 .half .split-4 .box-3 .tools img,
+.layout13 .half .split-4 .box-3 .tools img,
+.layout14 .half .split-3 .box-3 .tools img,
+.layout13 .half .split-3 .box-3 .tools img,
+.layout14 .half .split-4 .box-4 .tools img,
+.layout13 .half .split-4 .box-4 .tools img,
+.layout14 .half .split-3 .box-4 .tools img,
+.layout13 .half .split-3 .box-4 .tools img {
+  width: 15px;
 }
 .layout14 .box-1,
 .layout13 .box-1,

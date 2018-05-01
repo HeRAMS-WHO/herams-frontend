@@ -32,7 +32,7 @@ angular.module('app-herams').service('LayerPopupSvc', function($timeout,$compile
             });
 */
 
-            $log.info();
+
             if (layerdata.pid != undefined) {
                 var projectID = layerdata.pid;
                 maplayer.on('click', function(e) {
