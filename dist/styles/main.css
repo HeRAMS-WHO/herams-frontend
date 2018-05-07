@@ -30,7 +30,6 @@
   height: 79px;
 }
 .content .header .row:nth-child(2) div:first-child {
-  padding: 0;
   margin: 0;
 }
 .content .header .breadcrumbs {
@@ -226,6 +225,9 @@
 }
 .uib-day .btn {
   background-color: white;
+}
+.uib-datepicker .uib-title {
+  background: none;
 }
 .filter-dropdown a {
   margin-left: 10px;
@@ -689,6 +691,7 @@
 }
 .mainWrapper .overview .menu .menu-items {
   position: absolute;
+  width: 100%;
   background-color: white;
   padding-bottom: 30px;
   z-index: 2;
@@ -698,7 +701,7 @@
   padding: 0;
   margin: 0;
 }
-.mainWrapper .overview .menu .menu-items ul li {
+.mainWrapper .overview .menu .menu-items ul li div.item {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -707,13 +710,19 @@
   height: 50px;
   padding-left: 25px;
 }
+.mainWrapper .overview .menu .menu-items ul li div.item span {
+  width: 90%;
+}
+.mainWrapper .overview .menu .menu-items ul li div.item img {
+  float: right;
+  width: 10px;
+}
+.mainWrapper .overview .menu .menu-items ul li div.item:hover {
+  color: #5791e1;
+}
 .mainWrapper .overview .menu .menu-items ul li.selected {
   color: #5791e1;
   border-left: 3px solid #5791e1;
-  padding-left: 22px;
-}
-.mainWrapper .overview .menu .menu-items ul li:hover {
-  color: #5791e1;
 }
 .mainWrapper .overview .main {
   height: 100%;
@@ -978,6 +987,11 @@
   width: 1px;
   height: 1px;
   font-size: 0.3em;
+}
+.filter-value {
+  padding: 0;
+  padding-bottom: 8px;
+  border-bottom: #ccc 1px solid;
 }
 .layout14,
 .layout13 {

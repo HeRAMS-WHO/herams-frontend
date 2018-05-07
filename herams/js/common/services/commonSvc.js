@@ -10,7 +10,8 @@ angular.module('app-herams').factory('commonSvc', function($state,$http,$compile
 
     var ws_paths = {
         home: ENV_VARS.host+'home',
-        overview: ENV_VARS.host+'categories'
+        overview_dev: ENV_VARS.host+'categories',
+        overview: 'config/test_nav.json'
     }
 
     return {

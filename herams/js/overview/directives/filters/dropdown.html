@@ -1,9 +1,9 @@
 <div class="filter-dropdown">
     <!--<div style="position:relative;"  uib-dropdown-toggle><img src="{{src}}"/><i>set data here</i></div>-->
     <span uib-dropdown>
-      <a href id="directive-dropdown" uib-dropdown-toggle>
-        <img src="{{src}}"/>{{ value }}
-      </a>
+      <div class="filter-value">
+          <a href id="directive-dropdown" uib-dropdown-toggle><img src="{{src}}"/>{{ value }}</a>
+      </div>
       <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="directive-dropdown">
         <li ng-repeat="choice in items">
           <a ng-click="select(choice.label)">{{choice.label}}</a>
