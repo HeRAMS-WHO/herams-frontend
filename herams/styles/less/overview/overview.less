@@ -2,6 +2,8 @@
 @menu-border-left: 3;
 @menu-hover-left: @menu-padding-left - @menu-border-left;
 
+@menu-categories-subnav-offset: 10px;
+
 @title-borderbot: 4px;
 
 // @dark-top-height: 176px; /* !! height to be with Breadcrumbs !! */
@@ -20,6 +22,7 @@
     height:100%;
 
     background-color: @home-sidebar-bgcolor;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.2);
     z-index: 50;
 
     .backhome{
@@ -82,21 +85,68 @@
             span {
               width: 90%;
             }
-
-            img {
-              float: right;
-              width: 10px;
-            }
             &:hover {
               color: @brand-blue;
             }
-          }
 
             &.selected {
               color: @brand-blue;
               border-left: unit(@menu-border-left, px) solid @brand-blue;
-              // padding-left: unit(@menu-hover-left, px);
+              padding-left: unit(@menu-hover-left, px);
             }
+          }
+
+
+          div.sub-categories {
+
+            color: @dark-grey;
+            padding-top: 10px;
+            background-color: #f3f3f3;
+
+            ul > li > div:first-child {
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              font-size: 1em;
+              font-weight: @medium;
+              height: 40px;
+              padding-left: calc(unit(@menu-padding-left, px) + @menu-categories-subnav-offset);
+
+              img {
+                float: right;
+                width: 10px;
+              }
+
+              span {
+                width: 90%;
+              }
+              &:hover {
+                color: @brand-blue;
+              }
+
+              &.selected {
+                color: @brand-blue;
+              }
+            }
+
+
+            &.sub-categories-lev2 {
+
+              background-color: #e7e7e7;
+              padding-bottom: 10px;
+
+              ul > li > div:first-child {
+                padding-left: calc(unit(@menu-padding-left, px) + 2*@menu-categories-subnav-offset);
+              }
+            }
+
+          }
+
+
+          img {
+            float: right;
+            width: 10px;
+          }
 
         }
       }

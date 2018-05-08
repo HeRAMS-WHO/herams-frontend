@@ -14,8 +14,8 @@ angular.module('app-herams')
         $scope.charts = {};
 
         $scope.categories = [];
-        $scope.catIDSelect = new Array(2);
-        $scope.catNameSelect = new Array(2);
+        $scope.catIDSelect = [0,0,0];
+        $scope.catNameSelect = [0,0,0];
         $scope.mapdata = {};
 
         $scope.tables = [];
@@ -196,6 +196,8 @@ angular.module('app-herams')
 
         function launchLayout(category,level) {
 
+            if (level==undefined) level = 0;
+
             // RESETS
             $scope.mapdata = {};
             $scope.charts  = {};
@@ -205,6 +207,8 @@ angular.module('app-herams')
 
             $scope.catNameSelect[level] = category.name;
             $scope.catIDSelect[level]   = category.id;
+
+            $log.info('$scope.catIDSelect :: ',$scope.catIDSelect);
 
             // LAYOUTS (as directives)
              var rawlayout = getLayout(category.layout);
