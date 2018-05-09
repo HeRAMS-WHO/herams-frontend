@@ -5,13 +5,15 @@
  * @name app-herams.directive:dropdown
  * @restrict E
  * @scope
- *   @param {dt} date
+ *   @param
  * @description
  *   Lorem ipsum
  * @example
  *   <dropdown  />
  */
 angular.module('app-herams').directive('dropdown', function($log) {
+
+    var lastOpened;
 
     return {
         templateUrl: '/js/overview/directives/filters/dropdown.html',
@@ -23,13 +25,29 @@ angular.module('app-herams').directive('dropdown', function($log) {
             items: "="
         },
         controller: function($scope){
-            // $scope.items = ["val 1","val 2","val 3","val 4","val 5","val 6"];
-
-            $log.info('$scope.items: ',$scope.items);
-
             $scope.select = function(val) {
                $scope.value = val;
             }
+        },
+        link: function($scope,elt,attr) {
+            var e = elt.find('.filter-value'),
+                container_cls = elt.parent().attr("class");
+
+            var filters_popover = $('.filters-popover.'+container_cls);
+
+            var display_type = (filters_popover.children().length>1)? "flex" : "block";
+
+            e.on('click', function () {
+
+                (filters_popover.css("display") == "none")? filters_popover.css("display",display_type):filters_popover.css("display","none");
+
+                if (lastOpened) {
+                    $(lastOpened).css("display","none");
+                    lastOpened = null;
+                }
+                if (filters_popover.css("display") == display_type) lastOpened = filters_popover;
+
+            })
         }
     }
 

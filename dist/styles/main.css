@@ -1,6 +1,5 @@
 /* Import Source Sans Pro font*/
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700');
 /* -- BRANDING -- */
 /* -- LAYOUT -- */
 /* - sizes - */
@@ -40,7 +39,7 @@
   color: #878787;
 }
 .content .header .breadcrumbs a:hover {
-  color: #5791e1;
+  color: #4177c1;
 }
 .content .header .breadcrumbs a i {
   font-size: 0.8em;
@@ -394,9 +393,9 @@
   border-left: 4px solid white;
 }
 .menu-entry .menu-items ul li:hover {
-  color: #5791e1;
+  color: #4177c1;
   background-color: #EAEAEA;
-  border-left: 4px solid #5791e1;
+  border-left: 4px solid #4177c1;
 }
 .menu-entry .menu-items ul li img {
   width: 30px;
@@ -414,7 +413,7 @@
   padding: 0 55px;
 }
 .menu-entry .menu-copy a {
-  color: #5791e1;
+  color: #4177c1;
   text-decoration: none;
   font-size: 1em;
 }
@@ -657,6 +656,7 @@
   width: 285px;
   height: 100%;
   background-color: white;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.2);
   z-index: 50;
 }
 .mainWrapper .overview .menu .backhome {
@@ -677,7 +677,7 @@
   font-weight: 700;
 }
 .mainWrapper .overview .menu .backhome a:hover {
-  color: #5791e1;
+  color: #4177c1;
 }
 .mainWrapper .overview .menu .Logo {
   border-bottom: 1px solid #f0f2f2;
@@ -713,16 +713,51 @@
 .mainWrapper .overview .menu .menu-items ul li div.item span {
   width: 90%;
 }
-.mainWrapper .overview .menu .menu-items ul li div.item img {
+.mainWrapper .overview .menu .menu-items ul li div.item:hover {
+  color: #4177c1;
+}
+.mainWrapper .overview .menu .menu-items ul li div.item.selected {
+  color: #4177c1;
+  border-left: 3px solid #4177c1;
+  padding-left: 22px;
+}
+.mainWrapper .overview .menu .menu-items ul li div.sub-categories {
+  color: #42424b;
+  padding-top: 10px;
+  background-color: #f3f3f3;
+}
+.mainWrapper .overview .menu .menu-items ul li div.sub-categories ul > li > div:first-child {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1em;
+  font-weight: 600;
+  height: 40px;
+  padding-left: calc(35px);
+}
+.mainWrapper .overview .menu .menu-items ul li div.sub-categories ul > li > div:first-child img {
   float: right;
   width: 10px;
 }
-.mainWrapper .overview .menu .menu-items ul li div.item:hover {
-  color: #5791e1;
+.mainWrapper .overview .menu .menu-items ul li div.sub-categories ul > li > div:first-child span {
+  width: 90%;
 }
-.mainWrapper .overview .menu .menu-items ul li.selected {
-  color: #5791e1;
-  border-left: 3px solid #5791e1;
+.mainWrapper .overview .menu .menu-items ul li div.sub-categories ul > li > div:first-child:hover {
+  color: #4177c1;
+}
+.mainWrapper .overview .menu .menu-items ul li div.sub-categories ul > li > div:first-child.selected {
+  color: #4177c1;
+}
+.mainWrapper .overview .menu .menu-items ul li div.sub-categories.sub-categories-lev2 {
+  background-color: #e7e7e7;
+  padding-bottom: 10px;
+}
+.mainWrapper .overview .menu .menu-items ul li div.sub-categories.sub-categories-lev2 ul > li > div:first-child {
+  padding-left: calc(45px);
+}
+.mainWrapper .overview .menu .menu-items ul li img {
+  float: right;
+  width: 10px;
 }
 .mainWrapper .overview .main {
   height: 100%;
@@ -756,17 +791,35 @@
   width: 100%;
   height: 75px;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
 }
-.mainWrapper .overview .main .content .header .filters > div {
+.mainWrapper .overview .main .content .header .filters .filters-groups {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 560px;
+  height: 75px;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups > div {
   min-width: 140px;
   margin-left: 20px;
 }
-.mainWrapper .overview .main .content .header .filters > div img {
+.mainWrapper .overview .main .content .header .filters .filters-groups > div img {
   float: left;
   height: 20px;
   margin-right: 8px;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-value {
+  padding: 0;
+  padding-bottom: 8px;
+  border-bottom: #ccc 1px solid;
+  cursor: pointer;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-value i {
+  float: right;
+  margin-top: 5px;
+  color: #e0e0e0;
 }
 .mainWrapper .overview .main .content .main-content {
   margin: 20px 0 50px 0;
@@ -901,7 +954,7 @@
   bottom: 15px;
   left: 25px;
   font-size: 1.2em;
-  color: #5791e1;
+  color: #4177c1;
   z-index: 1;
   cursor: pointer;
 }
@@ -988,10 +1041,84 @@
   height: 1px;
   font-size: 0.3em;
 }
-.filter-value {
+.global-filters-popovers {
+  position: absolute;
+  top: 133px;
+  left: 324px;
+  z-index: 10000;
+}
+.global-filters-popovers .filters-popover {
+  display: none;
+}
+.global-filters-popovers .filters-popover:nth-child(2) {
+  position: absolute;
+  top: 0;
+  left: 402px;
+}
+.global-filters-popovers .popovers-containers {
+  width: 225px;
+  max-height: 452px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.2);
+  border-top: 1px solid #4177c1;
+  padding-bottom: 15px;
+  background-color: white;
+}
+.global-filters-popovers .popovers-containers:nth-child(1) {
+  border-radius: 0 0 0 8px;
+}
+.global-filters-popovers .popovers-containers:nth-child(2) {
+  border-radius: 0 0 8px 0;
+}
+.global-filters-popovers .popovers-containers .popover-hdr {
+  width: 100%;
+  height: 40px;
+  font-weight: 600;
+  background-color: #e0e0e0;
+  padding: 8px 0 0px 15px;
+  margin-bottom: 5px;
+  font-size: 1.2em;
+  display: flex;
+  justify-content: space-between;
+}
+.global-filters-popovers .popovers-containers .popover-hdr i {
+  margin-top: 3px;
+  margin-right: 15px;
+}
+.global-filters-popovers .popovers-containers ul {
+  margin: 0;
   padding: 0;
-  padding-bottom: 8px;
-  border-bottom: #ccc 1px solid;
+}
+.global-filters-popovers .popovers-containers ul li {
+  padding-left: 15px;
+  height: 33px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.global-filters-popovers .popovers-containers ul li:hover {
+  background-color: #e0e0e0;
+}
+.global-filters-popovers .popovers-containers ul li:active {
+  color: white;
+  background-color: #ededed;
+}
+.global-filters-popovers .popovers-containers ul li.selected {
+  color: white;
+  background-color: #4177c1;
+}
+.global-filters-popovers .popovers-containers ul li span.label {
+  width: 170px;
+  height: 100%;
+  padding-top: 5px;
+  cursor: pointer;
+}
+.global-filters-popovers .popovers-containers ul li span.checkbox {
+  margin-right: 15px;
+  cursor: pointer;
+}
+.global-filters-popovers .popovers-containers ul li span.checkbox .checked {
+  display: none;
 }
 .layout14,
 .layout13 {

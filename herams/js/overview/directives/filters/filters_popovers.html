@@ -1,0 +1,12 @@
+ <div class="popovers-containers">
+     <div class="popover-hdr" ng-if="title!=null">{{title}}<i class="far fa-check-square"></i></div>
+     <ul>
+         <li ng-repeat="item in items">
+             <span class="label" ng-click="clickFilter($event)" data-label="{{item}}">{{item}}</span>
+             <span class="checkbox" ng-click="checkItem($event)">
+                 <span class="checked"><i class="far fa-check-square"></i></span>
+                 <span class="unchecked"><i class="far fa-square"></i></span>
+             </span>
+         </li>
+     </ul>
+ </div>
