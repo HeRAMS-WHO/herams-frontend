@@ -11,7 +11,7 @@
  * @example
  *   <dropdown  />
  */
-angular.module('app-herams').directive('filtersPopover', function($log) {
+angular.module('app-herams').directive('filtersPopover', function($log,filtersSvc) {
 
     function getNextPopoverScope (openNext) {
         return angular.element($(openNext).find('.popover-hdr')).scope();
@@ -19,13 +19,12 @@ angular.module('app-herams').directive('filtersPopover', function($log) {
 
     function openPopover(popoverId,params) {
 
+        $(params.itemClicked).parent().addClass('selected');
         $(popoverId).css("display","block");
 
-        var scp = getNextPopoverScope(popoverId);
-        scp.title = params.title + ' / ' + $(params.itemClicked).attr('data-label');
-
-        $(params.itemClicked).parent().addClass('selected');
-
+        var selectedItem = $(params.itemClicked).attr('data-label');
+        var scope = getNextPopoverScope(popoverId);
+        scope.updtItems(filtersSvc.getSubLocations(selectedItem));
     }
 
     return {
@@ -35,10 +34,33 @@ angular.module('app-herams').directive('filtersPopover', function($log) {
         scope:{
             title:"@",
             openNext:"@",
+            type:"@",
             items: "=",
             grouped:"="
         },
         controller: function ($scope){
+            $scope.updtItems = function(data) {
+                $scope.items = data;
+            }
+
+            $scope.checkItem = function(evt,item_label) {
+
+                if (!filtersSvc.getItemStatus(item_label,$scope.type)){
+                    filtersSvc.addFilter(item_label,$scope.type);
+
+                } else {
+                    filtersSvc.rmvFilter(item_label,$scope.type);
+                }
+
+                evt.stopPropagation();
+
+            }
+
+            $scope.isSelected = function(item_label) {
+                var val =  filtersSvc.getItemStatus(item_label,$scope.type);
+                return val;
+            }
+
         },
         link: function($scope,elt,attr) {
 
@@ -72,23 +94,9 @@ angular.module('app-herams').directive('filtersPopover', function($log) {
                             });
                         }
                     }
+
+                    evt.stopPropagation();
                 }
-            }
-
-            $scope.checkItem = function(evt) {
-
-                if ($(evt.currentTarget).find('.checked').css("display") == "none"){
-
-                    $(evt.currentTarget).find('.checked').css("display","block");
-                    $(evt.currentTarget).find('.unchecked').css("display","none");
-
-                } else {
-
-                    $(evt.currentTarget).find('.checked').css("display","none");
-                    $(evt.currentTarget).find('.unchecked').css("display","block");
-
-                }
-
             }
         }
     }

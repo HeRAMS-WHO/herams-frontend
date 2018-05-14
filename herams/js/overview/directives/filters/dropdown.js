@@ -20,7 +20,7 @@ angular.module('app-herams').directive('dropdown', function($log) {
         restrict: 'E',
         replace: true,
         scope:{
-            src: "@icon",
+            icon: "@icon",
             value: "@value",
             items: "="
         },
@@ -37,7 +37,7 @@ angular.module('app-herams').directive('dropdown', function($log) {
 
             var display_type = (filters_popover.children().length>1)? "flex" : "block";
 
-            e.on('click', function () {
+            e.on('click', function (evt) {
 
                 (filters_popover.css("display") == "none")? filters_popover.css("display",display_type):filters_popover.css("display","none");
 
@@ -47,7 +47,19 @@ angular.module('app-herams').directive('dropdown', function($log) {
                 }
                 if (filters_popover.css("display") == display_type) lastOpened = filters_popover;
 
-            })
+                evt.stopPropagation();
+
+            });
+
+            $('body').on('click', function () {
+
+                if (lastOpened) {
+                    $(lastOpened).css("display","none");
+                    lastOpened = null;
+                }
+
+            });
+
         }
     }
 

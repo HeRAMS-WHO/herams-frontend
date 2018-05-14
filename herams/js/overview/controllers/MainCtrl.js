@@ -8,7 +8,7 @@
  *   This controller is used on all the pages except the HF card which doesn't inherit from base
  */
 angular.module('app-herams')
-    .controller('MainCtrl', function($scope,$compile,$log,$timeout,commonSvc,HFMapSvc,chartsSvc) {
+    .controller('MainCtrl', function($scope,$compile,$log,$timeout,commonSvc,filtersSvc,HFMapSvc,chartsSvc) {
 
         /* - SCOPE VARS - */
         $scope.charts = {};
@@ -20,7 +20,7 @@ angular.module('app-herams')
 
         $scope.tables = [];
 
-        $scope.filters = [];
+        $scope.tmpFilters = [];
 
         /* - SCOPE METHODS - */
         $scope.date = new Date();
@@ -87,13 +87,16 @@ angular.module('app-herams')
         }
 
         function loadFilters() {
-             return commonSvc.loadData('config/filters.json').then(loadSuccess)
+             return commonSvc.loadData('config/filters_new.json').then(loadSuccess)
                         .catch(loadFailure)
                         .then(loadFinally);
 
             function loadSuccess(httpResponse) {
 
-                $scope.filters = httpResponse.data.results.filters;
+                filtersSvc.setFiltersData(httpResponse.data.results.filters);
+                $scope.states  = filtersSvc.getStatesList();
+
+                $scope.tmpFilters = filtersSvc.getFiltersSelection();
 
             }
 

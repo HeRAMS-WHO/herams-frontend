@@ -3,9 +3,13 @@
      <ul>
          <li ng-repeat="item in items">
              <span class="label" ng-click="clickFilter($event)" data-label="{{item}}">{{item}}</span>
-             <span class="checkbox" ng-click="checkItem($event)">
-                 <span class="checked"><i class="far fa-check-square"></i></span>
-                 <span class="unchecked"><i class="far fa-square"></i></span>
+             <span class="checkbox" ng-click="checkItem($event,item)">
+<!--
+                 <span class="checked" ng-if="isSelected(item)"><i class="far fa-check-square"></i></span>
+                 <span class="unchecked" ng-if="!isSelected(item)"><i class="far fa-square"></i></span>
+-->
+                 <i class="far fa-check-square" ng-if="isSelected(item)"></i>
+                 <i class="far fa-square" ng-if="!isSelected(item)"></i>
              </span>
          </li>
      </ul>

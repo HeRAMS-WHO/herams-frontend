@@ -10,14 +10,14 @@
     <meta http-equiv='expires' content='0'>
     <meta http-equiv='pragma' content='no-cache'>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css">
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/normalize.css">
     <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/main.css">
     <!--<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />-->
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
     <!-- endbower -->
@@ -139,19 +139,22 @@
                                     id="popover-location-1"
                                     open-next="#popover-location-2"
                                     title="State"
-                                    items="['Enugu','Edo','Ekiti','Gombelmo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos']"
+                                    items="states"
+                                    type="location"
                                     grouped="true"
                             ></filters-popover>
                             <filters-popover
                                     id="popover-location-2"
                                     title="LGA"
-                                    items="['Bimni-Gwari','Chikun','Giwa','Igabi','Ikara','Jaba','Jema a','Kachia','Kaduna North','Kaduna South','Kagarko','Kajuru']"
+                                    items=""
+                                    type="location"
                                     grouped="true"
                             ></filters-popover>
                         </div>
                         <div class="filters-popover filter-HF">
                             <filters-popover
                                     items="['Tertiary Hospital','Secondary Hospital','Primary Health Care Centre','Health Clinic','Health Post','IDP Camp Clinic','Mobile clinic']"
+                                    type="hf"
                                     grouped="false"
                             ></filters-popover>
                         </div>
@@ -222,6 +225,7 @@
   <script src="../bower_components/highcharts/modules/exporting.js"></script>
 
   <script src="../node_modules/@esri/arcgis-to-geojson-utils/dist/arcgis-to-geojson.js"></script>
+  <script src="../node_modules/lodash/lodash.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -241,6 +245,7 @@
   <script src="js/overview/controllers/MainCtrl.js"></script>
   <script src="js/overview/directives/hfmap.js"></script>
   <script src="js/overview/services/chartsSvc.js"></script>
+  <script src="js/overview/services/filtersSvc.js"></script>
   <script src="js/overview/services/HFMapSvc.js"></script>
   <script src="js/overview/directives/filters/datepicker.js"></script>
   <script src="js/overview/directives/filters/dropdown.js"></script>

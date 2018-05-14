@@ -737,7 +737,7 @@
 }
 .mainWrapper .overview .menu .menu-items ul li div.sub-categories ul > li > div:first-child img {
   float: right;
-  width: 10px;
+  width: 11px;
 }
 .mainWrapper .overview .menu .menu-items ul li div.sub-categories ul > li > div:first-child span {
   width: 90%;
@@ -757,7 +757,7 @@
 }
 .mainWrapper .overview .menu .menu-items ul li img {
   float: right;
-  width: 10px;
+  width: 11px;
 }
 .mainWrapper .overview .main {
   height: 100%;
@@ -1087,6 +1087,8 @@
 .global-filters-popovers .popovers-containers ul {
   margin: 0;
   padding: 0;
+  height: 405px;
+  overflow-y: auto;
 }
 .global-filters-popovers .popovers-containers ul li {
   padding-left: 15px;
