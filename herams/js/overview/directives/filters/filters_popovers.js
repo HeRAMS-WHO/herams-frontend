@@ -39,6 +39,7 @@ angular.module('app-herams').directive('filtersPopover', function($log,filtersSv
             grouped:"="
         },
         controller: function ($scope){
+
             $scope.updtItems = function(data) {
                 $scope.items = data;
             }
@@ -61,7 +62,26 @@ angular.module('app-herams').directive('filtersPopover', function($log,filtersSv
                 return val;
             }
 
+            $scope.getLevelStatus = function() {
+                if ($scope.items) {
+                    var level = filtersSvc.getLocationLevel($scope.items[0]);
+                    if (level) return filtersSvc.getLevelLocationStatus(level);
+                }
+            }
+
+            $scope.checkLevel = function(evt) {
+                // if ($scope.items) {
+                    var level = filtersSvc.getLocationLevel($scope.items[0]);
+                    if (level) filtersSvc.checkLocationLevel(level);
+                // }
+
+                evt.stopPropagation();
+            }
+
+            $scope.getHFColor = filtersSvc.getHFColor;
+
         },
+
         link: function($scope,elt,attr) {
 
             if ($scope.grouped) {

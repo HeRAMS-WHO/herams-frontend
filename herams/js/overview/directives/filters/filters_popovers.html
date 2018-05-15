@@ -1,15 +1,20 @@
  <div class="popovers-containers">
-     <div class="popover-hdr" ng-if="title!=null">{{title}}<i class="far fa-check-square"></i></div>
+     <div class="popover-hdr" ng-if="title!=null">
+         {{title}}
+         <i class="far fa-check-square" ng-if="getLevelStatus()==1" ng-click="checkLevel($event)"></i>
+         <i class="far fa-square" ng-if="getLevelStatus()==0" ng-click="checkLevel($event)"></i>
+         <i class="fas fa-square" ng-if="getLevelStatus()==2" ng-click="checkLevel($event)"></i>
+     </div>
      <ul>
          <li ng-repeat="item in items">
-             <span class="label" ng-click="clickFilter($event)" data-label="{{item}}">{{item}}</span>
+             <span class="label" ng-click="clickFilter($event)" data-label="{{item}}">
+                 <i class="fas fa-circle" ng-style="{'color':getHFColor(item)}" ng-if="type=='hf'"></i>
+                 {{item}}
+             </span>
              <span class="checkbox" ng-click="checkItem($event,item)">
-<!--
-                 <span class="checked" ng-if="isSelected(item)"><i class="far fa-check-square"></i></span>
-                 <span class="unchecked" ng-if="!isSelected(item)"><i class="far fa-square"></i></span>
--->
-                 <i class="far fa-check-square" ng-if="isSelected(item)"></i>
-                 <i class="far fa-square" ng-if="!isSelected(item)"></i>
+                 <i class="far fa-check-square" ng-if="isSelected(item)==1"></i>
+                 <i class="far fa-square" ng-if="isSelected(item)==0"></i>
+                 <i class="fas fa-square" ng-if="isSelected(item)==2" ng-click="checkLevel($event)"></i>
              </span>
          </li>
      </ul>

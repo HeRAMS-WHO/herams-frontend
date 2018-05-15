@@ -1115,6 +1115,10 @@
   padding-top: 5px;
   cursor: pointer;
 }
+.global-filters-popovers .popovers-containers ul li span.label i {
+  font-size: 0.6em;
+  padding-right: 5px;
+}
 .global-filters-popovers .popovers-containers ul li span.checkbox {
   margin-right: 15px;
   cursor: pointer;

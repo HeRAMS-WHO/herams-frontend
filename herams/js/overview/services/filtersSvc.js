@@ -8,133 +8,280 @@
  */
 angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
-/*
-            var test = _.find($scope.filters.location.values, { 'label': 'Ekiti' });
-            $log.info('$scope.filters Ekiti : ', test);
+        var appFilters;
 
-            var test2 = _.map($scope.filters.location.values, 'label');
-            $log.info('$scope.filters State labels : ', test2);
-*/
+        var dflt_notset_display = "not set",
+            dflt_multi_display = "multi";
 
-        var appFilters,
-            location_fltrs;
+
+        /* FILTERS SELECTION */
 
         var filters_selection = {};
 
+        function initSelection(data) {
+            filters_selection["location"] = [];
+            filters_selection["dates"] = [];
+            filters_selection["hftypes"] = [];
+        }
+
+        function addFilter(item_label,type) {
+
+            switch(type) {
+                case "location":
+                    addLocation(item_label);
+                    break;
+                case "hf":
+                    addHF(item_label);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function rmvFilter(item_label,type) {
+
+            switch(type) {
+                case "location":
+                    rmvLocation(item_label);
+                    break;
+                case "hf":
+                    rmvHF(item_label);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function getItemStatus(item_label,type) {
+
+            switch(type) {
+                case "location":
+                    return getLocationStatus(item_label);
+                    break;
+                case "hf":
+                    return getHFStatus(item_label);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function getFilterGlobalValue(type) {
+
+            switch(type) {
+                case "location":
+                    return getLocationGlobalValue();
+                    // return type + " - nc"
+                    break;
+                case "hf":
+                    return getHFGlobalValue();
+                    break;
+                default:
+                    break;
+            }
+
+            return type + " - nc";
+        }
+
         /* LOCATION filters methods */
+
+        var location_fltrs,
+            states_geolevel = '2' ;
+
         function getStatesList() {
-            var states = _.filter(location_fltrs.geo_list, { 'geo_level': 1 });
+            var states = _.filter(location_fltrs, { 'geo_level': states_geolevel });
             return _.map(states, 'geo_name');
         }
 
         function addLocation(geo_name) {
-            var data = _.filter(location_fltrs.geo_list, { 'geo_name': geo_name });
-            filters_selection[0].values.push(data[0].geo_id);
+            var data = _.filter(location_fltrs, { 'geo_name': geo_name });
+            filters_selection["location"].push(data[0].geo_id);
 
             /* select all child locations */
-            var children = _.filter(location_fltrs.geo_list, { 'parent_id': data[0].geo_id });
-            filters_selection[0].values = filters_selection[0].values.concat( _.map(children, 'geo_id'));
-            $log.info('select ',geo_name, ' - children: ',children.length, ' -> ',filters_selection[0].values);
+            var children = _.filter(location_fltrs, { 'parent_id': data[0].geo_id });
+            filters_selection["location"] = filters_selection["location"].concat( _.map(children, 'geo_id'));
 
-
-            getLevelLocationStatus(1);
         }
 
         function rmvLocation(geo_name) {
-            var data = _.filter(location_fltrs.geo_list, { 'geo_name': geo_name });
-            _.pull(filters_selection[0].values,data[0].geo_id);
-
-            $log.info('remove ',geo_name, ' - ',data[0].geo_id, ' -> ',filters_selection[0]);
+            var data = _.filter(location_fltrs, { 'geo_name': geo_name });
+            _.pull(filters_selection["location"],data[0].geo_id);
 
             /* remove all child locations */
-            var children = _.filter(location_fltrs.geo_list, { 'parent_id': data[0].geo_id });
-            _.pullAll(filters_selection[0].values, _.map(children, 'geo_id'));
-            $log.info('select ',geo_name, ' - children: ',children.length, ' -> ',filters_selection[0].values);
+            var children = _.filter(location_fltrs, { 'parent_id': data[0].geo_id });
+            _.pullAll(filters_selection["location"], _.map(children, 'geo_id'));
+
+            _.pull(filters_selection["location"],data[0].parent_id);
         }
 
         function getSubLocations(geo_name) {
-            var data = _.filter(location_fltrs.geo_list, { 'geo_name': geo_name });
+            var data = _.filter(location_fltrs, { 'geo_name': geo_name });
             var geoID = data[0].geo_id;
 
-            var sublocs = _.filter(location_fltrs.geo_list, { 'parent_id': geoID });
-            $log.info('sublocs ',sublocs);
+            var sublocs = _.filter(location_fltrs, { 'parent_id': geoID });
             return _.map(sublocs, 'geo_name');
         }
 
-        function getLocationStatus(geo_name) {
-            var data = _.filter(location_fltrs.geo_list, { 'geo_name': geo_name });
-            var geoID = data[0].geo_id;
+        function setStatusCode(rsltArr, compareArr) {
+            var rtrn;
 
-            return (filters_selection[0].values.indexOf(geoID) != -1);
+           if (rsltArr.length == 0) {
+               rtrn = 0;
+           } else if (rsltArr.length == compareArr.length) {
+               rtrn = 1;
+           } else {
+               rtrn = 2;
+           }
+
+           return rtrn;
+        }
+
+        function getLocationStatus(geo_name) {
+            var data = _.find(location_fltrs, { 'geo_name': geo_name });
+            var geoID = data.geo_id;
+            var children = _.filter(location_fltrs, { 'parent_id': geoID });
+
+            if (children.length > 0) {
+
+                var rslt = _.intersectionWith(_.map(children,'geo_id'), filters_selection["location"], _.isEqual);
+                return setStatusCode(rslt, children);
+
+            } else {
+                return (filters_selection["location"].indexOf(geoID) != -1);
+            }
+
         }
 
         function getLevelLocationStatus(level) {
-            var data = _.filter(location_fltrs.geo_list, { 'geo_level': level });
+            var data = _.filter(location_fltrs, { 'geo_level': level });
             var dataIDs = _.map(data,'geo_id');
 
-           var rslt = _.intersectionWith(_.map(data,'geo_id'),filters_selection[0].values, _.isEqual);
-           $log.info('getLevelLocationStatus : ',(rslt.length == data.length));
+            var rslt = _.intersectionWith(_.map(data,'geo_id'),filters_selection["location"], _.isEqual);
 
-           return (rslt.length == data.length);
+            return setStatusCode(rslt, data);
         }
 
+        function checkLocationLevel(level) {
+            var status = getLevelLocationStatus(level);
+            var children = _.filter(location_fltrs, { 'geo_level': level });
 
-        /* FILTERS SELECTION */
-        function initSelection(data) {
-            var filters = [];
+            if ((status == 1) || (status == 2)) {
 
-            var location = {
-                id: data.location.id,
-                values: (data.location.selection!=null) ? data.location.selection : []
-            };
-            filters.push(location);
+                /* REMOVE all related selection */
+                _.forEach(children, function(item) {
+                    rmvLocation(item.geo_name);
+                });
+                _.pullAll(filters_selection["location"], _.map(children, 'geo_id'));
 
-            var dates = {
-                id: data.date.id,
-                values: (data.date.selection!=null) ? data.date.selection : []
-            };
-            filters.push(dates);
+            } else {
 
-            var hftypes = {
-                id: data.hf_types.id,
-                values: (data.hf_types.selection!=null) ? data.hf_types.selection : []
-            };
-            filters.push(hftypes);
+                /* ADD all related selection */
+                _.forEach(children, function(item) {
+                    addLocation(item.geo_name);
+                });
+                filters_selection["location"] = filters_selection["location"].concat( _.map(children, 'geo_id'));
 
-            filters_selection = filters;
+
+                /* handling parent id in selection */
+                filters_selection["location"].push(children[0].parent_id);
+
+            }
         }
 
-        function addFilter(item_label,type) {
-            if (type == "location") addLocation(item_label);
+        function getLocationGlobalValue() {
+            if (filters_selection["location"]) {
+
+                 if (filters_selection["location"].length<1) {
+                    return dflt_notset_display;
+
+                }  else if (filters_selection["location"].length>1) {
+
+                     $log.info('getLevelLocationStatus(\'1\') = ',getLevelLocationStatus('1'));
+                     $log.info('getLevelLocationStatus(\'2\') = ',getLevelLocationStatus('2'));
+
+                     if (getLevelLocationStatus('1') == 1) {
+                         return "Nigeria";
+                     } else if (getLevelLocationStatus('2') == 1) {
+                         return "Borno";
+                     } else {
+                        return dflt_multi_display;
+                     }
+                } else {
+                    return _.find(location_fltrs, { 'geo_id': filters_selection["location"][0] }).geo_name;
+                }
+            }
         }
 
-        function rmvFilter(item_label,type) {
-            if (type == "location") rmvLocation(item_label);
+        /* HF Filters methods */
+
+        var hftype_fltrs;
+
+        function getHFTypesList() {
+            return _.map(hftype_fltrs, 'label');
         }
 
-        function getItemStatus(item_label,type) {
-            if (type == "location") return getLocationStatus(item_label);
+        function getHFData(hf_name) {
+            return _.find(hftype_fltrs, { 'label': hf_name });
+        }
+
+        function addHF(hf_name) {
+            filters_selection["hftypes"].push(getHFData(hf_name).code);
+        }
+
+        function rmvHF(hf_name) {
+            _.pull(filters_selection["hftypes"],getHFData(hf_name).code);
+        }
+
+        function getHFStatus(hf_name) {
+            return (filters_selection["hftypes"].indexOf(getHFData(hf_name).code) != -1);
+        }
+
+        function getHFColor(hf_name) {
+            return getHFData(hf_name).color;
+        }
+
+        function getHFGlobalValue() {
+            if (filters_selection["hftypes"]) {
+
+                 if (filters_selection["hftypes"].length<1) {
+                    return dflt_notset_display;
+
+                }  else if (filters_selection["hftypes"].length>1) {
+                    return dflt_multi_display;
+
+                } else {
+                    return _.find(hftype_fltrs, { 'code': filters_selection["hftypes"][0] }).label;
+                }
+            }
         }
 
 
     return {
 
-        setFiltersData: function(data) {
+        setFiltersData  : function(data) {
             appFilters = data;
-            location_fltrs = data.location;
+
+            location_fltrs = data.locations;
+            hftype_fltrs = data.hf_types;
+
             initSelection(data);
         },
 
-        getFiltersSelection: function() {
-            return filters_selection;
+        addFilter       : addFilter,
+        rmvFilter       : rmvFilter,
+        getItemStatus   : getItemStatus,
+        getFilterGlobalValue: getFilterGlobalValue,
+
+        getStatesList   : getStatesList,
+        getSubLocations : getSubLocations,
+        getLevelLocationStatus: getLevelLocationStatus,
+        getLocationLevel: function(geo_name) {
+            var locationData = _.filter(location_fltrs, { 'geo_name': geo_name });
+            return locationData[0].geo_level;
         },
+        checkLocationLevel: checkLocationLevel,
 
-        getStatesList: getStatesList,
-        addFilter: addFilter,
-        rmvFilter: rmvFilter,
-        getSubLocations: getSubLocations,
-
-        getItemStatus: getItemStatus,
-        getLevelLocationStatus: getLevelLocationStatus
+        getHFTypesList  : getHFTypesList,
+        getHFColor      : getHFColor
     }
 });

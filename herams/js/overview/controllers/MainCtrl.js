@@ -87,16 +87,15 @@ angular.module('app-herams')
         }
 
         function loadFilters() {
-             return commonSvc.loadData('config/filters_new.json').then(loadSuccess)
+             return commonSvc.loadData('config/filters_final.json').then(loadSuccess)
                         .catch(loadFailure)
                         .then(loadFinally);
 
             function loadSuccess(httpResponse) {
 
-                filtersSvc.setFiltersData(httpResponse.data.results.filters);
+                filtersSvc.setFiltersData(httpResponse.data.results);
                 $scope.states  = filtersSvc.getStatesList();
-
-                $scope.tmpFilters = filtersSvc.getFiltersSelection();
+                $scope.hftypes  = filtersSvc.getHFTypesList();
 
             }
 

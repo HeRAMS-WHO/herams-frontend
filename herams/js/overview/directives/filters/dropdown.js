@@ -11,7 +11,7 @@
  * @example
  *   <dropdown  />
  */
-angular.module('app-herams').directive('dropdown', function($log) {
+angular.module('app-herams').directive('dropdown', function($log,filtersSvc) {
 
     var lastOpened;
 
@@ -22,11 +22,15 @@ angular.module('app-herams').directive('dropdown', function($log) {
         scope:{
             icon: "@icon",
             value: "@value",
+            type: "@type",
             items: "="
         },
         controller: function($scope){
-            $scope.select = function(val) {
+ /*           $scope.select = function(val) {
                $scope.value = val;
+            }
+*/            $scope.getValue = function() {
+                return filtersSvc.getFilterGlobalValue($scope.type);
             }
         },
         link: function($scope,elt,attr) {

@@ -116,6 +116,7 @@
                                         <dropdown
                                                 icon="img/filter_where.svg"
                                                 value="Nigeria"
+                                                type="location"
                                                 items="filters[0].values"/>
                                     </div>
                                     <div class="filter-calendar">
@@ -125,6 +126,7 @@
                                         <dropdown
                                                 icon="img/filter_who.svg"
                                                 value="nc"
+                                                type="hf"
                                                 items="filters[2].values"/>
                                     </div>
                                 </div>
@@ -153,7 +155,7 @@
                         </div>
                         <div class="filters-popover filter-HF">
                             <filters-popover
-                                    items="['Tertiary Hospital','Secondary Hospital','Primary Health Care Centre','Health Clinic','Health Post','IDP Camp Clinic','Mobile clinic']"
+                                    items="hftypes"
                                     type="hf"
                                     grouped="false"
                             ></filters-popover>
