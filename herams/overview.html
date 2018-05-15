@@ -129,6 +129,11 @@
                                                 type="hf"
                                                 items="filters[2].values"/>
                                     </div>
+                                    <div class="filter-advanced">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#advncdSrchModal">
+                                          More filters
+                                        </button>
+                                    </div>
                                 </div>
                                 <div><!--<button type="button" class="btn btn-primary">apply</button>--></div>
                             </div>
@@ -160,6 +165,27 @@
                                     grouped="false"
                             ></filters-popover>
                         </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="advncdSrchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Filters</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <advanced-search data="LSQuestions"></advanced-search>
+                          </div>
+                          <div class="modal-footer">
+                              <div class="advanced-filters-cnt">Total: {{getAdvancedFiltersCnt()}} filters</div>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>Clear</button>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-check"></i>Apply</button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                </div>
             </div>
@@ -219,7 +245,7 @@
   <!--<script src="../bower_components/angular-animate/angular-animate.js"></script>-->
   <script src="../bower_components/angular-mocks/angular-mocks.js"></script>
   <script src="../bower_components/angular-loader/angular-loader.js"></script>
-  <!--<script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>-->
+  <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
 
   <script src="../bower_components/leaflet/dist/leaflet-src.js"></script>
   <script src="../bower_components/highcharts/highcharts.js"></script>
@@ -249,6 +275,7 @@
   <script src="js/overview/services/chartsSvc.js"></script>
   <script src="js/overview/services/filtersSvc.js"></script>
   <script src="js/overview/services/HFMapSvc.js"></script>
+  <script src="js/overview/directives/filters/advanced_search.js"></script>
   <script src="js/overview/directives/filters/datepicker.js"></script>
   <script src="js/overview/directives/filters/dropdown.js"></script>
   <script src="js/overview/directives/filters/filters_popovers.js"></script>

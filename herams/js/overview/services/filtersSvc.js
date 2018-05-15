@@ -14,7 +14,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             dflt_multi_display = "multi";
 
 
-        /* FILTERS SELECTION */
+        /* ---------------------- FILTERS SELECTION ---------------------- */
 
         var filters_selection = {};
 
@@ -83,7 +83,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             return type + " - nc";
         }
 
-        /* LOCATION filters methods */
+        /* ---------------------- LOCATION filters methods ---------------------- */
 
         var location_fltrs,
             states_geolevel = '2' ;
@@ -212,7 +212,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             }
         }
 
-        /* HF Filters methods */
+        /* ---------------------- HF Filters methods ---------------------- */
 
         var hftype_fltrs;
 
@@ -255,6 +255,23 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             }
         }
 
+        /* ---------------------- Advanced Filters methods ---------------------- */
+        var advanced_filters;
+
+        function updtAdvancedFilters(data) {
+            advanced_filters = data;
+        }
+
+        function getAdvancedFiltersCnt() {
+            var cnt = 0;
+
+            _.forEach(advanced_filters, function(value,key) {
+                cnt += value.length;
+            });
+
+            return cnt;
+        }
+
 
     return {
 
@@ -282,6 +299,9 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         checkLocationLevel: checkLocationLevel,
 
         getHFTypesList  : getHFTypesList,
-        getHFColor      : getHFColor
+        getHFColor      : getHFColor,
+
+        updtAdvancedFilters: updtAdvancedFilters,
+        getAdvancedFiltersCnt: getAdvancedFiltersCnt
     }
 });

@@ -11,5 +11,6 @@ window.appVersion = 'v1.0';
 
 angular.module('app-herams', [
     'ui.router',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngSanitize'
 ]);

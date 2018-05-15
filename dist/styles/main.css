@@ -1126,6 +1126,44 @@
 .global-filters-popovers .popovers-containers ul li span.checkbox .checked {
   display: none;
 }
+.advanced-search-modal {
+  max-height: 500px;
+  overflow-y: auto;
+}
+.advanced-search-modal ul {
+  padding-left: 5px;
+}
+.advanced-search-modal ul > li {
+  list-style: none;
+}
+.advanced-search-modal ul > li .group-title {
+  color: #4177c1;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+.advanced-search-modal ul > li .group-title img {
+  width: 11px;
+}
+.advanced-search-modal .group-question-list {
+  margin-bottom: 20px;
+}
+.advanced-search-modal .question-text {
+  border-bottom: 1px solid #e0e0e0;
+  width: 90%;
+  margin: 10px 0;
+  overflow: hidden;
+  font-weight: 600;
+}
+.advanced-search-modal .question-text p {
+  margin: 0;
+  padding: 0;
+}
+.advanced-search-modal .answer-text {
+  width: 80%;
+}
+.advanced-search-modal .answer-text i {
+  margin-right: 5px;
+}
 .layout14,
 .layout13 {
   /*

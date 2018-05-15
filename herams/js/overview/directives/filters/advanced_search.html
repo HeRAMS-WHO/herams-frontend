@@ -1,0 +1,33 @@
+<div class="advanced-search-modal">
+     <ul>
+         <li class="group-name" ng-repeat="group in data track by $index">
+             <div class="group-title" ng-click="toggleQuestions($event,group.id)">
+                 <img src="img/menu_open.svg" ng-if="isGrpOpened(group.id)">
+                 <img src="img/menu_close.svg" ng-if="!isGrpOpened(group.id)">
+                 <span ng-bind-html="group.title"></span>{{getGroupCnt(group.title)}}
+             </div>
+             <div class="group-question-list" ng-class="setGroupClass(group.id)">
+                 <ul>
+                     <li class="group-question" ng-repeat="question in getQuestions(group.title)">
+                         <div class="question-text" ng-click="toggleAnswers($event,question.code)">
+                             <span ng-bind-html="question.text"></span>
+                         </div>
+                        <div class="question-answers-list"  ng-class="question.code">
+                             <ul>
+                                 <li class="question-answer" ng-repeat="answer in question.answers">
+                                     <div class="answer-text" ng-click="checkItem($event, question.code,answer.code)">
+                                         <i class="far fa-square"
+                                            ng-if="!isSelected(question.code,answer.code)"></i>
+                                         <i class="far fa-check-square"
+                                            ng-if="isSelected(question.code,answer.code)"></i>
+                                         <span ng-bind-html="answer.text"></span>
+                                     </div>
+                                 </li>
+                             </ul>
+                         </div>
+                    </li>
+                </ul>
+             </div>
+         </li>
+     </ul>
+</div>

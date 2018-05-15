@@ -24,6 +24,7 @@ angular.module('app-herams')
 
         /* - SCOPE METHODS - */
         $scope.date = new Date();
+        $scope.getAdvancedFiltersCnt = filtersSvc.getAdvancedFiltersCnt;
 
         /* ui-router */
         $scope.home = function() {
@@ -86,6 +87,24 @@ angular.module('app-herams')
             }
         }
 
+        function loadAdvanced() {
+             return commonSvc.loadData('https://herams-uat.novel-t.ch/aping/filters?pid=374').then(loadSuccess)
+                        .catch(loadFailure)
+                        .then(loadFinally);
+
+            function loadSuccess(httpResponse) {
+                $scope.LSQuestions = httpResponse.data.groups;
+            }
+
+            function loadFailure(httpResponse) {
+                $log.info('There has been an error loading Filters');
+            }
+
+            function loadFinally(httpResponse) {
+                $log.info('load filters finally');
+            }
+        }
+
         function loadFilters() {
              return commonSvc.loadData('config/filters_final.json').then(loadSuccess)
                         .catch(loadFailure)
@@ -104,6 +123,7 @@ angular.module('app-herams')
             }
 
             function loadFinally(httpResponse) {
+                loadAdvanced();
                 $log.info('load filters finally');
             }
         }
