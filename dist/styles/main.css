@@ -32,8 +32,11 @@
   margin: 0;
 }
 .content .header .breadcrumbs {
+  color: #878787;
   font-size: 1.2em;
   font-weight: 300;
+  height: 17px;
+  margin-top: 11px;
 }
 .content .header .breadcrumbs a {
   color: #878787;
@@ -53,7 +56,9 @@
   font-size: 3em;
   font-weight: 300;
   letter-spacing: -2px;
-  margin-top: 17px;
+  line-height: 41px;
+  margin: 0;
+  padding: 0;
   color: white;
 }
 .content .header .title span {
@@ -70,7 +75,7 @@
  */
 .content .header .user-profile {
   padding-top: 0;
-  margin-top: 0;
+  margin-top: 5px;
   line-height: 1em;
   display: flex;
   justify-content: flex-end;
@@ -391,6 +396,7 @@
   text-transform: uppercase;
   padding-left: 15px;
   border-left: 4px solid white;
+  cursor: pointer;
 }
 .menu-entry .menu-items ul li:hover {
   color: #4177c1;
@@ -681,8 +687,8 @@
 }
 .mainWrapper .overview .menu .Logo {
   border-bottom: 1px solid #f0f2f2;
-  padding: 43px 0 38px 0;
-  margin-bottom: 35px;
+  padding: 7px 0 19px 0;
+  margin-bottom: 20px;
   text-align: center;
 }
 .mainWrapper .overview .menu .Logo img {
@@ -695,11 +701,16 @@
   background-color: white;
   padding-bottom: 30px;
   z-index: 2;
+  max-height: 400px;
+  overflow: auto;
 }
 .mainWrapper .overview .menu .menu-items ul {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+.mainWrapper .overview .menu .menu-items ul li {
+  cursor: pointer;
 }
 .mainWrapper .overview .menu .menu-items ul li div.item {
   display: flex;
@@ -707,7 +718,7 @@
   align-items: center;
   font-size: 1.3em;
   font-weight: 600;
-  height: 50px;
+  height: 47px;
   padding-left: 25px;
 }
 .mainWrapper .overview .menu .menu-items ul li div.item span {
@@ -723,7 +734,6 @@
 }
 .mainWrapper .overview .menu .menu-items ul li div.sub-categories {
   color: #42424b;
-  padding-top: 10px;
   background-color: #f3f3f3;
 }
 .mainWrapper .overview .menu .menu-items ul li div.sub-categories ul > li > div:first-child {

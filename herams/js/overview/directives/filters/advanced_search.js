@@ -19,6 +19,12 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
         var rslt = [];
 
         _.forEach(groupData.questions, function(val, key) {
+
+            // if ((val.dimensions == 0) && (val.answers != null)) $log.info(val.dimensions, ' - ', val.answers, ' - ', val.questions);
+
+            if ((val.dimensions == 1)) $log.info('-- ',val.dimensions, ' -- ', val.text, ' - ', val.questions);
+
+/*
             if (val.answers!=null) {
                 var o = {
                     code: key,
@@ -27,7 +33,31 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                 }
                 rslt.push(o);
             }
+*/
+            if ((val.dimensions == 0) && (val.answers != null)) {
+                var o = {
+                    code: val.title,
+                    text: val.text,
+                    answers: val.answers
+                }
+                rslt.push(o);
+            } else if (val.dimensions == 1) {
+                var tmp_code = val.title,
+                    tmp_text = val.text;
+
+                _.forEach(val.questions[0], function(qval, qkey) {
+                    if (qval.answers != null) {
+                        var o = {
+                            code: tmp_code + "_" + qval.title,
+                            text: tmp_text + ' - ' + qval.text,
+                            answers: qval.answers
+                        }
+                        rslt.push(o);
+                    }
+                });
+            }
         });
+
 
         return rslt;
     }

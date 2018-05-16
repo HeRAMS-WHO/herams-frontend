@@ -15,7 +15,10 @@ angular.module('app-herams')
 
         $scope.categories = [];
         $scope.catIDSelect = [0,0,0];
-        $scope.catNameSelect = [0,0,0];
+        $scope.catNameSelect = ["","",""];
+
+        $scope.catMenuON = ["","",""];
+
         $scope.mapdata = {};
 
         $scope.tables = [];
@@ -223,35 +226,55 @@ angular.module('app-herams')
 
             if (level==undefined) level = 0;
 
-            // RESETS
-            $scope.mapdata = {};
-            $scope.charts  = {};
-            $scope.tables  = [];
-            $( ".main-content" ).empty();
-            chartsSvc.destroyCharts();
+            if ($scope.catIDSelect[level] != category.id) {
 
-            $scope.catNameSelect[level] = category.name;
-            $scope.catIDSelect[level]   = category.id;
+                $scope.catNameSelect[level] = category.name;
+                $scope.catIDSelect[level]   = category.id;
 
-            // LAYOUTS (as directives)
-             var rawlayout = getLayout(category.layout);
-             var linkFn    = $compile(rawlayout);
-             var layout    = linkFn($scope);
+                if (category.ws_chart_url != "" && category.ws_map_url != "") {
 
-            $('.main-content').html(layout);
-            $('.main-content').hide();
-            $('.loading').show();
+                    // RESETS
+                    $scope.mapdata = {};
+                    $scope.charts  = {};
+                    $scope.tables  = [];
+                    $( ".main-content" ).empty();
+                    chartsSvc.destroyCharts();
+
+                    // LAYOUTS (as directives)
+                     var rawlayout = getLayout(category.layout);
+                     var linkFn    = $compile(rawlayout);
+                     var layout    = linkFn($scope);
+
+                    $('.main-content').html(layout);
+                    $('.main-content').hide();
+                    $('.loading').show();
 
 
-            // LOADS
-            $timeout(function() {
-                var f = function() {
-                    loadMap(category.ws_map_url);
-                };
-                loadCharts(category.ws_chart_url,f);
-            }, 1500)
+                    // LOADS
+                    $timeout(function() {
+                        var f = function() {
+                            loadMap(category.ws_map_url);
+                        };
+                        loadCharts(category.ws_chart_url,f);
+                    }, 1500)
+
+                }
+
+            }
+
+            ($scope.catMenuON[level] != category.id)? $scope.catMenuON[level] = category.id : $scope.catMenuON[level] = "";
+
+
 
         }
+
+        function setBreadcrumbs() {
+            var str = $scope.catNameSelect[1];
+            if ($scope.catNameSelect[2]) str += " > " + $scope.catNameSelect[2];
+
+            return str;
+        }
+        $scope.setBreadcrumbs = setBreadcrumbs;
 
 
         /* - LAYOUTS DATA - */

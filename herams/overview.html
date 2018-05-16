@@ -52,11 +52,11 @@
                         <li ng-repeat="category in categories">
                             <div class="item" ng-class="{'selected': category.id==catIDSelect[0] }">
                                 <span ng-if="category.id!=catIDSelect[0]"><a ng-click="launchLayout(category)">{{category.name}}</a></span>
-                                <span ng-if="category.id==catIDSelect[0]">{{category.name}}</span>
+                                <span ng-if="category.id==catIDSelect[0]" ng-click="launchLayout(category)">{{category.name}}</span>
                                 <img src="img/menu_open.svg" ng-show="category.subcategories!=null && category.id!=catIDSelect[0]"/>
                                 <img src="img/menu_close.svg" ng-show="category.subcategories!=null && category.id==catIDSelect[0]"/>
                             </div>
-                            <div class="sub-categories parent-category-id-{{category.id}}" ng-if="category.subcategories!=null" ng-show="category.id==catIDSelect[0]">
+                            <div class="sub-categories parent-category-id-{{category.id}}" ng-if="category.subcategories!=null" ng-show="category.id==catMenuON[0]">
                                 <ul ng-cloak>
                                     <li ng-repeat="subcat in category.subcategories">
                                         <div ng-class="{'selected': subcat.id==catIDSelect[1] }">
@@ -65,7 +65,7 @@
                                             <img src="img/menu_open.svg" ng-show="subcat.subcategories!=null && subcat.id!=catIDSelect[1]"/>
                                             <img src="img/menu_close.svg" ng-show="subcat.subcategories!=null && subcat.id==catIDSelect[1]"/>
                                         </div>
-                                        <div class="sub-categories sub-categories-lev2 parent-category-id-{{subcat.id}}" ng-if="subcat.subcategories!=null" ng-show="subcat.id==catIDSelect[1]">
+                                        <div class="sub-categories sub-categories-lev2 parent-category-id-{{subcat.id}}" ng-if="subcat.subcategories!=null" ng-show="subcat.id==catMenuON[1]">
                                             <ul ng-cloak>
                                                 <li ng-repeat="subsubcat in subcat.subcategories">
                                                     <div ng-class="{'selected': subsubcat.id==catIDSelect[2] }">
@@ -90,7 +90,7 @@
                     <div class="header container-fluid">
                         <div class="row">
                             <div class="col-sm-6 col-lg-8">
-                                <!--<div class="breadcrumbs">&nbsp;<a href="/"><i class="fas fa-chevron-left"></i> Back</a></div>-->
+                                <div class="breadcrumbs">{{ setBreadcrumbs() }}</div>
                                 <div class="title" ng-cloak><span>{{ catNameSelect[0] }}</span></div>
                             </div>
                             <div class="col-sm-6 col-lg-4">
