@@ -205,11 +205,34 @@
               min-width: 140px;
               margin-left: 20px;
 
+              &.filter-HF {
+                min-width: 220px;
+              }
+
+              &.filter-advanced, &.filter-advanced-view {
+
+                min-width: 100px;
+
+                button {
+                  background: none;
+                  color: @dark-grey;
+                  border: none;
+                  &:hover {
+                    color: @brand-blue;
+                  }
+                }
+              }
+
               img {
                 float:left;
                 height:20px;
                 margin-right: 8px;
               }
+            }
+
+            &.filter-btns {
+              float: right;
+              display: flex;
             }
 
             .filter-value {
@@ -219,10 +242,14 @@
 
               cursor: pointer;
 
-              i {
-                float:right;
-                margin-top: 5px;
-                color: @light-grey;
+              .arrow{
+                height: 30px;
+                img {
+                  float:right;
+                  margin-top: 9px;
+                  width: 8px;
+                  height: 4px;
+                 }
               }
             }
           }
@@ -509,7 +536,7 @@
     &:nth-child(2) {
       position: absolute;
       top: 0;
-      left: 402px;
+      left: 322px;
     }
   }
 
@@ -540,10 +567,12 @@
       display:flex;
       justify-content: space-between;
 
-      i {
+      img {
+        width: 17px;
+        height: 17px;
         margin-top: 3px;
         margin-right: 15px;
-      }
+     }
     }
 
     ul {
@@ -593,6 +622,10 @@
            .checked {
              display: none;
            }
+           img {
+             width: 17px;
+             height: 17px;
+           }
          }
       }
 
@@ -601,12 +634,12 @@
   }
 }
 
-.advanced-search-modal {
+.advanced-search-modal, .advanced-list-modal {
   max-height: 500px;
   overflow-y: auto;
 
   ul {
-    padding-left: 5px;
+    padding-left: 0;
   }
 
   ul > li {
@@ -624,6 +657,7 @@
 
   .group-question-list {
     margin-bottom: 20px;
+    margin-left: 15px;
   }
 
   .question-text {
@@ -635,14 +669,42 @@
     p {
       margin:0;padding:0;
     }
+
+    img {
+      margin-right: 7px;
+      margin-bottom: 3px;
+      width: 14px;
+      height: 14px;
+    }
   }
   .answer-text {
-    width: 80%;
-    i {
-      margin-right: 5px;
+    width: 96%;
+    display:flex;
+    align-items: flex-start;
+
+    img {
+      margin-right: 7px;
+      margin-top: 3px;
+      width: 14px;
+      height: 14px;
     }
   }
 
+}
+
+.advanced-list-modal {
+  .question-text {
+    border: none;
+    margin: 0;
+  }
+  .answer-text {
+    font-size: 0.8em;
+    line-height: 14px;
+    margin-bottom: 5px;
+  }
+  .group-question {
+    margin: 8px 0;
+  }
 }
 
 

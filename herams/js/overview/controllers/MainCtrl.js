@@ -63,13 +63,16 @@ angular.module('app-herams')
 
         /* - LOADs - */
 
+        function filteredLoad(url) {
+            return commonSvc.loadData(url,filtersSvc.getHTTPFilters());
+        }
+
         function init() {
-             return commonSvc.loadData(commonSvc.getWSPaths('overview')).then(loadSuccess)
+             return filteredLoad(commonSvc.getWSPaths('overview')).then(loadSuccess)
                         .catch(loadFailure)
                         .then(loadFinally);
 
             function loadSuccess(httpResponse) {
-                $log.info('success: ',httpResponse.data.results);
 
                 $scope.categories = httpResponse.data.results.categories;
 
@@ -88,7 +91,7 @@ angular.module('app-herams')
         }
 
         function loadAdvanced() {
-             return commonSvc.loadData('https://herams-uat.novel-t.ch/aping/filters?pid=374').then(loadSuccess)
+             return commonSvc.loadData('https://herams-dev.westeurope.cloudapp.azure.com/aping/filters?pid=374').then(loadSuccess)
                         .catch(loadFailure)
                         .then(loadFinally);
 
@@ -106,7 +109,7 @@ angular.module('app-herams')
         }
 
         function loadFilters() {
-             return commonSvc.loadData('config/filters_final.json').then(loadSuccess)
+             return commonSvc.loadData('https://herams-dev.westeurope.cloudapp.azure.com/aping/global-filters').then(loadSuccess)
                         .catch(loadFailure)
                         .then(loadFinally);
 
@@ -129,7 +132,7 @@ angular.module('app-herams')
         }
 
         function loadCharts(charts_url, callback) {
-            return commonSvc.loadData(charts_url).then(loadSuccess)
+            return filteredLoad(charts_url).then(loadSuccess)
                         .catch(loadFailure)
                         .then(loadFinally);
 
@@ -152,7 +155,7 @@ angular.module('app-herams')
         }
 
         function loadMap(map_url) {
-            return commonSvc.loadData(map_url).then(loadSuccess)
+            return filteredLoad(map_url).then(loadSuccess)
                         .catch(loadFailure)
                         .then(loadFinally);
 
@@ -230,8 +233,6 @@ angular.module('app-herams')
             $scope.catNameSelect[level] = category.name;
             $scope.catIDSelect[level]   = category.id;
 
-            $log.info('$scope.catIDSelect :: ',$scope.catIDSelect);
-
             // LAYOUTS (as directives)
              var rawlayout = getLayout(category.layout);
              var linkFn    = $compile(rawlayout);
@@ -274,6 +275,31 @@ angular.module('app-herams')
 
             return table_data;
         }
+
+
+        /* - APPLY FILTERS DATA - */
+        function applyFilters() {
+
+             return commonSvc.loadData(commonSvc.getWSPaths('overview'),filtersSvc.applyHTTPFilters($scope.date)).then(loadSuccess)
+                        .catch(loadFailure)
+                        .then(loadFinally);
+
+            function loadSuccess(httpResponse) {
+
+                $scope.categories = httpResponse.data.results.categories;
+            }
+
+            function loadFailure(httpResponse) {
+                $log.info('There has been an error Overview Data');
+            }
+
+            function loadFinally(httpResponse) {
+                launchLayout($scope.categories[0]);
+            }
+        }
+
+        $scope.applyFilters=applyFilters;
+
 
 
     })

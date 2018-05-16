@@ -28,7 +28,7 @@
     <!-- endbuild -->
 
     <script>
-        var tokenConfig="83vhjevf2t71799401fvai-TEST";
+        var tokenConfig="085e1f753eef2a2ebd11a6ba1f422568";
     </script>
 </head>
 <body ng-app="app-herams">
@@ -124,7 +124,7 @@
                                     </div>
                                     <div class="filter-HF">
                                         <dropdown
-                                                icon="img/filter_who.svg"
+                                                icon="img/filters/HF.png"
                                                 value="nc"
                                                 type="hf"
                                                 items="filters[2].values"/>
@@ -133,6 +133,15 @@
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#advncdSrchModal">
                                           More filters
                                         </button>
+                                    </div>
+                                    <div class="filter-advanced-view">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#advncdViewModal">
+                                          View all ({{getAdvancedFiltersCnt()}})
+                                        </button>
+                                    </div>
+                                    <div class="filter-btns">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>Clear</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="applyFilters()"><i class="fas fa-check"></i>Apply</button>
                                     </div>
                                 </div>
                                 <div><!--<button type="button" class="btn btn-primary">apply</button>--></div>
@@ -166,7 +175,7 @@
                             ></filters-popover>
                         </div>
                     </div>
-                    <!-- Modal -->
+                    <!-- Modals -->
                     <div class="modal fade" id="advncdSrchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
@@ -187,6 +196,23 @@
                         </div>
                       </div>
                     </div>
+                    <div class="modal fade" id="advncdViewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{getAdvancedFiltersCnt()}} filters</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <advanced-filters-list></advanced-filters-list>
+                          </div>
+                          <div class="modal-footer"></div>
+                        </div>
+                      </div>
+                    </div>
+               </div>
                </div>
             </div>
 
@@ -279,6 +305,7 @@
   <script src="js/overview/directives/filters/datepicker.js"></script>
   <script src="js/overview/directives/filters/dropdown.js"></script>
   <script src="js/overview/directives/filters/filters_popovers.js"></script>
+  <script src="js/overview/directives/filters/list_advanced_filters.js"></script>
   <!-- endinject -->
   <!-- endbuild -->
 

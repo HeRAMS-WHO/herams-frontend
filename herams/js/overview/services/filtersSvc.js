@@ -13,15 +13,23 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         var dflt_notset_display = "not set",
             dflt_multi_display = "multi";
 
+        /* ---------------------- MAIN FILTERS METHODS ---------------------- */
+
+        function clearFilters () {
+            filters_selection = {};
+            this.shared.advanced_filters_src = null;
+            this.shared.advanced_filters_applied = null;
+        }
 
         /* ---------------------- FILTERS SELECTION ---------------------- */
 
         var filters_selection = {};
 
-        function initSelection(data) {
+        function initSelection() {
             filters_selection["location"] = [];
-            filters_selection["dates"] = [];
+            filters_selection["date"] = null;
             filters_selection["hftypes"] = [];
+            filters_selection["advanced"]=[];
         }
 
         function addFilter(item_label,type) {
@@ -86,7 +94,8 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         /* ---------------------- LOCATION filters methods ---------------------- */
 
         var location_fltrs,
-            states_geolevel = '2' ;
+            states_geolevel = '2',
+            applied_location_fltrs = [];
 
         function getStatesList() {
             var states = _.filter(location_fltrs, { 'geo_level': states_geolevel });
@@ -95,23 +104,23 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         function addLocation(geo_name) {
             var data = _.filter(location_fltrs, { 'geo_name': geo_name });
-            filters_selection["location"].push(data[0].geo_id);
+            applied_location_fltrs.push(data[0].geo_id);
 
             /* select all child locations */
             var children = _.filter(location_fltrs, { 'parent_id': data[0].geo_id });
-            filters_selection["location"] = filters_selection["location"].concat( _.map(children, 'geo_id'));
+            applied_location_fltrs = applied_location_fltrs.concat( _.map(children, 'geo_id'));
 
         }
 
         function rmvLocation(geo_name) {
             var data = _.filter(location_fltrs, { 'geo_name': geo_name });
-            _.pull(filters_selection["location"],data[0].geo_id);
+            _.pull(applied_location_fltrs,data[0].geo_id);
 
             /* remove all child locations */
             var children = _.filter(location_fltrs, { 'parent_id': data[0].geo_id });
-            _.pullAll(filters_selection["location"], _.map(children, 'geo_id'));
+            _.pullAll(applied_location_fltrs, _.map(children, 'geo_id'));
 
-            _.pull(filters_selection["location"],data[0].parent_id);
+            _.pull(applied_location_fltrs,data[0].parent_id);
         }
 
         function getSubLocations(geo_name) {
@@ -143,11 +152,11 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
             if (children.length > 0) {
 
-                var rslt = _.intersectionWith(_.map(children,'geo_id'), filters_selection["location"], _.isEqual);
+                var rslt = _.intersectionWith(_.map(children,'geo_id'), applied_location_fltrs, _.isEqual);
                 return setStatusCode(rslt, children);
 
             } else {
-                return (filters_selection["location"].indexOf(geoID) != -1);
+                return (applied_location_fltrs.indexOf(geoID) != -1);
             }
 
         }
@@ -156,7 +165,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             var data = _.filter(location_fltrs, { 'geo_level': level });
             var dataIDs = _.map(data,'geo_id');
 
-            var rslt = _.intersectionWith(_.map(data,'geo_id'),filters_selection["location"], _.isEqual);
+            var rslt = _.intersectionWith(_.map(data,'geo_id'),applied_location_fltrs, _.isEqual);
 
             return setStatusCode(rslt, data);
         }
@@ -171,7 +180,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                 _.forEach(children, function(item) {
                     rmvLocation(item.geo_name);
                 });
-                _.pullAll(filters_selection["location"], _.map(children, 'geo_id'));
+                _.pullAll(applied_location_fltrs, _.map(children, 'geo_id'));
 
             } else {
 
@@ -179,22 +188,22 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                 _.forEach(children, function(item) {
                     addLocation(item.geo_name);
                 });
-                filters_selection["location"] = filters_selection["location"].concat( _.map(children, 'geo_id'));
+                applied_location_fltrs = applied_location_fltrs.concat( _.map(children, 'geo_id'));
 
 
                 /* handling parent id in selection */
-                filters_selection["location"].push(children[0].parent_id);
+                applied_location_fltrs.push(children[0].parent_id);
 
             }
         }
 
         function getLocationGlobalValue() {
-            if (filters_selection["location"]) {
+            if (applied_location_fltrs) {
 
-                 if (filters_selection["location"].length<1) {
+                 if (applied_location_fltrs.length<1) {
                     return dflt_notset_display;
 
-                }  else if (filters_selection["location"].length>1) {
+                }  else if (applied_location_fltrs.length>1) {
 
                      $log.info('getLevelLocationStatus(\'1\') = ',getLevelLocationStatus('1'));
                      $log.info('getLevelLocationStatus(\'2\') = ',getLevelLocationStatus('2'));
@@ -207,14 +216,15 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                         return dflt_multi_display;
                      }
                 } else {
-                    return _.find(location_fltrs, { 'geo_id': filters_selection["location"][0] }).geo_name;
+                    return _.find(location_fltrs, { 'geo_id': applied_location_fltrs[0] }).geo_name;
                 }
             }
         }
 
         /* ---------------------- HF Filters methods ---------------------- */
 
-        var hftype_fltrs;
+        var hftype_fltrs,
+            applied_hftype_fltrs = [];
 
         function getHFTypesList() {
             return _.map(hftype_fltrs, 'label');
@@ -225,15 +235,15 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         }
 
         function addHF(hf_name) {
-            filters_selection["hftypes"].push(getHFData(hf_name).code);
+            applied_hftype_fltrs.push(getHFData(hf_name).code);
         }
 
         function rmvHF(hf_name) {
-            _.pull(filters_selection["hftypes"],getHFData(hf_name).code);
+            _.pull(applied_hftype_fltrs,getHFData(hf_name).code);
         }
 
         function getHFStatus(hf_name) {
-            return (filters_selection["hftypes"].indexOf(getHFData(hf_name).code) != -1);
+            return (applied_hftype_fltrs.indexOf(getHFData(hf_name).code) != -1);
         }
 
         function getHFColor(hf_name) {
@@ -241,31 +251,38 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         }
 
         function getHFGlobalValue() {
-            if (filters_selection["hftypes"]) {
+            if (applied_hftype_fltrs) {
 
-                 if (filters_selection["hftypes"].length<1) {
+                 if (applied_hftype_fltrs.length<1) {
                     return dflt_notset_display;
 
-                }  else if (filters_selection["hftypes"].length>1) {
+                }  else if (applied_hftype_fltrs.length>1) {
                     return dflt_multi_display;
 
                 } else {
-                    return _.find(hftype_fltrs, { 'code': filters_selection["hftypes"][0] }).label;
+                    return _.find(hftype_fltrs, { 'code': applied_hftype_fltrs[0] }).label;
                 }
             }
         }
 
         /* ---------------------- Advanced Filters methods ---------------------- */
-        var advanced_filters;
+
+        var advanced_filters_src,
+            advanced_filters_applied;
+
+        function setAdvcdFltsData(src, applied) {
+            this.shared.advanced_filters_src = src;
+            this.shared.advanced_filters_applied = applied;
+        }
 
         function updtAdvancedFilters(data) {
-            advanced_filters = data;
+            advanced_filters_applied = data;
         }
 
         function getAdvancedFiltersCnt() {
             var cnt = 0;
 
-            _.forEach(advanced_filters, function(value,key) {
+            _.forEach(advanced_filters_applied, function(value,key) {
                 cnt += value.length;
             });
 
@@ -273,15 +290,51 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         }
 
 
-    return {
+        /* ---------------------- Advanced Filters methods ---------------------- */
 
+        function applyHTTPFilters(date) {
+
+            if (date) filters_selection["date"] = date;
+
+            filters_selection["location"] = applied_location_fltrs;
+            filters_selection["hftypes"] = applied_hftype_fltrs;
+
+            _.forEach(this.shared.advanced_filters_applied, function(value, key) {
+                var tmp = {};
+                tmp[key] = value.join();
+                filters_selection["advanced"].push(tmp);
+            });
+
+            var o = {
+                filters: filters_selection
+            };
+
+            return o;
+        }
+
+        function getHTTPFilters() {
+
+            var o = {
+                filters: filters_selection
+            };
+
+            return o;
+        }
+
+        initSelection();
+
+
+    return {
+        shared:{
+            advanced_filters_src    :null,
+            advanced_filters_applied: null
+        },
         setFiltersData  : function(data) {
             appFilters = data;
 
             location_fltrs = data.locations;
             hftype_fltrs = data.hf_types;
 
-            initSelection(data);
         },
 
         addFilter       : addFilter,
@@ -301,7 +354,11 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         getHFTypesList  : getHFTypesList,
         getHFColor      : getHFColor,
 
-        updtAdvancedFilters: updtAdvancedFilters,
-        getAdvancedFiltersCnt: getAdvancedFiltersCnt
+        setAdvcdFltsData        : setAdvcdFltsData,
+        updtAdvancedFilters     : updtAdvancedFilters,
+        getAdvancedFiltersCnt   : getAdvancedFiltersCnt,
+
+        getHTTPFilters   : getHTTPFilters,
+        applyHTTPFilters : applyHTTPFilters
     }
 });

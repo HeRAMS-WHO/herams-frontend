@@ -10,8 +10,9 @@ angular.module('app-herams').factory('commonSvc', function($state,$http,$compile
 
     var ws_paths = {
         home: ENV_VARS.host+'home',
-        overview_dev: ENV_VARS.host+'categories',
-        overview: 'config/test_nav.json'
+        // overview_dev: ENV_VARS.host+'categories',
+        // overview_tmp: 'config/test_nav.json'
+        overview: ENV_VARS.host+'categories'
     }
 
     return {
@@ -24,18 +25,20 @@ angular.module('app-herams').factory('commonSvc', function($state,$http,$compile
         /* - GET REQUESTS -*/
         loadData: function(url,params) {
             var dfltParams = {
-                    'token': tokenConfig
+                    token: tokenConfig
                 };
 
             if (params) dfltParams = $.extend(dfltParams,params);
 
             return $http({
-                'method': 'GET',
-                'url': url,
-                'params': dfltParams,
+                method: 'POST',
+                url: url,
+                params: dfltParams
+/*
                 'headers': {
                     'Content-Type': 'application/json;charset=UTF-8'
                 }
+*/
             });
         },
 

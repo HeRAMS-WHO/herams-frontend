@@ -1,0 +1,30 @@
+<div class="advanced-list-modal">
+     <ul>
+         <li class="group-name" ng-repeat="group in getData() track by $index" ng-if="grpHasSelection(group)">
+             <div class="group-title">
+                 <span ng-bind-html="group"></span>
+                 {{ grpHasSelection(group) }}
+             </div>
+             <div class="group-question-list">
+                 <ul>
+                     <li class="group-question" ng-repeat="question in getQuestions(group)">
+                         <div ng-if="isFilterQ(question.code)">
+                             <div class="question-text">
+                                 <span ng-bind-html="question.text"></span>
+                             </div>
+                            <div class="question-answers-list">
+                                 <ul>
+                                     <li class="question-answer" ng-repeat="answer in question.answers">
+                                         <div class="answer-text" ng-if="isFilterA(question.code,answer.code)">
+                                             -&nbsp;&nbsp;<span ng-bind-html="answer.text"></span>
+                                         </div>
+                                     </li>
+                                 </ul>
+                            </div>
+                         </div>
+                    </li>
+                </ul>
+             </div>
+         </li>
+     </ul>
+</div>

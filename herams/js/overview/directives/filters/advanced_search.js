@@ -50,6 +50,8 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                     _.forEach(loaded, function(value) {
                         advanced_search_data[value.title] = setQuestionSet(value);
                     });
+                    $log.info(advanced_search_data);
+                    filtersSvc.setAdvcdFltsData(advanced_search_data, filters_advanced);
                 }
             });
 
@@ -60,26 +62,25 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
             /* ---------------------- Selecting filters ---------------------- */
 
-            function select (evt, qCode, aCode) {
-                if (!filters_advanced[qCode]) filters_advanced[qCode] = [];
-                filters_advanced[qCode].push(aCode);
-
-                evt.stopPropagation();
-            }
-            function unselect (evt, qCode, aCode) {
-                _.pull(filters_advanced[qCode],aCode);
-                evt.stopPropagation();
-            }
-            function checkItem(evt, qCode, aCode) {
-                (isSelected(qCode, aCode))? unselect(evt, qCode, aCode) : select(evt, qCode, aCode);
-                filtersSvc.updtAdvancedFilters(filters_advanced);
-            }
-            $scope.checkItem = checkItem;
-
             function isSelected(qCode, aCode) {
                 return (filters_advanced[qCode])? filters_advanced[qCode].indexOf(aCode) != -1 : false;
             }
             $scope.isSelected = isSelected;
+
+            function check (qCode, aCode) {
+                if (!filters_advanced[qCode]) filters_advanced[qCode] = [];
+                filters_advanced[qCode].push(aCode);
+            }
+            function uncheck ( qCode, aCode) {
+                _.pull(filters_advanced[qCode],aCode);
+                if (filters_advanced[qCode].length<1) delete filters_advanced[qCode];
+            }
+            function checkItem(evt, qCode, aCode) {
+                (isSelected(qCode, aCode))? uncheck(qCode, aCode) : check(qCode, aCode);
+                filtersSvc.updtAdvancedFilters(filters_advanced);
+                evt.stopPropagation();
+            }
+            $scope.checkItem = checkItem;
 
             function getGroupCnt(grp_txt) {
                 var cnt = 0;
@@ -92,6 +93,39 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                 return (cnt == 0)? "" : "(" + cnt + ")";
             }
             $scope.getGroupCnt = getGroupCnt;
+
+            function getQStatus(grptitle,qcode) {
+                var q = _.find(advanced_search_data[grptitle],{'code': qcode});
+
+                if (q.answers) {
+                    var nbr_answers = q.answers.length;
+                    if (filters_advanced[qcode]) {
+                        if (filters_advanced[qcode].length == nbr_answers) {
+                            return 1;
+                        } else {
+                            return 2;
+                        }
+                    } else {
+                        return 0;
+                    }
+                }
+
+            }
+            $scope.getQStatus=getQStatus;
+
+            function selectAllQ(evt,grptitle,qcode,status) {
+                var q = _.find(advanced_search_data[grptitle],{'code': qcode});
+
+                if (status>0) {
+                    delete filters_advanced[qcode];
+                } else {
+                    filters_advanced[qcode] = _.map(q.answers,'code');
+                }
+
+                evt.stopPropagation();
+
+            }
+            $scope.selectAllQ=selectAllQ;
 
 
             /* ---------------------- Toggling filters display ---------------------- */
