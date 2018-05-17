@@ -22,7 +22,7 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
             // if ((val.dimensions == 0) && (val.answers != null)) $log.info(val.dimensions, ' - ', val.answers, ' - ', val.questions);
 
-            // if ((val.dimensions == 1)) $log.info('-- ',val.dimensions, ' -- ', val.text, ' - ', val.questions);
+            // if ((val.dimensions == 1)) $log.info('-- ',val.dimensions, ' -- ', val.text, ' - ', val.answers, ' - ', val.questions);
 
             if ((val.dimensions == 0) && (val.answers != null)) {
                 var o = {
@@ -31,20 +31,44 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                     answers: val.answers
                 }
                 rslt.push(o);
+
             } else if (val.dimensions == 1) {
+
                 var tmp_code = val.title,
                     tmp_text = val.text;
 
-                _.forEach(val.questions[0], function(qval, qkey) {
-                    if (qval.answers != null) {
-                        var o = {
-                            code: tmp_code + "_" + qval.title,
-                            text: tmp_text + ' - ' + qval.text,
-                            answers: qval.answers
+                var yesnoQ = (_.filter(val.answers,{'code':"Y"}).length > 0);
+
+                if (!yesnoQ) {
+                    _.forEach(val.questions[0], function(qval, qkey) {
+                        if (qval.answers != null) {
+                            var o = {
+                                code: tmp_code + "_" + qval.title,
+                                text: tmp_text + ' - ' + qval.text,
+                                answers: qval.answers
+                            }
+                            rslt.push(o);
                         }
-                        rslt.push(o);
+                    });
+                } else {
+                    // $log.info('yesnoQ - ', val.questions);
+                    var tmp_answers = [];
+                    var o = {
+                        code: tmp_code,
+                        text: tmp_text
                     }
-                });
+
+                    _.forEach(val.questions[0], function(qval, qkey) {
+                        var oo = {
+                            code: qval.title,
+                            text: qval.text
+                        }
+                        tmp_answers.push(oo);
+                    });
+
+                    o.answers = tmp_answers;
+                    rslt.push(o);
+                }
             }
         });
 
