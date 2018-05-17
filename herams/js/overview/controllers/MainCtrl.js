@@ -8,7 +8,9 @@
  *   This controller is used on all the pages except the HF card which doesn't inherit from base
  */
 angular.module('app-herams')
-    .controller('MainCtrl', function($scope,$compile,$log,$timeout,commonSvc,filtersSvc,HFMapSvc,chartsSvc) {
+    .controller('MainCtrl', function($scope,$compile,$log,$timeout,$uibModal,commonSvc,filtersSvc,HFMapSvc,chartsSvc) {
+
+        var nodata_text_alert = 'No match with these criteria';
 
         /* - SCOPE VARS - */
         $scope.charts = {};
@@ -222,16 +224,40 @@ angular.module('app-herams')
 
         }
 
+        function updtBreadrumbs(showing_cat_level) {
+            if (showing_cat_level < 2) {
+                $scope.catNameSelect[2] = "";
+                if (showing_cat_level < 1) $scope.catNameSelect[1] = "";
+            }
+        }
+
+        function setBreadcrumbs() {
+            var str = $scope.catNameSelect[1];
+            if ($scope.catNameSelect[2]) str += " > " + $scope.catNameSelect[2];
+
+            return str;
+        }
+        $scope.setBreadcrumbs = setBreadcrumbs;
+
+        function hasData (category) {
+            return ((category.ws_chart_url != "" && category.ws_map_url != ""));
+        }
+        $scope.hasData = hasData;
+
+        var showing_cat_level = 0;
         function launchLayout(category,level) {
 
             if (level==undefined) level = 0;
 
-            if ($scope.catIDSelect[level] != category.id) {
+            if ($scope.catIDSelect[level] != category.id || (showing_cat_level != level)) {
 
                 $scope.catNameSelect[level] = category.name;
                 $scope.catIDSelect[level]   = category.id;
 
-                if (category.ws_chart_url != "" && category.ws_map_url != "") {
+                showing_cat_level = level;
+                updtBreadrumbs(level);
+
+                if (hasData(category)) {
 
                     // RESETS
                     $scope.mapdata = {};
@@ -259,20 +285,20 @@ angular.module('app-herams')
                     }, 1500)
 
                 }
+                else {
+
+                    $( ".main-content" ).empty();
+                    chartsSvc.destroyCharts();
+
+                    $( ".main-content" ).html(nodata_text_alert);
+
+                }
 
             }
 
             ($scope.catMenuON[level] != category.id)? $scope.catMenuON[level] = category.id : $scope.catMenuON[level] = "";
 
         }
-
-        function setBreadcrumbs() {
-            var str = $scope.catNameSelect[1];
-            if ($scope.catNameSelect[2]) str += " > " + $scope.catNameSelect[2];
-
-            return str;
-        }
-        $scope.setBreadcrumbs = setBreadcrumbs;
 
 
         /* - LAYOUTS DATA - */
