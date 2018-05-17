@@ -277,6 +277,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         function updtAdvancedFilters(data) {
             advanced_filters_applied = data;
+            this.shared.advanced_filters_applied = data;
         }
 
         function getAdvancedFiltersCnt() {
@@ -287,6 +288,16 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             });
 
             return cnt;
+        }
+
+        function clearAdvancedFilters() {
+
+            $log.info('clearAdvancedFilters');
+
+            advanced_filters_applied = null;
+            this.shared.advanced_filters_applied = null;
+
+            getAdvancedFiltersCnt();
         }
 
 
@@ -357,6 +368,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         setAdvcdFltsData        : setAdvcdFltsData,
         updtAdvancedFilters     : updtAdvancedFilters,
         getAdvancedFiltersCnt   : getAdvancedFiltersCnt,
+        clearAdvancedFilters    : clearAdvancedFilters,
 
         getHTTPFilters   : getHTTPFilters,
         applyHTTPFilters : applyHTTPFilters

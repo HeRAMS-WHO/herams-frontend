@@ -1186,6 +1186,10 @@
   font-size: 1.3em;
   font-weight: 600;
 }
+.advanced-search-modal ul > li .group-title.greyed-out,
+.advanced-list-modal ul > li .group-title.greyed-out {
+  color: #e0e0e0;
+}
 .advanced-search-modal ul > li .group-title img,
 .advanced-list-modal ul > li .group-title img {
   width: 11px;

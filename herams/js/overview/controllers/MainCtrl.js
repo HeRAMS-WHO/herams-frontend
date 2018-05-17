@@ -320,10 +320,21 @@ angular.module('app-herams')
                 launchLayout($scope.categories[0]);
             }
         }
-
         $scope.applyFilters=applyFilters;
 
+        function clearSetFilters() {
+            $scope.$broadcast('setFiltersCleared');
+        }
+        $scope.clearSetFilters=clearSetFilters;
 
+        function clearMainFilters() {
+            if (filtersSvc.getAdvancedFiltersCnt()>0) {
+                filtersSvc.clearAdvancedFilters();
+                clearSetFilters();
+                applyFilters();
+            }
+        }
+        $scope.clearMainFilters=clearMainFilters;
 
     })
     .directive('layout14', function() {

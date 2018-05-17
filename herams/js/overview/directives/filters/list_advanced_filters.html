@@ -3,7 +3,7 @@
          <li class="group-name" ng-repeat="group in getData() track by $index" ng-if="grpHasSelection(group)">
              <div class="group-title">
                  <span ng-bind-html="group"></span>
-                 {{ grpHasSelection(group) }}
+                 ({{ grpSelectCnt(group) }})
              </div>
              <div class="group-question-list">
                  <ul>

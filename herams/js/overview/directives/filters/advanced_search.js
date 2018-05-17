@@ -22,18 +22,8 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
             // if ((val.dimensions == 0) && (val.answers != null)) $log.info(val.dimensions, ' - ', val.answers, ' - ', val.questions);
 
-            if ((val.dimensions == 1)) $log.info('-- ',val.dimensions, ' -- ', val.text, ' - ', val.questions);
+            // if ((val.dimensions == 1)) $log.info('-- ',val.dimensions, ' -- ', val.text, ' - ', val.questions);
 
-/*
-            if (val.answers!=null) {
-                var o = {
-                    code: key,
-                    text: val.text,
-                    answers: val.answers
-                }
-                rslt.push(o);
-            }
-*/
             if ((val.dimensions == 0) && (val.answers != null)) {
                 var o = {
                     code: val.title,
@@ -71,7 +61,7 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
         },
         controller: function($scope){
 
-            /* ---------------------- Setting up data ---------------------- */
+            /* ---------------------- Setting up / clearing data ---------------------- */
 
             var advanced_search_data = [];
 
@@ -80,15 +70,21 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                     _.forEach(loaded, function(value) {
                         advanced_search_data[value.title] = setQuestionSet(value);
                     });
-                    $log.info(advanced_search_data);
                     filtersSvc.setAdvcdFltsData(advanced_search_data, filters_advanced);
                 }
             });
 
-            $scope.getQuestions = function(grp_txt) {
+            function getQuestions(grp_txt) {
                  return advanced_search_data[grp_txt];
             }
+            $scope.getQuestions = getQuestions;
 
+             $scope.$on('setFiltersCleared', function (event) {
+                 filters_advanced = {};
+                 if (filtersSvc.getAdvancedFiltersCnt()>0) {
+                     filtersSvc.clearAdvancedFilters();
+                 }
+             });
 
             /* ---------------------- Selecting filters ---------------------- */
 
@@ -160,8 +156,15 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
             /* ---------------------- Toggling filters display ---------------------- */
 
+            $scope.greyoutCls = function(grptitle) {
+                var cls = "";
+                if (getQuestions(grptitle).length<1) cls += " greyed-out";
+                return cls;
+            }
+
             $scope.setGroupClass = function(grpid) {
-                return "cls_"+grpid;
+                var cls = "cls_"+grpid;
+                return cls;
             }
 
             $scope.toggleQuestions = function(evt,grpid) {

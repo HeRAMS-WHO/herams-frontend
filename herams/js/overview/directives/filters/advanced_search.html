@@ -1,7 +1,7 @@
 <div class="advanced-search-modal">
      <ul>
          <li class="group-name" ng-repeat="group in data track by $index">
-             <div class="group-title" ng-click="toggleQuestions($event,group.id)">
+             <div class="group-title" ng-click="toggleQuestions($event,group.id)" ng-class="greyoutCls(group.title)">
                  <img src="img/menu_open.svg" ng-if="!isGrpOpened(group.id)">
                  <img src="img/menu_close.svg" ng-if="isGrpOpened(group.id)">
                  <span ng-bind-html="group.title"></span>{{getGroupCnt(group.title)}}
