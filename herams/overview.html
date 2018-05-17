@@ -51,10 +51,12 @@
                     <ul ng-cloak>
                         <li ng-repeat="category in categories">
                             <div class="item" ng-class="{'selected': category.id==catIDSelect[0] }">
-                                <span ng-if="category.id!=catIDSelect[0]"><a ng-click="launchLayout(category)">{{category.name}}</a></span>
+                                <span ng-if="category.id!=catIDSelect[0]">
+                                    <a ng-click="launchLayout(category)">{{category.name}}</a>
+                                </span>
                                 <span ng-if="category.id==catIDSelect[0]" ng-click="launchLayout(category)">{{category.name}}</span>
-                                <img src="img/menu_open.svg" ng-show="category.subcategories!=null && category.id!=catIDSelect[0]" ng-click="launchLayout(category)"/>
-                                <img src="img/menu_close.svg" ng-show="category.subcategories!=null && category.id==catIDSelect[0]" ng-click="launchLayout(category)"/>
+                                <img src="img/menu_open.svg" ng-show="category.subcategories!=null && category.id!=catMenuON[0]" ng-click="launchLayout(category)"/>
+                                <img src="img/menu_close.svg" ng-show="category.subcategories!=null && category.id==catMenuON[0]" ng-click="launchLayout(category)"/>
                             </div>
                             <div class="sub-categories parent-category-id-{{category.id}}" ng-if="category.subcategories!=null" ng-show="category.id==catMenuON[0]">
                                 <ul ng-cloak>
@@ -62,14 +64,16 @@
                                         <div ng-class="{'selected': subcat.id==catIDSelect[1] }">
                                             <span ng-if="subcat.id!=catIDSelect[1]"><a ng-click="launchLayout(subcat,1)">{{subcat.name}}</a></span>
                                             <span ng-if="subcat.id==catIDSelect[1]">{{subcat.name}}</span>
-                                            <img src="img/menu_open.svg" ng-show="subcat.subcategories!=null && subcat.id!=catIDSelect[1]" ng-click="launchLayout(subcat,1)"/>
-                                            <img src="img/menu_close.svg" ng-show="subcat.subcategories!=null && subcat.id==catIDSelect[1]" ng-click="launchLayout(subcat,1)"/>
+                                            <img src="img/menu_open.svg" ng-show="subcat.subcategories!=null && subcat.id!=catMenuON[1]" ng-click="launchLayout(subcat,1)"/>
+                                            <img src="img/menu_close.svg" ng-show="subcat.subcategories!=null && subcat.id==catMenuON[1]" ng-click="launchLayout(subcat,1)"/>
                                         </div>
                                         <div class="sub-categories sub-categories-lev2 parent-category-id-{{subcat.id}}" ng-if="subcat.subcategories!=null" ng-show="subcat.id==catMenuON[1]">
                                             <ul ng-cloak>
                                                 <li ng-repeat="subsubcat in subcat.subcategories">
                                                     <div ng-class="{'selected': subsubcat.id==catIDSelect[2] }">
-                                                        <span ng-if="subsubcat.id!=catIDSelect[2]"><a ng-click="launchLayout(subsubcat,2)">{{subsubcat.name}}</a></span>
+                                                        <span ng-if="subsubcat.id!=catIDSelect[2]">
+                                                            <a ng-click="launchLayout(subsubcat,2)">{{subsubcat.name}}</a>
+                                                        </span>
                                                         <span ng-if="subsubcat.id==catIDSelect[2]">{{subsubcat.name}}</span>
                                                     </div>
                                                 </li>
@@ -140,8 +144,8 @@
                                         </button>
                                     </div>
                                     <div class="filter-btns">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="clearMainFilters()"><i class="fas fa-times"></i>Clear</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="applyFilters()"><i class="fas fa-check"></i>Apply</button>
+                                        <button type="button" class="btn btn-secondary" ng-click="clearMainFilters()"><i class="fas fa-times"></i>Clear</button>
+                                        <button type="button" class="btn btn-secondary" ng-click="applyFilters()"><i class="fas fa-check"></i>Apply</button>
                                     </div>
                                 </div>
                                 <div><!--<button type="button" class="btn btn-primary">apply</button>--></div>
@@ -292,15 +296,15 @@
 
   <!-- inject:js -->
   <script src="config/config.js"></script>
+  <script src="js/common/directives/user_popover.js"></script>
   <script src="js/common/services/commonSvc.js"></script>
   <script src="js/common/services/esritogeojsonSvc.js"></script>
   <script src="js/common/services/LayerPopupSvc.js"></script>
-  <script src="js/common/directives/user_popover.js"></script>
   <script src="js/overview/controllers/MainCtrl.js"></script>
-  <script src="js/overview/directives/hfmap.js"></script>
   <script src="js/overview/services/chartsSvc.js"></script>
   <script src="js/overview/services/filtersSvc.js"></script>
   <script src="js/overview/services/HFMapSvc.js"></script>
+  <script src="js/overview/directives/hfmap.js"></script>
   <script src="js/overview/directives/filters/advanced_search.js"></script>
   <script src="js/overview/directives/filters/datepicker.js"></script>
   <script src="js/overview/directives/filters/dropdown.js"></script>

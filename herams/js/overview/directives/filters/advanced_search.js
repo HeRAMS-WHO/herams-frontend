@@ -21,7 +21,6 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
         _.forEach(groupData.questions, function(val, key) {
 
             // if ((val.dimensions == 0) && (val.answers != null)) $log.info(val.dimensions, ' - ', val.answers, ' - ', val.questions);
-
             // if ((val.dimensions == 1)) $log.info('-- ',val.dimensions, ' -- ', val.text, ' - ', val.answers, ' - ', val.questions);
 
             if ((val.dimensions == 0) && (val.answers != null)) {

@@ -264,8 +264,6 @@ angular.module('app-herams')
 
             ($scope.catMenuON[level] != category.id)? $scope.catMenuON[level] = category.id : $scope.catMenuON[level] = "";
 
-
-
         }
 
         function setBreadcrumbs() {
@@ -310,6 +308,9 @@ angular.module('app-herams')
             function loadSuccess(httpResponse) {
 
                 $scope.categories = httpResponse.data.results.categories;
+                $scope.catIDSelect = [0,0,0];
+                $scope.catNameSelect = ["","",""];
+                $scope.catMenuON = ["","",""];
             }
 
             function loadFailure(httpResponse) {
