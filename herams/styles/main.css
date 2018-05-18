@@ -701,7 +701,7 @@
   background-color: white;
   padding-bottom: 30px;
   z-index: 2;
-  max-height: 400px;
+  min-height: 400px;
   overflow: auto;
 }
 .mainWrapper .overview .menu .menu-items ul {
@@ -823,7 +823,8 @@
 }
 .mainWrapper .overview .main .content .header .filters .filters-groups > div.filter-advanced,
 .mainWrapper .overview .main .content .header .filters .filters-groups > div.filter-advanced-view {
-  min-width: 100px;
+  min-width: 90px;
+  margin-left: 0;
 }
 .mainWrapper .overview .main .content .header .filters .filters-groups > div.filter-advanced button,
 .mainWrapper .overview .main .content .header .filters .filters-groups > div.filter-advanced-view button {
@@ -834,6 +835,9 @@
 .mainWrapper .overview .main .content .header .filters .filters-groups > div.filter-advanced button:hover,
 .mainWrapper .overview .main .content .header .filters .filters-groups > div.filter-advanced-view button:hover {
   color: #4177c1;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups > div.filter-advanced {
+  border-right: 1px solid #e0e0e0;
 }
 .mainWrapper .overview .main .content .header .filters .filters-groups > div img {
   float: left;
@@ -1122,7 +1126,7 @@
   width: 17px;
   height: 17px;
   margin-top: 3px;
-  margin-right: 15px;
+  margin-right: 20px;
 }
 .global-filters-popovers .popovers-containers ul {
   width: 100%;
@@ -1139,16 +1143,29 @@
   justify-content: space-between;
   align-items: center;
 }
+.global-filters-popovers .popovers-containers ul li .chevron {
+  opacity: 0;
+  margin-right: 8px;
+}
 .global-filters-popovers .popovers-containers ul li:hover {
   background-color: #e0e0e0;
+}
+.global-filters-popovers .popovers-containers ul li:hover .chevron.showing {
+  opacity: 100;
 }
 .global-filters-popovers .popovers-containers ul li:active {
   color: white;
   background-color: #ededed;
 }
+.global-filters-popovers .popovers-containers ul li:active .chevron.showing {
+  opacity: 100;
+}
 .global-filters-popovers .popovers-containers ul li.selected {
   color: white;
   background-color: #4177c1;
+}
+.global-filters-popovers .popovers-containers ul li.selected .chevron.showing {
+  opacity: 100;
 }
 .global-filters-popovers .popovers-containers ul li span.label {
   width: 170px;
@@ -1161,7 +1178,7 @@
   padding-right: 5px;
 }
 .global-filters-popovers .popovers-containers ul li span.checkbox {
-  margin-right: 15px;
+  margin-right: 5px;
   cursor: pointer;
 }
 .global-filters-popovers .popovers-containers ul li span.checkbox .checked {

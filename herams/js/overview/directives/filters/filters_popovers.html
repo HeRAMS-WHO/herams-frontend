@@ -16,6 +16,7 @@
                  <img src="img/filters/select_off.png" ng-if="isSelected(item)==0"/>
                  <img src="img/filters/select_partial.png" ng-if="isSelected(item)==2" ng-click="checkLevel($event)"/>
              </span>
+             <span class="chevron" ng-class="{'showing': openNext!=null}"><img src="img/filters/arrow_filters_location.png"/></span>
          </li>
      </ul>
  </div>
