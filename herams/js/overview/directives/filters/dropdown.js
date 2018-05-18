@@ -22,8 +22,7 @@ angular.module('app-herams').directive('dropdown', function($log,filtersSvc) {
         scope:{
             icon: "@icon",
             value: "@value",
-            type: "@type",
-            items: "="
+            type: "@type"
         },
         controller: function($scope){
  /*           $scope.select = function(val) {

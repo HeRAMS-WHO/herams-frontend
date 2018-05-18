@@ -123,6 +123,7 @@ angular.module('app-herams')
                 filtersSvc.setFiltersData(httpResponse.data.results);
                 $scope.states  = filtersSvc.getStatesList();
                 $scope.hftypes  = filtersSvc.getHFTypesList();
+                $scope.surveysDates  = filtersSvc.getDatesList();
 
             }
 

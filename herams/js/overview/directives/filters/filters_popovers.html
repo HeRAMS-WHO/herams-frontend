@@ -1,4 +1,5 @@
  <div class="popovers-containers">
+     <!-- Header -->
      <div class="popover-hdr" ng-if="title!=null">
          {{title}}
          <img src="img/filters/select_all.png" ng-if="getLevelStatus()==1" ng-click="checkLevel($event)""/>
@@ -6,7 +7,8 @@
          <img src="img/filters/select_partial.png" ng-if="getLevelStatus()==2" ng-click="checkLevel($event)"/>
      </div>
      <ul>
-         <li ng-repeat="item in items">
+         <!-- Multiple Choice -->
+         <li ng-repeat="item in items" ng-if="!singlechoice">
              <span class="label" ng-click="clickFilter($event)" data-label="{{item}}">
                  <i class="fas fa-circle" ng-style="{'color':getHFColor(item)}" ng-if="type=='hf'"></i>
                  {{item}}
@@ -17,6 +19,13 @@
                  <img src="img/filters/select_partial.png" ng-if="isSelected(item)==2" ng-click="checkLevel($event)"/>
              </span>
              <span class="chevron" ng-class="{'showing': openNext!=null}"><img src="img/filters/arrow_filters_location.png"/></span>
+         </li>
+         <!-- Single Choice  -->
+          <li ng-repeat="item in items" ng-if="singlechoice">
+             <span class="label" ng-click="checkItem($event,item)" data-label="{{item}}">
+                 <i class="fas fa-circle" ng-style="{'color':getHFColor(item)}" ng-if="type=='hf'"></i>
+                 {{item}}
+             </span>
          </li>
      </ul>
  </div>

@@ -117,18 +117,20 @@
                                         <dropdown
                                                 icon="img/filter_where.svg"
                                                 value="Nigeria"
-                                                type="location"
-                                                items="filters[0].values"/>
+                                                type="location"/>
                                     </div>
                                     <div class="filter-calendar">
-                                        <datepicker date="date"></datepicker>
+                                        <!--<datepicker date="date"></datepicker>-->
+                                        <dropdown
+                                                icon="img/filter_when.svg"
+                                                value="date"
+                                                type="date"/>
                                     </div>
                                     <div class="filter-HF">
                                         <dropdown
                                                 icon="img/filters/HF.png"
                                                 value="nc"
-                                                type="hf"
-                                                items="filters[2].values"/>
+                                                type="hf"/>
                                     </div>
                                     <div class="filter-advanced">
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#advncdSrchModal">
@@ -173,6 +175,14 @@
                                     items="hftypes"
                                     type="hf"
                                     grouped="false"
+                            ></filters-popover>
+                        </div>
+                        <div class="filters-popover filter-calendar">
+                            <filters-popover
+                                    items="surveysDates"
+                                    type="date"
+                                    grouped="false"
+                                    singlechoice="true"
                             ></filters-popover>
                         </div>
                     </div>
@@ -299,8 +309,8 @@
   <script src="js/common/services/commonSvc.js"></script>
   <script src="js/common/services/esritogeojsonSvc.js"></script>
   <script src="js/common/services/LayerPopupSvc.js"></script>
-  <script src="js/overview/directives/hfmap.js"></script>
   <script src="js/overview/controllers/MainCtrl.js"></script>
+  <script src="js/overview/directives/hfmap.js"></script>
   <script src="js/overview/services/chartsSvc.js"></script>
   <script src="js/overview/services/filtersSvc.js"></script>
   <script src="js/overview/services/HFMapSvc.js"></script>

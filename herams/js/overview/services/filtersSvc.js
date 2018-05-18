@@ -41,6 +41,9 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                 case "hf":
                     addHF(item_label);
                     break;
+                case "date":
+                    addDate(item_label);
+                    break;
                 default:
                     break;
             }
@@ -54,6 +57,9 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                     break;
                 case "hf":
                     rmvHF(item_label);
+                    break;
+                case "date":
+                    rmvDate(item_label);
                     break;
                 default:
                     break;
@@ -69,6 +75,9 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                 case "hf":
                     return getHFStatus(item_label);
                     break;
+                case "date":
+                    return getDateStatus(item_label);
+                    break;
                 default:
                     break;
             }
@@ -83,6 +92,9 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                     break;
                 case "hf":
                     return getHFGlobalValue();
+                    break;
+                case "date":
+                    return getDateGlobalValue();
                     break;
                 default:
                     break;
@@ -265,6 +277,36 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             }
         }
 
+        /* ---------------------- Dates Filters methods ---------------------- */
+
+        var dates_fltrs,
+            applied_date;
+
+        function getDatesList() {
+            return dates_fltrs;
+        }
+
+        function getDateGlobalValue() {
+            if (dates_fltrs) {
+                return (applied_date)? applied_date : dates_fltrs[dates_fltrs.length-1];
+            }
+        }
+
+        function getDateStatus(date) {
+            return (applied_date == date);
+        }
+
+        function addDate(date) {
+            applied_date = date;
+            filters_selection["date"] = applied_date;
+        }
+
+        function rmvDate() {
+            applied_date = null;
+            filters_selection["date"] = null;
+        }
+
+
         /* ---------------------- Advanced Filters methods ---------------------- */
 
         var advanced_filters_src,
@@ -302,8 +344,6 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         /* ---------------------- Advanced Filters methods ---------------------- */
 
         function applyHTTPFilters(date) {
-
-            if (date) filters_selection["date"] = date;
 
             filters_selection["location"] = applied_location_fltrs;
             filters_selection["hftypes"] = applied_hftype_fltrs;
@@ -343,6 +383,9 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
             location_fltrs = data.locations;
             hftype_fltrs = data.hf_types;
+            dates_fltrs = data.dates;
+
+            // filters_selection["dates"] = data["dates"];
 
         },
 
@@ -362,6 +405,9 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         getHFTypesList  : getHFTypesList,
         getHFColor      : getHFColor,
+
+        getDatesList    : getDatesList,
+        getDateGlobalValue : getDateGlobalValue,
 
         setAdvcdFltsData        : setAdvcdFltsData,
         updtAdvancedFilters     : updtAdvancedFilters,

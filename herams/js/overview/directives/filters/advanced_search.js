@@ -86,28 +86,51 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
             /* ---------------------- Setting up / clearing data ---------------------- */
 
+            var data_safe_copy,
+                global_load_ok = false;
             var advanced_search_data = [];
 
-            $scope.$watch('data', function(loaded) {
+            var listener = $scope.$watch('data', function(loaded) {
                 if (loaded) {
-                    _.forEach(loaded, function(value) {
-                        advanced_search_data[value.title] = setQuestionSet(value);
-                    });
-                    filtersSvc.setAdvcdFltsData(advanced_search_data, filters_advanced);
+                    if ((!global_load_ok) && (loaded.length > 0)) {
+                        _.forEach(loaded, function(value) {
+                            advanced_search_data[value.title] = setQuestionSet(value);
+                        });
+                        filtersSvc.setAdvcdFltsData(advanced_search_data, filters_advanced);
+
+                        data_safe_copy = loaded;
+                        global_load_ok = true;
+                    }
                 }
+
             });
+
 
             function getQuestions(grp_txt) {
                  return advanced_search_data[grp_txt];
             }
             $scope.getQuestions = getQuestions;
 
-             $scope.$on('setFiltersCleared', function (event) {
+            $scope.$on('setFiltersCleared', function (event) {
                  filters_advanced = {};
                  if (filtersSvc.getAdvancedFiltersCnt()>0) {
                      filtersSvc.clearAdvancedFilters();
                  }
              });
+
+            /* ---------------------- Filter filters ---------------------- */
+
+/*
+            $scope.filtrsSrch = "";
+            $scope.$watch('filtrsSrch',function(newVal) {
+                var test = _.filter(data_safe_copy, function(o) {
+                    var title = o.title.toLowerCase();
+                    return title.indexOf(newVal.toLowerCase())!=-1;
+                });
+
+                $scope.data = test;
+            });
+*/
 
             /* ---------------------- Selecting filters ---------------------- */
 
@@ -192,9 +215,11 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                 return cls;
             }
 
-            $scope.toggleQuestions = function(evt,grpid) {
-                var elt = $(".group-question-list.cls_"+grpid);
-                ($(elt).css("display") == "none")? $(elt).css("display","block") : $(elt).css("display","none");
+            $scope.toggleQuestions = function(evt,grpid,grptitle) {
+                if (getQuestions(grptitle).length>0) {
+                    var elt = $(".group-question-list.cls_"+grpid);
+                    ($(elt).css("display") == "none")? $(elt).css("display","block") : $(elt).css("display","none");
+                }
             }
 
             $scope.toggleAnswers = function(evt,qcode) {
@@ -210,7 +235,7 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
             $scope.isExpanded = false;
             $scope.expandAllGrps = function() {
                 var grp_divs = $(".group-question-list"),
-                    new_status = ($scope.isExpanded)? "none" : "block";
+                    new_status = ($scope.isExpanded==true)? "none" : "block";
 
                 _.forEach(grp_divs, function(grp_div) {
                     $(grp_div).css("display",new_status);

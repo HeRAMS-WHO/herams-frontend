@@ -548,6 +548,12 @@
       top: 0;
       left: 322px;
     }
+
+    &:nth-child(3) {
+      position: absolute;
+      top: 0;
+      left: 162px;
+    }
   }
 
   .popovers-containers {
@@ -675,6 +681,7 @@
 
       &.greyed-out {
         color: @light-grey;
+        cursor: default;
       }
 
       img {
@@ -765,6 +772,8 @@
       justify-content: flex-start;
       align-items: center;
 
+      padding-top: 17px;
+
       cursor: pointer;
 
       .filters-collapse-btn {
@@ -788,6 +797,14 @@
       display:block;
     }
 
+  }
+
+  .advanced-filters-fltr {
+    span {
+      apdding-top: 10px;
+      font-size: 0.8em;
+    }
+    margin-bottom: 20px;
   }
 
   &>ul{

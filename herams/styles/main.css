@@ -1097,6 +1097,11 @@
   top: 0;
   left: 322px;
 }
+.global-filters-popovers .filters-popover:nth-child(3) {
+  position: absolute;
+  top: 0;
+  left: 162px;
+}
 .global-filters-popovers .popovers-containers {
   width: 225px;
   max-height: 452px;
@@ -1206,6 +1211,7 @@
 .advanced-search-modal ul > li .group-title.greyed-out,
 .advanced-list-modal ul > li .group-title.greyed-out {
   color: #e0e0e0;
+  cursor: default;
 }
 .advanced-search-modal ul > li .group-title img,
 .advanced-list-modal ul > li .group-title img {
@@ -1296,6 +1302,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  padding-top: 17px;
   cursor: pointer;
 }
 .advanced-search-modal .advanced-filters-header .advanced-filters-title .filters-collapse-btn {
@@ -1317,6 +1324,13 @@
   /* IE8 and below */
   filter: progid:DXImageTransform.Microsoft.Matrix(M11=-1, M12=0, M21=0, M22=-1, DX=0, DY=0, SizingMethod='auto expand');
   display: block;
+}
+.advanced-search-modal .advanced-filters-fltr {
+  margin-bottom: 20px;
+}
+.advanced-search-modal .advanced-filters-fltr span {
+  apdding-top: 10px;
+  font-size: 0.8em;
 }
 .advanced-search-modal > ul {
   max-height: 400px;

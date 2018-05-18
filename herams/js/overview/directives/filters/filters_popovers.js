@@ -36,7 +36,8 @@ angular.module('app-herams').directive('filtersPopover', function($log,filtersSv
             openNext:"@",
             type:"@",
             items: "=",
-            grouped:"="
+            grouped:"=",
+            singlechoice: "@"
         },
         controller: function ($scope){
 
@@ -70,10 +71,8 @@ angular.module('app-herams').directive('filtersPopover', function($log,filtersSv
             }
 
             $scope.checkLevel = function(evt) {
-                // if ($scope.items) {
-                    var level = filtersSvc.getLocationLevel($scope.items[0]);
-                    if (level) filtersSvc.checkLocationLevel(level);
-                // }
+                var level = filtersSvc.getLocationLevel($scope.items[0]);
+                if (level) filtersSvc.checkLocationLevel(level);
 
                 evt.stopPropagation();
             }
