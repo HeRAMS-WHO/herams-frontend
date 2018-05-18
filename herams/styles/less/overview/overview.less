@@ -660,9 +660,6 @@
 }
 
 .advanced-search-modal, .advanced-list-modal {
-  max-height: 500px;
-  overflow-y: auto;
-
   ul {
     padding-left: 0;
   }
@@ -673,6 +670,8 @@
       color: @brand-blue;
       font-size: 1.3em;
       font-weight: @medium;
+
+      cursor: pointer;
 
       &.greyed-out {
         color: @light-grey;
@@ -687,6 +686,12 @@
   .group-question-list {
     margin-bottom: 20px;
     margin-left: 15px;
+    &.filtermode{
+      display: none;
+      .group-question {
+        margin-bottom: 18px;
+      }
+    }
   }
 
   .question-text {
@@ -695,6 +700,9 @@
     margin: 10px 0;
     overflow: hidden;
     font-weight: @medium;
+
+    cursor: pointer;
+
     p {
       margin:0;padding:0;
     }
@@ -705,6 +713,25 @@
       width: 14px;
       height: 14px;
     }
+    img.q-collapse-chevron {
+      width: 8px;
+      height: 4px;
+      float: right;
+      margin-bottom: 0;
+      margin-top: 8px;
+      &.collapse {
+        -webkit-transform: rotate(180deg);     /* Chrome and other webkit browsers */
+        -moz-transform: rotate(180deg);        /* FF */
+        -o-transform: rotate(180deg);          /* Opera */
+        -ms-transform: rotate(180deg);         /* IE9 */
+        transform: rotate(180deg);
+
+        /* IE8 and below */
+        filter: progid:DXImageTransform.Microsoft.Matrix(M11=-1, M12=0, M21=0, M22=-1, DX=0, DY=0, SizingMethod='auto expand');
+        display:block;
+      }
+    }
+
   }
   .answer-text {
     width: 96%;
@@ -721,8 +748,59 @@
 
 }
 
+.advanced-search-modal {
+  .advanced-filters-header {
+    height: 45px;
+    /* background-color: #42424a; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 5px;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #ededed;
+
+    .advanced-filters-title {
+      display:flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      cursor: pointer;
+
+      .filters-collapse-btn {
+        margin: 0 10px 10px 10px;
+
+        &:hover {
+          color: @brand-blue;
+        }
+      }
+    }
+
+    .collapse {
+      -webkit-transform: rotate(180deg);     /* Chrome and other webkit browsers */
+      -moz-transform: rotate(180deg);        /* FF */
+      -o-transform: rotate(180deg);          /* Opera */
+      -ms-transform: rotate(180deg);         /* IE9 */
+      transform: rotate(180deg);
+
+      /* IE8 and below */
+      filter: progid:DXImageTransform.Microsoft.Matrix(M11=-1, M12=0, M21=0, M22=-1, DX=0, DY=0, SizingMethod='auto expand');
+      display:block;
+    }
+
+  }
+
+  &>ul{
+    max-height: 400px;
+    overflow-y: auto;
+  }
+}
+
 .advanced-list-modal {
-  .question-text {
+  max-height: 500px;
+  overflow-y: auto;
+
+ .question-text {
     border: none;
     margin: 0;
   }

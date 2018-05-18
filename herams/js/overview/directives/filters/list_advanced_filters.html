@@ -5,22 +5,20 @@
                  <span ng-bind-html="group"></span>
                  ({{ grpSelectCnt(group) }})
              </div>
-             <div class="group-question-list">
+             <div class="group-question-list viewmode">
                  <ul>
-                     <li class="group-question" ng-repeat="question in getQuestions(group)">
-                         <div ng-if="isFilterQ(question.code)">
-                             <div class="question-text">
-                                 <span ng-bind-html="question.text"></span>
-                             </div>
-                            <div class="question-answers-list">
+                     <li class="group-question" ng-repeat="question in getQuestions(group)" ng-if="isFilterQ(question.code)">
+                         <div>
+                             <div class="question-text"><span ng-bind-html="question.text"></span></div>
+                             <div class="question-answers-list">
                                  <ul>
-                                     <li class="question-answer" ng-repeat="answer in question.answers">
+                                     <li class="question-answer"  ng-repeat="answer in question.answers">
                                          <div class="answer-text" ng-if="isFilterA(question.code,answer.code)">
                                              -&nbsp;&nbsp;<span ng-bind-html="answer.text"></span>
                                          </div>
                                      </li>
                                  </ul>
-                            </div>
+                             </div>
                          </div>
                     </li>
                 </ul>

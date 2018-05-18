@@ -139,7 +139,7 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                     if (filters_advanced[value]) cnt += filters_advanced[value].length;
                 });
 
-                return (cnt == 0)? "" : "(" + cnt + ")";
+                return (cnt == 0)? "" : " (" + cnt + ")";
             }
             $scope.getGroupCnt = getGroupCnt;
 
@@ -170,6 +170,8 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                 } else {
                     filters_advanced[qcode] = _.map(q.answers,'code');
                 }
+
+                filtersSvc.updtAdvancedFilters(filters_advanced);
 
                 evt.stopPropagation();
 
@@ -202,6 +204,23 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
             $scope.isGrpOpened = function(grpid) {
                 var elt = $(".group-question-list.cls_"+grpid);
+                return ($(elt).css("display") == "block");
+            }
+
+            $scope.isExpanded = false;
+            $scope.expandAllGrps = function() {
+                var grp_divs = $(".group-question-list"),
+                    new_status = ($scope.isExpanded)? "none" : "block";
+
+                _.forEach(grp_divs, function(grp_div) {
+                    $(grp_div).css("display",new_status);
+                })
+
+                $scope.isExpanded = !$scope.isExpanded;
+            }
+
+            $scope.isQExpanded = function(qcode) {
+                var elt = $(".question-answers-list."+qcode);
                 return ($(elt).css("display") == "block");
             }
 

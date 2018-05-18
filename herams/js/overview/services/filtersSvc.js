@@ -292,8 +292,6 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         function clearAdvancedFilters() {
 
-            $log.info('clearAdvancedFilters');
-
             advanced_filters_applied = null;
             this.shared.advanced_filters_applied = null;
 
