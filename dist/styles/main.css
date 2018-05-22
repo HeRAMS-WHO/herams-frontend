@@ -1153,7 +1153,7 @@
   margin-right: 8px;
 }
 .global-filters-popovers .popovers-containers ul li:hover {
-  background-color: #e0e0e0;
+  background-color: #f3f3f3;
 }
 .global-filters-popovers .popovers-containers ul li:hover .chevron.showing {
   opacity: 100;

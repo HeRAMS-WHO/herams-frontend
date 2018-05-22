@@ -82,7 +82,6 @@ angular.module('app-herams').directive('filtersPopover', function($log,filtersSv
         },
 
         link: function($scope,elt,attr) {
-
             if ($scope.grouped) {
 
                 var nextPopoverID = $scope.openNext,

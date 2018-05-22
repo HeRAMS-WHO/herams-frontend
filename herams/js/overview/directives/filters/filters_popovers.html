@@ -21,7 +21,7 @@
              <span class="chevron" ng-class="{'showing': openNext!=null}"><img src="img/filters/arrow_filters_location.png"/></span>
          </li>
          <!-- Single Choice  -->
-          <li ng-repeat="item in items" ng-if="singlechoice">
+          <li ng-repeat="item in items" ng-if="singlechoice" ng-class="{'selected':isSelected(item)}">
              <span class="label" ng-click="checkItem($event,item)" data-label="{{item}}">
                  <i class="fas fa-circle" ng-style="{'color':getHFColor(item)}" ng-if="type=='hf'"></i>
                  {{item}}

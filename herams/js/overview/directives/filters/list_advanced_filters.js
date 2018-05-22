@@ -21,6 +21,12 @@ angular.module('app-herams').directive('advancedFiltersList', function($log,filt
         controller: function($scope){
             $scope.data = filtersSvc.shared;
 
+/*
+            $scope.$watch('data', function(newValue, oldValue) {
+                $log.info('filtersSvc.shared has changed to: ',newValue);
+            });
+*/
+
             $scope.getData = function() {
                 return _.keys($scope.data.advanced_filters_src);
             }
@@ -54,6 +60,8 @@ angular.module('app-herams').directive('advancedFiltersList', function($log,filt
             }
 
             $scope.isFilterQ = function(qcode) {
+                $log.info('list_advanced_filters - isFilterQ : advanced_filters_applied = ', $scope.data.advanced_filters_applied,
+                    ' /  advanced_filters_src = ', $scope.data.advanced_filters_src);
                 return ($scope.data.advanced_filters_applied[qcode]!=null);
             }
 

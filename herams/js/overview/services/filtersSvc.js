@@ -207,8 +207,8 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
                 }  else if (applied_location_fltrs.length>1) {
 
-                     $log.info('getLevelLocationStatus(\'1\') = ',getLevelLocationStatus('1'));
-                     $log.info('getLevelLocationStatus(\'2\') = ',getLevelLocationStatus('2'));
+                     // $log.info('getLevelLocationStatus(\'1\') = ',getLevelLocationStatus('1'));
+                     // $log.info('getLevelLocationStatus(\'2\') = ',getLevelLocationStatus('2'));
 
                      if (getLevelLocationStatus('1') == 1) {
                          return "Nigeria";
@@ -320,8 +320,11 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         }
 
         function updtAdvancedFilters(data) {
+            // $log.info('updtAdvancedFilters: ', data,' / advanced_filters_applied: ', advanced_filters_applied);
+            $log.info('------------- updtAdvancedFilters -------------');
             advanced_filters_applied = data;
             this.shared.advanced_filters_applied = data;
+            $log.info('updtAdvancedFilters: ', this.shared.advanced_filters_applied);
         }
 
         function getAdvancedFiltersCnt() {
@@ -337,9 +340,10 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         function clearAdvancedFilters() {
 
             // $log.info('this.shared.advanced_filters_applied: ', this.shared.advanced_filters_applied);
+            $log.info('------------- clearAdvancedFilters -------------');
 
-            advanced_filters_applied = null;
-            this.shared.advanced_filters_applied = null;
+            advanced_filters_applied = {};
+            this.shared.advanced_filters_applied = {};
 
             initSelection();
 
@@ -388,7 +392,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         setFiltersData  : function(data) {
             appFilters = data;
 
-            this.shared.advanced_filters_src    = null;
+            this.shared.advanced_filters_src    = data;
             this.shared.advanced_filters_applied = null;
             filters_selection["advanced"]       = [];
 
@@ -406,6 +410,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                 addHF(hftype_fltrs[i]["label"]);
             }
 
+            addDate(data["dates"][0]);
             // filters_selection["dates"] = data["dates"];
 
         },
