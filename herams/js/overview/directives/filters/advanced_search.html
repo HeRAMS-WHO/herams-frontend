@@ -13,13 +13,20 @@
         </div>
     </div>
 
-<!--
+ <!--
     <div class="advanced-filters-fltr">
-        <input type="text" ng-model="filtrsSrch" class="form-control" placeholder="search filters" aria-label="Username" aria-describedby="basic-addon1">
+        <input type="text" ng-model="filtrsSrch" class="form-control" placeholder="search filters">
+        <button type="button" class="btn btn-outline-dark" ng-click="srchFilters()" style="float:right">Search</button>
         <span>Search filters with: {{filtrsSrch}}</span>
+        <form class="form-inline">
+          <div class="form-group mx-sm-3 mb-2">
+            <input type="text" ng-model="filtrsSrch" class="form-control" id="inputPassword2" placeholder="Search text">
+          </div>
+          <button type="submit" class="btn btn-primary mb-2" ng-click="srchFilters()">Search</button>
+        </form>
     </div>
-
 -->
+
      <ul>
          <li class="group-name" ng-repeat="group in data track by $index">
              <div class="group-title" ng-click="toggleQuestions($event,group.id,group.title)" ng-class="greyoutCls(group.title)">

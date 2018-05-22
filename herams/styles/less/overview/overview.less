@@ -595,7 +595,8 @@
 
       width: 100%;
       margin:0;padding:0;
-      height: 405px;
+      // height: 405px;
+      max-height: 405px;
       overflow-y: auto;
 
        li {
@@ -637,9 +638,12 @@
          }
 
          span.label {
-           width: 170px;
-           height:100%;
+           width: 160px;
+           height:30px;
+           overflow:hidden;
+           white-space:nowrap;
            padding-top:5px;
+           margin-right: 10px;
            cursor: pointer;
            i {
              font-size:0.6em;

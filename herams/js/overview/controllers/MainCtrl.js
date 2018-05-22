@@ -10,7 +10,7 @@
 angular.module('app-herams')
     .controller('MainCtrl', function($scope,$compile,$log,$timeout,$uibModal,commonSvc,filtersSvc,HFMapSvc,chartsSvc) {
 
-        var nodata_text_alert = 'No match with these criteria';
+        var nodata_text_alert = 'No match with these criteria / No data available';
 
         /* - SCOPE VARS - */
         $scope.charts = {};
@@ -351,17 +351,19 @@ angular.module('app-herams')
         $scope.applyFilters=applyFilters;
 
         function clearSetFilters() {
+            filtersSvc.clearFilters();
             $scope.$broadcast('setFiltersCleared');
         }
         $scope.clearSetFilters=clearSetFilters;
 
         function clearMainFilters() {
+            // $log.info('clearMainFilters');
+            clearSetFilters();
             if (filtersSvc.getAdvancedFiltersCnt()>0) {
                 filtersSvc.clearAdvancedFilters();
-                clearSetFilters();
                 applyFilters();
             }
-        }
+         }
         $scope.clearMainFilters=clearMainFilters;
 
     })

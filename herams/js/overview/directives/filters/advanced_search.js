@@ -98,11 +98,11 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                         });
                         filtersSvc.setAdvcdFltsData(advanced_search_data, filters_advanced);
 
-                        data_safe_copy = loaded;
+                        data_safe_copy = _.cloneDeep(loaded);
                         global_load_ok = true;
+                        listener();
                     }
                 }
-
             });
 
 
@@ -120,8 +120,8 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
             /* ---------------------- Filter filters ---------------------- */
 
-/*
             $scope.filtrsSrch = "";
+/*
             $scope.$watch('filtrsSrch',function(newVal) {
                 var test = _.filter(data_safe_copy, function(o) {
                     var title = o.title.toLowerCase();
@@ -131,6 +131,7 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                 $scope.data = test;
             });
 */
+
 
             /* ---------------------- Selecting filters ---------------------- */
 

@@ -13,14 +13,6 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         var dflt_notset_display = "not set",
             dflt_multi_display = "multi";
 
-        /* ---------------------- MAIN FILTERS METHODS ---------------------- */
-
-        function clearFilters () {
-            filters_selection = {};
-            this.shared.advanced_filters_src = null;
-            this.shared.advanced_filters_applied = null;
-        }
-
         /* ---------------------- FILTERS SELECTION ---------------------- */
 
         var filters_selection = {};
@@ -67,7 +59,6 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         }
 
         function getItemStatus(item_label,type) {
-
             switch(type) {
                 case "location":
                     return getLocationStatus(item_label);
@@ -121,7 +112,6 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             /* select all child locations */
             var children = _.filter(location_fltrs, { 'parent_id': data[0].geo_id });
             applied_location_fltrs = applied_location_fltrs.concat( _.map(children, 'geo_id'));
-
         }
 
         function rmvLocation(geo_name) {
@@ -288,7 +278,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         function getDateGlobalValue() {
             if (dates_fltrs) {
-                return (applied_date)? applied_date : dates_fltrs[dates_fltrs.length-1];
+                return (applied_date)? applied_date : dates_fltrs[0];
             }
         }
 
@@ -306,6 +296,18 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             filters_selection["date"] = null;
         }
 
+
+        /* ---------------------- MAIN FILTERS METHODS ---------------------- */
+
+        function clearFilters () {
+            initSelection();
+            //
+            this.shared.advanced_filters_src = null;
+            this.shared.advanced_filters_applied = null;
+            //
+            applied_location_fltrs = [];
+            applied_hftype_fltrs = [];
+        }
 
         /* ---------------------- Advanced Filters methods ---------------------- */
 
@@ -334,8 +336,12 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         function clearAdvancedFilters() {
 
+            // $log.info('this.shared.advanced_filters_applied: ', this.shared.advanced_filters_applied);
+
             advanced_filters_applied = null;
             this.shared.advanced_filters_applied = null;
+
+            initSelection();
 
             getAdvancedFiltersCnt();
         }
@@ -347,6 +353,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
             filters_selection["location"] = applied_location_fltrs;
             filters_selection["hftypes"] = applied_hftype_fltrs;
+            filters_selection["advanced"] = [];
 
             _.forEach(this.shared.advanced_filters_applied, function(value, key) {
                 var tmp = {};
@@ -374,16 +381,30 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
 
     return {
-        shared:{
+        shared: {
             advanced_filters_src    :null,
             advanced_filters_applied: null
         },
         setFiltersData  : function(data) {
             appFilters = data;
 
+            this.shared.advanced_filters_src    = null;
+            this.shared.advanced_filters_applied = null;
+            filters_selection["advanced"]       = [];
+
             location_fltrs = data.locations;
-            hftype_fltrs = data.hf_types;
-            dates_fltrs = data.dates;
+            hftype_fltrs   = data.hf_types;
+            dates_fltrs    = data.dates;
+
+            /* By default, check all locations of the Workspace */
+            for (var i in location_fltrs) {
+                addLocation(location_fltrs[i]["geo_name"]);
+            }
+
+            /* By default, check all HF types of the Workspace */
+            for (var i in hftype_fltrs) {
+                addHF(hftype_fltrs[i]["label"]);
+            }
 
             // filters_selection["dates"] = data["dates"];
 
@@ -413,6 +434,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         updtAdvancedFilters     : updtAdvancedFilters,
         getAdvancedFiltersCnt   : getAdvancedFiltersCnt,
         clearAdvancedFilters    : clearAdvancedFilters,
+        clearFilters            : clearFilters,
 
         getHTTPFilters   : getHTTPFilters,
         applyHTTPFilters : applyHTTPFilters
