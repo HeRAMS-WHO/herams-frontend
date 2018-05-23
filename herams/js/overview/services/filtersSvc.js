@@ -91,7 +91,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                     break;
             }
 
-            return type + " - nc";
+            // return type + " - nc";
         }
 
         /* ---------------------- LOCATION filters methods ---------------------- */
@@ -202,6 +202,14 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         function getLocationGlobalValue() {
             if (applied_location_fltrs) {
 
+                // $log.info('getLocationGlobalValue - ',applied_location_fltrs);
+                // var cntStr = (applied_location_fltrs.length>0)? " ("+applied_location_fltrs.length+")" : "";
+
+                var cntStr = (applied_location_fltrs.length>0)? " (multi)" : "";
+                //if (getLevelLocationStatus('1') == 1) cntStr = " (all)";
+                return "Location"+cntStr;
+
+/*
                  if (applied_location_fltrs.length<1) {
                     return dflt_notset_display;
 
@@ -220,6 +228,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                 } else {
                     return _.find(location_fltrs, { 'geo_id': applied_location_fltrs[0] }).geo_name;
                 }
+*/
             }
         }
 
@@ -253,9 +262,16 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         }
 
         function getHFGlobalValue() {
-            if (applied_hftype_fltrs) {
+            if ((applied_hftype_fltrs) && (hftype_fltrs)) {
 
-                 if (applied_hftype_fltrs.length<1) {
+                var cntStr = (applied_hftype_fltrs.length>0)? " (multi)" : "";
+                // $log.info('getHFGlobalValue : hftype_fltrs=',hftype_fltrs);
+                if (applied_hftype_fltrs.length == hftype_fltrs.length) cntStr = " (all)";
+                return "Type"+cntStr;
+
+
+/*
+                if (applied_hftype_fltrs.length<1) {
                     return dflt_notset_display;
 
                 }  else if (applied_hftype_fltrs.length>1) {
@@ -264,6 +280,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                 } else {
                     return _.find(hftype_fltrs, { 'code': applied_hftype_fltrs[0] }).label;
                 }
+*/
             }
         }
 
@@ -302,13 +319,12 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         function clearFilters () {
             initSelection();
             //
-            this.shared.advanced_filters_src = null;
-            this.shared.advanced_filters_applied = null;
+            this.shared.advanced_filters_applied = {};
             //
             applied_location_fltrs = [];
             applied_hftype_fltrs = [];
             //
-            reset();
+            // reset();
         }
 
         /* ---------------------- Advanced Filters methods ---------------------- */
@@ -418,7 +434,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             hftype_fltrs   = data.hf_types;
             dates_fltrs    = data.dates;
 
-            reset();
+            // reset();
             // filters_selection["dates"] = data["dates"];
 
         },

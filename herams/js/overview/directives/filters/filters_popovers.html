@@ -2,9 +2,9 @@
      <!-- Header -->
      <div class="popover-hdr" ng-if="title!=null">
          {{title}}
-         <img src="img/filters/select_all.png" ng-if="getLevelStatus()==1" ng-click="checkLevel($event)""/>
-         <img src="img/filters/select_off.png" ng-if="getLevelStatus()==0" ng-click="checkLevel($event)"/>
-         <img src="img/filters/select_partial.png" ng-if="getLevelStatus()==2" ng-click="checkLevel($event)"/>
+         <img src="img/filters/select_all.png" ng-show="getLevelStatus()==1" ng-click="checkLevel($event)""/>
+         <img src="img/filters/select_off.png" ng-show="getLevelStatus()==0" ng-click="checkLevel($event)"/>
+         <img src="img/filters/select_partial.png" ng-show="getLevelStatus()==2" ng-click="checkLevel($event)"/>
      </div>
      <ul>
          <!-- Multiple Choice -->
@@ -14,9 +14,9 @@
                  {{item}}
              </span>
              <span class="checkbox" ng-click="checkItem($event,item)">
-                 <img src="img/filters/select_all.png" ng-if="isSelected(item)==1"/>
-                 <img src="img/filters/select_off.png" ng-if="isSelected(item)==0"/>
-                 <img src="img/filters/select_partial.png" ng-if="isSelected(item)==2" ng-click="checkLevel($event)"/>
+                 <img src="img/filters/select_all.png" ng-show="isSelected(item)==1"/>
+                 <img src="img/filters/select_off.png" ng-show="isSelected(item)==0"/>
+                 <img src="img/filters/select_partial.png" ng-show="isSelected(item)==2" ng-click="checkLevel($event)"/>
              </span>
              <span class="chevron" ng-class="{'showing': openNext!=null}"><img src="img/filters/arrow_filters_location.png"/></span>
          </li>

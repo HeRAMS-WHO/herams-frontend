@@ -25,13 +25,10 @@ angular.module('app-herams').directive('dropdown', function($log,filtersSvc) {
             type: "@type"
         },
         controller: function($scope){
- /*           $scope.select = function(val) {
-               $scope.value = val;
-            }
-*/            $scope.getValue = function() {
+            $scope.getValue = function() {
                 return filtersSvc.getFilterGlobalValue($scope.type);
             }
-        },
+         },
         link: function($scope,elt,attr) {
             var e = elt.find('.filter-value'),
                 container_cls = elt.parent().attr("class");
@@ -55,12 +52,10 @@ angular.module('app-herams').directive('dropdown', function($log,filtersSvc) {
             });
 
             $('body').on('click', function () {
-
                 if (lastOpened) {
                     $(lastOpened).css("display","none");
                     lastOpened = null;
                 }
-
             });
 
         }

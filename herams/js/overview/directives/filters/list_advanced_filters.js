@@ -19,13 +19,8 @@ angular.module('app-herams').directive('advancedFiltersList', function($log,filt
         restrict: 'E',
         replace: true,
         controller: function($scope){
-            $scope.data = filtersSvc.shared;
 
-/*
-            $scope.$watch('data', function(newValue, oldValue) {
-                $log.info('filtersSvc.shared has changed to: ',newValue);
-            });
-*/
+            $scope.data = filtersSvc.shared;
 
             $scope.getData = function() {
                 return _.keys($scope.data.advanced_filters_src);
