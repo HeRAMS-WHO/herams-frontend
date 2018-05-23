@@ -307,6 +307,8 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             //
             applied_location_fltrs = [];
             applied_hftype_fltrs = [];
+            //
+            reset();
         }
 
         /* ---------------------- Advanced Filters methods ---------------------- */
@@ -352,6 +354,22 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
 
         /* ---------------------- Advanced Filters methods ---------------------- */
+
+        function reset() {
+
+            /* By default, check all locations of the Workspace */
+            for (var i in location_fltrs) {
+                addLocation(location_fltrs[i]["geo_name"]);
+            }
+
+            /* By default, check all HF types of the Workspace */
+            for (var i in hftype_fltrs) {
+                addHF(hftype_fltrs[i]["label"]);
+            }
+
+            addDate(dates_fltrs[0]);
+
+        }
 
         function applyHTTPFilters(date) {
 
@@ -400,17 +418,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             hftype_fltrs   = data.hf_types;
             dates_fltrs    = data.dates;
 
-            /* By default, check all locations of the Workspace */
-            for (var i in location_fltrs) {
-                addLocation(location_fltrs[i]["geo_name"]);
-            }
-
-            /* By default, check all HF types of the Workspace */
-            for (var i in hftype_fltrs) {
-                addHF(hftype_fltrs[i]["label"]);
-            }
-
-            addDate(data["dates"][0]);
+            reset();
             // filters_selection["dates"] = data["dates"];
 
         },
