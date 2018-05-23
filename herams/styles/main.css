@@ -863,6 +863,40 @@
   width: 8px;
   height: 4px;
 }
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar {
+  /* bootstrap overrides */
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-datepicker .uib-title {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1em;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-datepicker .uib-title b,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-datepicker .uib-title strong {
+  font-weight: 400;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker table {
+  margin: 0 10px;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker table thead tr:nth-child(2) {
+  border-bottom: 1px solid #e0e0e0;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn-info:not(:disabled):not(.disabled).active,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn-info:not(:disabled):not(.disabled):active,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .show > .btn-info.dropdown-toggle {
+  background-color: #4177c1;
+  border: none;
+  border-radius: 0;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn-info:not(:disabled):not(.disabled).active .text-info,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn-info:not(:disabled):not(.disabled):active .text-info,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .show > .btn-info.dropdown-toggle .text-info {
+  color: white!important;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .fa,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .fas {
+  float: right;
+  padding-top: 3px;
+}
 .mainWrapper .overview .main .content .main-content {
   margin: 20px 0 50px 0;
 }

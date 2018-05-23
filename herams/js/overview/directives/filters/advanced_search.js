@@ -15,6 +15,11 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
     var filters_advanced = {};
 
+    function trimHTML(str) {
+        var regex = /(<([^>]+)>)/ig;
+        return str.replace(regex, "");
+    }
+
     function setQuestionSet(groupData) {
         var rslt = [];
 
@@ -42,7 +47,7 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                     _.forEach(val.questions[0], function(qval, qkey) {
                         if (qval.answers != null) {
                             var o = {
-                                code: tmp_code + "_" + qval.title,
+                                code: tmp_code + "[" + qval.title + "]",
                                 text: tmp_text + ' - ' + qval.text,
                                 answers: qval.answers
                             }
@@ -105,9 +110,8 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                 }
             });
 
-
             function getQuestions(grp_txt) {
-                 return advanced_search_data[grp_txt];
+                return advanced_search_data[grp_txt];
             }
             $scope.getQuestions = getQuestions;
 
@@ -118,19 +122,27 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                  }
              });
 
+            var maxLength = 150;
+
+            $scope.trimQuestiontxt = function(qTxt) {
+                var trimmed = trimHTML(qTxt);
+                return (trimmed.length <= maxLength)? trimmed : trimmed.substr(0, maxLength) + "[...]";
+            }
+
+
             /* ---------------------- Filter filters ---------------------- */
 
             $scope.filtrsSrch = "";
-/*
+
             $scope.$watch('filtrsSrch',function(newVal) {
-                var test = _.filter(data_safe_copy, function(o) {
+                var tmp = _.filter(data_safe_copy, function(o) {
                     var title = o.title.toLowerCase();
                     return title.indexOf(newVal.toLowerCase())!=-1;
                 });
 
-                $scope.data = test;
+                $scope.data = tmp;
             });
-*/
+
 
 
             /* ---------------------- Selecting filters ---------------------- */
@@ -220,6 +232,7 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                 if (getQuestions(grptitle).length>0) {
                     var elt = $(".group-question-list.cls_"+grpid);
                     ($(elt).css("display") == "none")? $(elt).css("display","block") : $(elt).css("display","none");
+                    if (!$scope.isExpanded) $scope.isExpanded = true;
                 }
             }
 

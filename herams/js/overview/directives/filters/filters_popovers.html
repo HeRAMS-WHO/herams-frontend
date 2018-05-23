@@ -18,7 +18,9 @@
                  <img src="img/filters/select_off.png" ng-show="isSelected(item)==0"/>
                  <img src="img/filters/select_partial.png" ng-show="isSelected(item)==2" ng-click="checkLevel($event)"/>
              </span>
-             <span class="chevron" ng-class="{'showing': openNext!=null}"><img src="img/filters/arrow_filters_location.png"/></span>
+             <span class="chevron" ng-class="{'showing': openNext!=null}">
+                 <img src="img/filters/arrow_filters_location_big2.png"/>
+             </span>
          </li>
          <!-- Single Choice  -->
           <li ng-repeat="item in items" ng-if="singlechoice" ng-class="{'selected':isSelected(item)}">

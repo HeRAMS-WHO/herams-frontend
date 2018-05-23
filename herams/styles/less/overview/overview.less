@@ -262,6 +262,44 @@
                  }
               }
             }
+
+            .filter-calendar {
+
+              /* bootstrap overrides */
+
+              .uib-datepicker .uib-title {
+                font-family: @font-family-base;
+                font-size: 1em;
+                b, strong {
+                  font-weight: @regular;
+                }
+              }
+
+              .uib-daypicker {
+                table {
+                  margin: 0 10px;
+                  thead tr:nth-child(2) {
+                    border-bottom: 1px solid @light-grey;
+                  }
+                }
+                .btn-info:not(:disabled):not(.disabled).active, .btn-info:not(:disabled):not(.disabled):active, .show>.btn-info.dropdown-toggle {
+                  background-color: @brand-blue;
+                  border:none;
+                  border-radius:0;
+                  // color: white;
+                  .text-info {
+                    color: white!important;
+                  }
+                }
+              }
+
+              .fa, .fas {
+                float: right;
+                padding-top: 3px;
+              }
+
+            }
+
           }
 
 

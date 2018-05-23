@@ -26,9 +26,9 @@ angular.module('app-herams').directive('datepicker', function($log) {
 
             $scope.dateOptions = {
                 formatYear: 'yyyy-MM-dd',
-                maxDate: new Date(2020, 5, 22),
-                minDate: new Date(),
-                startingDay: 1
+                maxDate: new Date(),
+                startingDay: 1,
+                showWeeks: false
             };
 
             $scope.togglePicker = function() {

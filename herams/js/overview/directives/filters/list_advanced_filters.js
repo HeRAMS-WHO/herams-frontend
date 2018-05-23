@@ -55,8 +55,6 @@ angular.module('app-herams').directive('advancedFiltersList', function($log,filt
             }
 
             $scope.isFilterQ = function(qcode) {
-                $log.info('list_advanced_filters - isFilterQ : advanced_filters_applied = ', $scope.data.advanced_filters_applied,
-                    ' /  advanced_filters_src = ', $scope.data.advanced_filters_src);
                 return ($scope.data.advanced_filters_applied[qcode]!=null);
             }
 

@@ -100,21 +100,31 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             states_geolevel = '2',
             applied_location_fltrs = [];
 
+        function getLocationfromID(geoID) {
+
+           var children = _.filter(location_fltrs, { 'geo_id': geoID });
+        }
+
         function getStatesList() {
             var states = _.filter(location_fltrs, { 'geo_level': states_geolevel });
             return _.map(states, 'geo_name');
         }
 
         function addLocation(geo_name) {
-            var data = _.filter(location_fltrs, { 'geo_name': geo_name });
-            applied_location_fltrs.push(data[0].geo_id);
+            var data = _.filter(location_fltrs, { 'geo_name': geo_name }),
+                geoId = data[0].geo_id;
+
+            applied_location_fltrs.push(geoId);
 
             /* select all child locations */
-            var children = _.filter(location_fltrs, { 'parent_id': data[0].geo_id });
+            var children = _.filter(location_fltrs, { 'parent_id': geoId });
             applied_location_fltrs = applied_location_fltrs.concat( _.map(children, 'geo_id'));
+
         }
 
         function rmvLocation(geo_name) {
+            $log.info('rmvLocation BEFORE : ',applied_location_fltrs);
+
             var data = _.filter(location_fltrs, { 'geo_name': geo_name });
             _.pull(applied_location_fltrs,data[0].geo_id);
 
@@ -123,6 +133,9 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             _.pullAll(applied_location_fltrs, _.map(children, 'geo_id'));
 
             _.pull(applied_location_fltrs,data[0].parent_id);
+
+            $log.info('rmvLocation AFTER : ',applied_location_fltrs);
+
         }
 
         function getSubLocations(geo_name) {
@@ -184,6 +197,9 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                 });
                 _.pullAll(applied_location_fltrs, _.map(children, 'geo_id'));
 
+                /* handling parent id in selection */
+                _.pull(applied_location_fltrs, children[0].parent_id);
+
             } else {
 
                 /* ADD all related selection */
@@ -192,9 +208,8 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                 });
                 applied_location_fltrs = applied_location_fltrs.concat( _.map(children, 'geo_id'));
 
-
                 /* handling parent id in selection */
-                applied_location_fltrs.push(children[0].parent_id);
+                if (applied_location_fltrs.indexOf(children[0].parent_id) == -1) applied_location_fltrs.push(children[0].parent_id);
 
             }
         }
@@ -202,11 +217,12 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         function getLocationGlobalValue() {
             if (applied_location_fltrs) {
 
-                // $log.info('getLocationGlobalValue - ',applied_location_fltrs);
+                // $log.info('getLocationGlobalValue - getLevelLocationStatus(2)',getLevelLocationStatus('2'));
                 // var cntStr = (applied_location_fltrs.length>0)? " ("+applied_location_fltrs.length+")" : "";
 
                 var cntStr = (applied_location_fltrs.length>0)? " (multi)" : "";
-                //if (getLevelLocationStatus('1') == 1) cntStr = " (all)";
+                if (getLevelLocationStatus('2') == 1) cntStr = " (all)";
+
                 return "Location"+cntStr;
 
 /*
@@ -338,11 +354,12 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         }
 
         function updtAdvancedFilters(data) {
-            // $log.info('updtAdvancedFilters: ', data,' / advanced_filters_applied: ', advanced_filters_applied);
-            $log.info('------------- updtAdvancedFilters -------------');
+            // $log.info('------------- updtAdvancedFilters -------------');
+            // $log.info('updtAdvancedFilters: ', data);
+
             advanced_filters_applied = data;
             this.shared.advanced_filters_applied = data;
-            $log.info('updtAdvancedFilters: ', this.shared.advanced_filters_applied);
+            // $log.info('updtAdvancedFilters: ', this.shared.advanced_filters_applied);
         }
 
         function getAdvancedFiltersCnt() {
@@ -389,6 +406,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         function applyHTTPFilters(date) {
 
+            filters_selection["date"] = date;
             filters_selection["location"] = applied_location_fltrs;
             filters_selection["hftypes"] = applied_hftype_fltrs;
             filters_selection["advanced"] = [];
