@@ -348,10 +348,94 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         var advanced_filters_src,
             advanced_filters_applied;
 
+    function setQuestionSet(groupData) {
+        var rslt = [];
+
+        _.forEach(groupData.questions, function(val, key) {
+
+            // if ((val.dimensions == 0) && (val.answers != null)) $log.info(val.dimensions, ' - ', val.answers, ' - ', val.questions);
+            // if ((val.dimensions == 1)) $log.info('-- ',val.dimensions, ' -- ', val.text, ' - ', val.answers, ' - ', val.questions);
+
+            if ((val.dimensions == 0) && (val.answers != null)) {
+                var o = {
+                    code: val.title,
+                    text: val.text,
+                    answers: val.answers
+                }
+                rslt.push(o);
+
+            } else if (val.dimensions == 1) {
+
+                var tmp_code = val.title,
+                    tmp_text = val.text;
+
+                var yesnoQ = (_.filter(val.answers,{'code':"Y"}).length > 0);
+
+                if (!yesnoQ) {
+                    _.forEach(val.questions[0], function(qval, qkey) {
+                        if (qval.answers != null) {
+                            var o = {
+                                code: tmp_code + "[" + qval.title + "]",
+                                text: tmp_text + ' - ' + qval.text,
+                                answers: qval.answers
+                            }
+                            rslt.push(o);
+                        }
+                    });
+                } else {
+                    // $log.info('yesnoQ - ', val.questions);
+                    var tmp_answers = [];
+                    var o = {
+                        code: tmp_code,
+                        text: tmp_text
+                    }
+
+                    _.forEach(val.questions[0], function(qval, qkey) {
+                        var oo = {
+                            code: qval.title,
+                            text: qval.text
+                        }
+                        tmp_answers.push(oo);
+                    });
+
+                    o.answers = tmp_answers;
+                    rslt.push(o);
+                }
+            }
+        });
+
+
+        return rslt;
+    }
+
+    function setAdvcdFltsData(src){
+        var tmp = {};
+        _.forEach(src, function(value) {
+            tmp[value.title] = setQuestionSet(value);
+        });
+
+        this.shared.advanced_filters_src = tmp;
+        this.shared.advanced_filters_applied = {};
+
+        var tmpGrps = [];
+        _.forEach(src, function(value) {
+          tmpGrps.push({
+              title: value.title,
+              id: value.id
+          });
+        });
+
+        this.shared.LS_grps_data = tmpGrps;
+    }
+
+
+
+/*
         function setAdvcdFltsData(src, applied) {
             this.shared.advanced_filters_src = src;
             this.shared.advanced_filters_applied = applied;
         }
+*/
 
         function updtAdvancedFilters(data) {
             // $log.info('------------- updtAdvancedFilters -------------');
@@ -359,7 +443,6 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
             advanced_filters_applied = data;
             this.shared.advanced_filters_applied = data;
-            // $log.info('updtAdvancedFilters: ', this.shared.advanced_filters_applied);
         }
 
         function getAdvancedFiltersCnt() {
@@ -374,9 +457,6 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         function clearAdvancedFilters() {
 
-            // $log.info('this.shared.advanced_filters_applied: ', this.shared.advanced_filters_applied);
-            $log.info('------------- clearAdvancedFilters -------------');
-
             advanced_filters_applied = {};
             this.shared.advanced_filters_applied = {};
 
@@ -388,14 +468,15 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         /* ---------------------- Advanced Filters methods ---------------------- */
 
+/*
         function reset() {
 
-            /* By default, check all locations of the Workspace */
+            /!* By default, check all locations of the Workspace *!/
             for (var i in location_fltrs) {
                 addLocation(location_fltrs[i]["geo_name"]);
             }
 
-            /* By default, check all HF types of the Workspace */
+            /!* By default, check all HF types of the Workspace *!/
             for (var i in hftype_fltrs) {
                 addHF(hftype_fltrs[i]["label"]);
             }
@@ -403,6 +484,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             addDate(dates_fltrs[0]);
 
         }
+*/
 
         function applyHTTPFilters(date) {
 
@@ -439,13 +521,16 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
     return {
         shared: {
             advanced_filters_src    :null,
-            advanced_filters_applied: null
+            advanced_filters_applied: null,
+            LS_grps_data          : null
         },
         setFiltersData  : function(data) {
             appFilters = data;
 
+/*
             this.shared.advanced_filters_src    = data;
             this.shared.advanced_filters_applied = null;
+*/
             filters_selection["advanced"]       = [];
 
             location_fltrs = data.locations;

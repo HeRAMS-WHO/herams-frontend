@@ -1389,6 +1389,22 @@
 .advanced-list-modal .group-question {
   margin: 8px 0;
 }
+.checkbox-off {
+  width: 17px;
+  height: 14px;
+  background-image: url('https://www.shareicon.net/data/128x128/2016/06/08/585138_checkbox_512x512.png') no-repeat left;
+  float: left;
+}
+.checkbox-all {
+  width: 17px;
+  height: 14px;
+  background-image: url('img/filters/select_all.png') no-repeat left;
+}
+.checkbox-partial {
+  width: 17px;
+  height: 14px;
+  background-image: url('img/filters/select_partial.png') no-repeat left;
+}
 .layout14,
 .layout13 {
   /*

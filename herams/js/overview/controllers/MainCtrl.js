@@ -101,7 +101,8 @@ angular.module('app-herams')
                         .then(loadFinally);
 
             function loadSuccess(httpResponse) {
-                $scope.LSQuestions = httpResponse.data.groups;
+                // $scope.LSQuestions = httpResponse.data.groups;
+                filtersSvc.setAdvcdFltsData(httpResponse.data.groups);
             }
 
             function loadFailure(httpResponse) {

@@ -13,14 +13,14 @@
  */
 angular.module('app-herams').directive('advancedSearch', function($log,filtersSvc) {
 
-    var filters_advanced = {};
+    var advanced_filters_applies = {};
 
     function trimHTML(str) {
         var regex = /(<([^>]+)>)/ig;
         return str.replace(regex, "");
     }
 
-    function setQuestionSet(groupData) {
+ /*   function setQuestionSet(groupData) {
         var rslt = [];
 
         _.forEach(groupData.questions, function(val, key) {
@@ -79,7 +79,7 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
         return rslt;
     }
-
+*/
     return {
         templateUrl: '/js/overview/directives/filters/advanced_search.html',
         restrict: 'E',
@@ -91,32 +91,36 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
             /* ---------------------- Setting up / clearing data ---------------------- */
 
-            var data_safe_copy,
-                global_load_ok = false;
-            var advanced_search_data = [];
+            $scope.data = filtersSvc.shared;
 
-            var listener = $scope.$watch('data', function(loaded) {
-                if (loaded) {
-                    if ((!global_load_ok) && (loaded.length > 0)) {
-                        _.forEach(loaded, function(value) {
-                            advanced_search_data[value.title] = setQuestionSet(value);
-                        });
-                        filtersSvc.setAdvcdFltsData(advanced_search_data, filters_advanced);
 
-                        data_safe_copy = _.cloneDeep(loaded);
-                        global_load_ok = true;
-                        listener();
-                    }
-                }
-            });
+            var questionsCls = {},
+                grpCnt = 0, qCnt = 0;
+
+            function setQClass(grp_txt){
+                qCnt=0;
+                questionsCls[grp_txt] = {};
+                _.forEach(filtersSvc.shared.advanced_filters_src[grp_txt], function(question) {
+                  questionsCls[grp_txt][question.code] = grpCnt + "-" + qCnt;
+                  qCnt++;
+                });
+                grpCnt++;
+            }
+
+            function getQClass(grp_title,qcode) {
+                return questionsCls[grp_title][qcode];
+            }
+            $scope.getQClass = getQClass;
+
 
             function getQuestions(grp_txt) {
-                return advanced_search_data[grp_txt];
+                if (!questionsCls[grp_txt]) setQClass(grp_txt);
+                return filtersSvc.shared.advanced_filters_src[grp_txt];
             }
             $scope.getQuestions = getQuestions;
 
             $scope.$on('setFiltersCleared', function (event) {
-                 filters_advanced = {};
+                 advanced_filters_applies = {};
                  if (filtersSvc.getAdvancedFiltersCnt()>0) {
                      filtersSvc.clearAdvancedFilters();
                  }
@@ -132,6 +136,7 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
             /* ---------------------- Filter filters ---------------------- */
 
+/*
             $scope.filtrsSrch = "";
 
             $scope.$watch('filtrsSrch',function(newVal) {
@@ -142,27 +147,28 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
                 $scope.data = tmp;
             });
+*/
 
 
 
             /* ---------------------- Selecting filters ---------------------- */
 
             function isSelected(qCode, aCode) {
-                return (filters_advanced[qCode])? filters_advanced[qCode].indexOf(aCode) != -1 : false;
+                return (advanced_filters_applies[qCode])? advanced_filters_applies[qCode].indexOf(aCode) != -1 : false;
             }
             $scope.isSelected = isSelected;
 
             function check (qCode, aCode) {
-                if (!filters_advanced[qCode]) filters_advanced[qCode] = [];
-                filters_advanced[qCode].push(aCode);
+                if (!advanced_filters_applies[qCode]) advanced_filters_applies[qCode] = [];
+                advanced_filters_applies[qCode].push(aCode);
             }
             function uncheck ( qCode, aCode) {
-                _.pull(filters_advanced[qCode],aCode);
-                if (filters_advanced[qCode].length<1) delete filters_advanced[qCode];
+                _.pull(advanced_filters_applies[qCode],aCode);
+                if (advanced_filters_applies[qCode].length<1) delete advanced_filters_applies[qCode];
             }
             function checkItem(evt, qCode, aCode) {
                 (isSelected(qCode, aCode))? uncheck(qCode, aCode) : check(qCode, aCode);
-                filtersSvc.updtAdvancedFilters(filters_advanced);
+                filtersSvc.updtAdvancedFilters(advanced_filters_applies);
                 evt.stopPropagation();
             }
             $scope.checkItem = checkItem;
@@ -172,7 +178,7 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
                 var questions = $scope.getQuestions(grp_txt);
                 _.forEach(_.map(questions,'code'), function(value) {
-                    if (filters_advanced[value]) cnt += filters_advanced[value].length;
+                    if (advanced_filters_applies[value]) cnt += advanced_filters_applies[value].length;
                 });
 
                 return (cnt == 0)? "" : " (" + cnt + ")";
@@ -180,12 +186,12 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
             $scope.getGroupCnt = getGroupCnt;
 
             function getQStatus(grptitle,qcode) {
-                var q = _.find(advanced_search_data[grptitle],{'code': qcode});
+                var q = _.find(filtersSvc.shared.advanced_filters_src[grptitle],{'code': qcode});
 
                 if (q.answers) {
                     var nbr_answers = q.answers.length;
-                    if (filters_advanced[qcode]) {
-                        if (filters_advanced[qcode].length == nbr_answers) {
+                    if (advanced_filters_applies[qcode]) {
+                        if (advanced_filters_applies[qcode].length == nbr_answers) {
                             return 1;
                         } else {
                             return 2;
@@ -198,16 +204,36 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
             }
             $scope.getQStatus=getQStatus;
 
+/*
             function selectAllQ(evt,grptitle,qcode,status) {
-                var q = _.find(advanced_search_data[grptitle],{'code': qcode});
+                var q = _.find(filtersSvc.shared.advanced_filters_src[grptitle],{'code': qcode});
 
                 if (status>0) {
-                    delete filters_advanced[qcode];
+                    delete advanced_filters_applies[qcode];
                 } else {
-                    filters_advanced[qcode] = _.map(q.answers,'code');
+                    advanced_filters_applies[qcode] = _.map(q.answers,'code');
                 }
 
-                filtersSvc.updtAdvancedFilters(filters_advanced);
+                filtersSvc.updtAdvancedFilters(advanced_filters_applies);
+
+                evt.stopPropagation();
+
+            }
+            $scope.selectAllQ=selectAllQ;
+*/
+
+            function selectAllQ(evt,grptitle,qcode) {
+                var q = _.find(filtersSvc.shared.advanced_filters_src[grptitle],{'code': qcode});
+
+                var status = getQStatus(grptitle,qcode);
+
+                if (status>0) {
+                    delete advanced_filters_applies[qcode];
+                } else {
+                    advanced_filters_applies[qcode] = _.map(q.answers,'code');
+                }
+
+                filtersSvc.updtAdvancedFilters(advanced_filters_applies);
 
                 evt.stopPropagation();
 
@@ -236,8 +262,13 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                 }
             }
 
-            $scope.toggleAnswers = function(evt,qcode) {
-                var elt = $(".question-answers-list."+qcode);
+            $scope.toggleAnswers = function(evt,grptitle,qcode) {
+
+                var qCls = getQClass(grptitle,qcode);
+                var elt = $(".question-answers-list."+qCls);
+
+                $log.info('toggleAnswers / ',qCls, '\n - elt: ',elt, ' - show: ',elt.css("display"));
+
                 ($(elt).css("display") == "none")? $(elt).css("display","block") : $(elt).css("display","none");
             }
 
@@ -262,6 +293,34 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
                 var elt = $(".question-answers-list."+qcode);
                 return ($(elt).css("display") == "block");
             }
+
+
+            /* ---------------------- UI / checkboxes ---------------------- */
+
+            function setQChckBx(grp_title,qcode) {
+                var status = getQStatus(grp_title,qcode),
+                    rslt;
+
+                switch(status) {
+                    case 0:
+                        rslt = "img/filters/select_off.png";
+                        break;
+                    case 1:
+                        rslt = "img/filters/select_all.png";
+                        break;
+                    case 2:
+                        rslt = "img/filters/select_partial.png";
+                        break;
+               }
+
+               return rslt;
+            }
+            $scope.setQChckBx = setQChckBx;
+
+            function setAChckBx (qcode,acode) {
+                return (!isSelected(qcode,acode))? "img/filters/select_off.png" : "img/filters/select_all.png";
+            }
+            $scope.setAChckBx = setAChckBx;
 
          }
 

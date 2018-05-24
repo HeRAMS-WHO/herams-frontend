@@ -11,7 +11,7 @@
  * @example
  *   <dropdown  />
  */
-angular.module('app-herams').directive('advancedFiltersList', function($log,filtersSvc) {
+angular.module('app-herams').directive('advancedFiltersList', function($log,$timeout,filtersSvc) {
 
 
     return {
@@ -51,6 +51,7 @@ angular.module('app-herams').directive('advancedFiltersList', function($log,filt
             }
 
             $scope.getQuestions = function(grp_txt) {
+                $log.info('List Advanced Filters:\n getQuestions(',grp_txt,') : ',$scope.data.advanced_filters_src[grp_txt]);
                 return $scope.data.advanced_filters_src[grp_txt];
             }
 

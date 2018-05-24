@@ -13,22 +13,8 @@
         </div>
     </div>
 
- <!--
-    <div class="advanced-filters-fltr">
-        <input type="text" ng-model="filtrsSrch" class="form-control" placeholder="search filters">
-        <button type="button" class="btn btn-outline-dark" ng-click="srchFilters()" style="float:right">Search</button>
-        <span>Search filters with: {{filtrsSrch}}</span>
-        <form class="form-inline">
-          <div class="form-group mx-sm-3 mb-2">
-            <input type="text" ng-model="filtrsSrch" class="form-control" id="inputPassword2" placeholder="Search text">
-          </div>
-          <button type="submit" class="btn btn-primary mb-2" ng-click="srchFilters()">Search</button>
-        </form>
-    </div>
--->
-
      <ul>
-         <li class="group-name" ng-repeat="group in data track by $index">
+         <li class="group-name" ng-repeat="group in data.LS_grps_data track by $index">
              <div class="group-title" ng-click="toggleQuestions($event,group.id,group.title)" ng-class="greyoutCls(group.title)">
                  <img src="img/menu_open.svg"  ng-if="!isGrpOpened(group.id)">
                  <img src="img/menu_close.svg" ng-if="isGrpOpened(group.id)">
@@ -38,20 +24,16 @@
              <div class="group-question-list filtermode" ng-class="setGroupClass(group.id)">
                  <ul>
                      <li class="group-question" ng-repeat="question in getQuestions(group.title)">
-                         <div class="question-text" ng-click="toggleAnswers($event,question.code)">
-                             <img src="img/filters/select_off.png"     ng-if="getQStatus(group.title,question.code)==0" ng-click="selectAllQ($event, group.title,question.code,0)"/>
-                             <img src="img/filters/select_all.png"     ng-if="getQStatus(group.title,question.code)==1" ng-click="selectAllQ($event, group.title,question.code,1)"/>
-                             <img src="img/filters/select_partial.png" ng-if="getQStatus(group.title,question.code)==2" ng-click="selectAllQ($event, group.title,question.code,2)"/>
-                             <!--<span ng-bind-html="question.text"></span>-->
-                             <span>{{ trimQuestiontxt(question.text) }}</span>
-                             <img src="img/filters/arrow_main-criteria.png" class="q-collapse-chevron" ng-class="{'collapse':isQExpanded(question.code)}"/>
-                         </div>
-                        <div class="question-answers-list" ng-class="question.code">
+                       <div class="question-text" ng-click="toggleAnswers($event,group.title,question.code)">
+                           <img ng-src="{{setQChckBx(group.title,question.code)}}" ng-click="selectAllQ($event, group.title,question.code)"/>
+                           <span>{{ trimQuestiontxt(question.text) }}</span>
+                           <img src="img/filters/arrow_main-criteria.png" class="q-collapse-chevron" ng-class="{'collapse':isQExpanded(question.code)}"/>
+                       </div>
+                        <div class="question-answers-list" ng-class="getQClass(group.title,question.code)">
                              <ul>
                                  <li class="question-answer" ng-repeat="answer in question.answers">
                                      <div class="answer-text" ng-click="checkItem($event,question.code,answer.code)">
-                                         <img src="img/filters/select_off.png" ng-if="!isSelected(question.code,answer.code)"/>
-                                         <img src="img/filters/select_all.png" ng-if="isSelected(question.code,answer.code)"/>
+                                         <img src="{{setAChckBx(question.code,answer.code)}}"/>
                                          <span ng-bind-html="answer.text"></span>
                                      </div>
                                  </li>
