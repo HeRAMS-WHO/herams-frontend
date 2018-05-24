@@ -93,7 +93,6 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
             $scope.data = filtersSvc.shared;
 
-
             var questionsCls = {},
                 grpCnt = 0, qCnt = 0;
 
@@ -256,7 +255,7 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
 
             $scope.toggleQuestions = function(evt,grpid,grptitle) {
                 if (getQuestions(grptitle).length>0) {
-                    var elt = $(".group-question-list.cls_"+grpid);
+                    var elt = $(".group-question-list.filtermode.cls_"+grpid);
                     ($(elt).css("display") == "none")? $(elt).css("display","block") : $(elt).css("display","none");
                     if (!$scope.isExpanded) $scope.isExpanded = true;
                 }
@@ -273,20 +272,29 @@ angular.module('app-herams').directive('advancedSearch', function($log,filtersSv
             }
 
             $scope.isGrpOpened = function(grpid) {
-                var elt = $(".group-question-list.cls_"+grpid);
+                var elt = $(".group-question-list.filtermode.cls_"+grpid);
                 return ($(elt).css("display") == "block");
             }
 
             $scope.isExpanded = false;
             $scope.expandAllGrps = function() {
-                var grp_divs = $(".group-question-list"),
+                var grp_divs = $(".group-question-list.filtermode"),
                     new_status = ($scope.isExpanded==true)? "none" : "block";
 
                 _.forEach(grp_divs, function(grp_div) {
                     $(grp_div).css("display",new_status);
                 })
 
+                if (new_status == "block") expandQuestions();
+
                 $scope.isExpanded = !$scope.isExpanded;
+            }
+
+            function expandQuestions() {
+                var qDivs = $(".question-answers-list");
+                _.forEach(qDivs, function(q_div) {
+                    $(q_div).css("display","block");
+                })
             }
 
             $scope.isQExpanded = function(qcode) {

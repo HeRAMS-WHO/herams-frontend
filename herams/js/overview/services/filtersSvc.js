@@ -123,7 +123,6 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         }
 
         function rmvLocation(geo_name) {
-            $log.info('rmvLocation BEFORE : ',applied_location_fltrs);
 
             var data = _.filter(location_fltrs, { 'geo_name': geo_name });
             _.pull(applied_location_fltrs,data[0].geo_id);
@@ -134,7 +133,9 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
             _.pull(applied_location_fltrs,data[0].parent_id);
 
-            $log.info('rmvLocation AFTER : ',applied_location_fltrs);
+            /* remove top level from list */
+            var top_level_loc = _.filter(location_fltrs, { 'geo_level': '1' });
+            if (applied_location_fltrs.indexOf(top_level_loc.geo_id) != -1) _.pull(applied_location_fltrs,top_level_loc.geo_id);
 
         }
 
@@ -151,10 +152,8 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
            if (rsltArr.length == 0) {
                rtrn = 0;
-           } else if (rsltArr.length == compareArr.length) {
-               rtrn = 1;
            } else {
-               rtrn = 2;
+               (rsltArr.length == compareArr.length)? rtrn = 1 : rtrn = 2;
            }
 
            return rtrn;
@@ -180,36 +179,41 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             var data = _.filter(location_fltrs, { 'geo_level': level });
             var dataIDs = _.map(data,'geo_id');
 
+            // if (level == 2) $log.info('getLevelLocationStatus : ', _.map(data,'geo_id'), ' / ', applied_location_fltrs);
+
             var rslt = _.intersectionWith(_.map(data,'geo_id'),applied_location_fltrs, _.isEqual);
+            // if (level == 2) $log.info('getLevelLocationStatus : ', rslt, ' / ', data);
 
             return setStatusCode(rslt, data);
         }
 
         function checkLocationLevel(level) {
             var status = getLevelLocationStatus(level);
-            var children = _.filter(location_fltrs, { 'geo_level': level });
+            var level_locations = _.filter(location_fltrs, { 'geo_level': level });
 
             if ((status == 1) || (status == 2)) {
 
                 /* REMOVE all related selection */
-                _.forEach(children, function(item) {
+                _.forEach(level_locations, function(item) {
                     rmvLocation(item.geo_name);
                 });
-                _.pullAll(applied_location_fltrs, _.map(children, 'geo_id'));
+                _.pullAll(applied_location_fltrs, _.map(level_locations, 'geo_id'));
 
                 /* handling parent id in selection */
-                _.pull(applied_location_fltrs, children[0].parent_id);
+                if (applied_location_fltrs.indexOf(level_locations[0].parent_id) != -1) {
+                    _.pull(applied_location_fltrs, level_locations[0].parent_id);
+                }
 
             } else {
 
                 /* ADD all related selection */
-                _.forEach(children, function(item) {
+                _.forEach(level_locations, function(item) {
                     addLocation(item.geo_name);
                 });
-                applied_location_fltrs = applied_location_fltrs.concat( _.map(children, 'geo_id'));
+                applied_location_fltrs = applied_location_fltrs.concat( _.map(level_locations, 'geo_id'));
 
                 /* handling parent id in selection */
-                if (applied_location_fltrs.indexOf(children[0].parent_id) == -1) applied_location_fltrs.push(children[0].parent_id);
+                if (applied_location_fltrs.indexOf(level_locations[0].parent_id) == -1) applied_location_fltrs.push(level_locations[0].parent_id);
 
             }
         }
@@ -219,6 +223,8 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
                 // $log.info('getLocationGlobalValue - getLevelLocationStatus(2)',getLevelLocationStatus('2'));
                 // var cntStr = (applied_location_fltrs.length>0)? " ("+applied_location_fltrs.length+")" : "";
+
+                if (applied_location_fltrs.length==1) return _.find(location_fltrs, { 'geo_id': applied_location_fltrs[0] }).geo_name;
 
                 var cntStr = (applied_location_fltrs.length>0)? " (multi)" : "";
                 if (getLevelLocationStatus('2') == 1) cntStr = " (all)";
@@ -279,6 +285,8 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         function getHFGlobalValue() {
             if ((applied_hftype_fltrs) && (hftype_fltrs)) {
+
+                if (applied_hftype_fltrs.length==1) return _.find(hftype_fltrs, { 'code': applied_hftype_fltrs[0] }).label;
 
                 var cntStr = (applied_hftype_fltrs.length>0)? " (multi)" : "";
                 // $log.info('getHFGlobalValue : hftype_fltrs=',hftype_fltrs);
@@ -348,99 +356,89 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         var advanced_filters_src,
             advanced_filters_applied;
 
-    function setQuestionSet(groupData) {
-        var rslt = [];
+        function setQuestionSet(groupData) {
+            var rslt = [];
 
-        _.forEach(groupData.questions, function(val, key) {
+            _.forEach(groupData.questions, function(val, key) {
 
-            // if ((val.dimensions == 0) && (val.answers != null)) $log.info(val.dimensions, ' - ', val.answers, ' - ', val.questions);
-            // if ((val.dimensions == 1)) $log.info('-- ',val.dimensions, ' -- ', val.text, ' - ', val.answers, ' - ', val.questions);
+                // if ((val.dimensions == 0) && (val.answers != null)) $log.info(val.dimensions, ' - ', val.answers, ' - ', val.questions);
+                // if ((val.dimensions == 1)) $log.info('-- ',val.dimensions, ' -- ', val.text, ' - ', val.answers, ' - ', val.questions);
 
-            if ((val.dimensions == 0) && (val.answers != null)) {
-                var o = {
-                    code: val.title,
-                    text: val.text,
-                    answers: val.answers
-                }
-                rslt.push(o);
-
-            } else if (val.dimensions == 1) {
-
-                var tmp_code = val.title,
-                    tmp_text = val.text;
-
-                var yesnoQ = (_.filter(val.answers,{'code':"Y"}).length > 0);
-
-                if (!yesnoQ) {
-                    _.forEach(val.questions[0], function(qval, qkey) {
-                        if (qval.answers != null) {
-                            var o = {
-                                code: tmp_code + "[" + qval.title + "]",
-                                text: tmp_text + ' - ' + qval.text,
-                                answers: qval.answers
-                            }
-                            rslt.push(o);
-                        }
-                    });
-                } else {
-                    // $log.info('yesnoQ - ', val.questions);
-                    var tmp_answers = [];
+                if ((val.dimensions == 0) && (val.answers != null)) {
                     var o = {
-                        code: tmp_code,
-                        text: tmp_text
+                        code: val.title,
+                        text: val.text,
+                        answers: val.answers
                     }
-
-                    _.forEach(val.questions[0], function(qval, qkey) {
-                        var oo = {
-                            code: qval.title,
-                            text: qval.text
-                        }
-                        tmp_answers.push(oo);
-                    });
-
-                    o.answers = tmp_answers;
                     rslt.push(o);
+
+                } else if (val.dimensions == 1) {
+
+                    var tmp_code = val.title,
+                        tmp_text = val.text;
+
+                    var yesnoQ = (_.filter(val.answers,{'code':"Y"}).length > 0);
+
+                    if (!yesnoQ) {
+                        _.forEach(val.questions[0], function(qval, qkey) {
+                            if (qval.answers != null) {
+                                var o = {
+                                    code: tmp_code + "[" + qval.title + "]",
+                                    text: tmp_text + ' - ' + qval.text,
+                                    answers: qval.answers
+                                }
+                                rslt.push(o);
+                            }
+                        });
+                    } else {
+                        // $log.info('yesnoQ - ', val.questions);
+                        var tmp_answers = [];
+                        var o = {
+                            code: tmp_code,
+                            text: tmp_text
+                        }
+
+                        _.forEach(val.questions[0], function(qval, qkey) {
+                            var oo = {
+                                code: qval.title,
+                                text: qval.text
+                            }
+                            tmp_answers.push(oo);
+                        });
+
+                        o.answers = tmp_answers;
+                        rslt.push(o);
+                    }
                 }
-            }
-        });
+            });
 
 
-        return rslt;
-    }
-
-    function setAdvcdFltsData(src){
-        var tmp = {};
-        _.forEach(src, function(value) {
-            tmp[value.title] = setQuestionSet(value);
-        });
-
-        this.shared.advanced_filters_src = tmp;
-        this.shared.advanced_filters_applied = {};
-
-        var tmpGrps = [];
-        _.forEach(src, function(value) {
-          tmpGrps.push({
-              title: value.title,
-              id: value.id
-          });
-        });
-
-        this.shared.LS_grps_data = tmpGrps;
-    }
-
-
-
-/*
-        function setAdvcdFltsData(src, applied) {
-            this.shared.advanced_filters_src = src;
-            this.shared.advanced_filters_applied = applied;
+            return rslt;
         }
-*/
+
+        function setAdvcdFltsData(src){
+            var tmp = {};
+            _.forEach(src, function(value) {
+                tmp[value.title] = setQuestionSet(value);
+            });
+
+            this.shared.advanced_filters_src = tmp;
+            this.shared.advanced_filters_applied = {};
+
+            var tmpGrps = [];
+            _.forEach(src, function(value) {
+              tmpGrps.push({
+                  title: value.title,
+                  id: value.id
+              });
+            });
+
+            this.shared.LS_grps_data = tmpGrps;
+            this.shared.LS_grps_titles = _.keys(tmp);
+        }
+
 
         function updtAdvancedFilters(data) {
-            // $log.info('------------- updtAdvancedFilters -------------');
-            // $log.info('updtAdvancedFilters: ', data);
-
             advanced_filters_applied = data;
             this.shared.advanced_filters_applied = data;
         }
@@ -520,9 +518,10 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
     return {
         shared: {
-            advanced_filters_src    :null,
+            advanced_filters_src    : null,
             advanced_filters_applied: null,
-            LS_grps_data          : null
+            LS_grps_data            : null,
+            LS_grps_titles          : null
         },
         setFiltersData  : function(data) {
             appFilters = data;

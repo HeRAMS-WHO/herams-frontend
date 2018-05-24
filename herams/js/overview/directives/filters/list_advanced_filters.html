@@ -1,10 +1,6 @@
 <div class="advanced-list-modal">
-    {{data.advanced_filters_src}}
-    <br/>
-    {{data.advanced_filters_applied}}
-<!--
-     <ul>
-         <li class="group-name" ng-repeat="group in getData() track by $index" ng-if="grpHasSelection(group)">
+      <ul>
+         <li class="group-name" ng-repeat="group in data.LS_grps_titles track by $index" ng-if="grpHasSelection(group)">
              <div class="group-title">
                  <span ng-bind-html="group"></span>
                  ({{ grpSelectCnt(group) }})
@@ -29,5 +25,4 @@
              </div>
          </li>
      </ul>
--->
 </div>

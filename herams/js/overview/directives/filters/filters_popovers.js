@@ -66,6 +66,7 @@ angular.module('app-herams').directive('filtersPopover', function($log,filtersSv
             $scope.getLevelStatus = function() {
                 if ($scope.items) {
                     var level = filtersSvc.getLocationLevel($scope.items[0]);
+                    $scope.droplevel = level;
                     if (level) return filtersSvc.getLevelLocationStatus(level);
                 }
             }
@@ -78,6 +79,46 @@ angular.module('app-herams').directive('filtersPopover', function($log,filtersSv
             }
 
             $scope.getHFColor = filtersSvc.getHFColor;
+
+            function setItemChckBx(item) {
+                var rslt;
+
+                $log.info('setChckBx: ',item, ' - ', status);
+
+                switch($scope.isSelected(item)) {
+                    case 0:
+                        rslt = "img/filters/select_off.png";
+                        break;
+                    case 1:
+                        rslt = "img/filters/select_all.png";
+                        break;
+                    case 2:
+                        rslt = "img/filters/select_partial.png";
+                        break;
+               }
+
+               return rslt;
+            }
+            $scope.setItemChckBx = setItemChckBx;
+
+            function setChckBx(status) {
+                var rslt;
+
+                switch(status) {
+                    case 0:
+                        rslt = "img/filters/select_off.png";
+                        break;
+                    case 1:
+                        rslt = "img/filters/select_all.png";
+                        break;
+                    case 2:
+                        rslt = "img/filters/select_partial.png";
+                        break;
+               }
+
+               return rslt;
+            }
+            $scope.setChckBx = setChckBx;
 
         },
 

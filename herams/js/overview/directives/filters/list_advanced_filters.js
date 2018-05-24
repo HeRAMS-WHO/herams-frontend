@@ -18,13 +18,10 @@ angular.module('app-herams').directive('advancedFiltersList', function($log,$tim
         templateUrl: '/js/overview/directives/filters/list_advanced_filters.html',
         restrict: 'E',
         replace: true,
+        scope : true,
         controller: function($scope){
 
             $scope.data = filtersSvc.shared;
-
-            $scope.getData = function() {
-                return _.keys($scope.data.advanced_filters_src);
-            }
 
             function getIntersection(grp_txt) {
                 var tmp = _.map($scope.data.advanced_filters_src[grp_txt],'code');
