@@ -249,6 +249,23 @@
 .filter-dropdown .dropdown-toggle::after {
   display: none;
 }
+.glyphicon {
+  font-weight: 900;
+  font-family: Font Awesome\ 5 Free;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+.glyphicon.glyphicon-chevron-left:before {
+  content: "\f053";
+}
+.glyphicon.glyphicon-chevron-right:before {
+  content: "\f054";
+}
 .home {
   height: 100%;
 }
@@ -874,22 +891,42 @@
 .mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-datepicker .uib-title strong {
   font-weight: 400;
 }
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker table {
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker table,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker table,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker table {
   margin: 0 10px;
 }
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker table thead tr:nth-child(2) {
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker table thead tr:nth-child(2),
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker table thead tr:nth-child(2),
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker table thead tr:nth-child(2) {
   border-bottom: 1px solid #e0e0e0;
 }
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn-info:not(:disabled):not(.disabled).active,
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn-info:not(:disabled):not(.disabled):active,
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .show > .btn-info.dropdown-toggle {
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn {
+  border-radius: 0;
+  background: none;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn:hover,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn:hover,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn:hover {
+  color: #4177c1;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn:focus,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn:focus,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn:focus {
+  box-shadow: none;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn.btn-info,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn.btn-info,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn.btn-info {
   background-color: #4177c1;
   border: none;
   border-radius: 0;
 }
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn-info:not(:disabled):not(.disabled).active .text-info,
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn-info:not(:disabled):not(.disabled):active .text-info,
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .show > .btn-info.dropdown-toggle .text-info {
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn .text-info,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn .text-info,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn .text-info {
   color: white!important;
 }
 .mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .fa,

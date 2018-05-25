@@ -275,18 +275,27 @@
                 }
               }
 
-              .uib-daypicker {
+              .uib-daypicker,.uib-monthpicker,.uib-yearpicker {
                 table {
                   margin: 0 10px;
                   thead tr:nth-child(2) {
                     border-bottom: 1px solid @light-grey;
                   }
                 }
-                .btn-info:not(:disabled):not(.disabled).active, .btn-info:not(:disabled):not(.disabled):active, .show>.btn-info.dropdown-toggle {
-                  background-color: @brand-blue;
-                  border:none;
-                  border-radius:0;
-                  // color: white;
+                .btn {
+                  border-radius: 0;
+                  background: none;
+                  &:hover {
+                    color: @brand-blue;
+                  }
+                  &:focus {
+                    box-shadow: none;
+                  }
+                  &.btn-info {
+                    background-color: @brand-blue;
+                    border:none;
+                    border-radius:0;
+                  }
                   .text-info {
                     color: white!important;
                   }
@@ -496,15 +505,15 @@
 
 }
 
-         @-webkit-keyframes fadeIn {
-            0% {opacity: 0;}
-            100% {opacity: 1;}
-         }
+ @-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+ }
 
-         @keyframes fadeIn {
-            0% {opacity: 0;}
-            100% {opacity: 1;}
-         }
+ @keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+ }
 
 
 .partners-list {

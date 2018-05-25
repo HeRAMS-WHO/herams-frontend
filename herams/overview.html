@@ -15,9 +15,10 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/normalize.css">
     <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/main.css">
-    <!--<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />-->
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+
 
     <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
     <!-- endbower -->
@@ -122,13 +123,6 @@
                                     </div>
                                     <div class="filter-calendar">
                                         <datepicker date="date"></datepicker>
-<!--
-                                        <dropdown
-                                                icon="img/filter_when.svg"
-                                                value="date"
-                                                type="date"
-                                                ng-cloak />
--->
                                     </div>
                                     <div class="filter-HF">
                                         <dropdown
@@ -199,14 +193,6 @@
                     <div class="modal fade" id="advncdSrchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
-<!--
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Filters</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
--->
                           <div class="modal-body">
                             <advanced-search data="LSQuestions"></advanced-search>
                           </div>
@@ -302,7 +288,6 @@
 
   <script src="../node_modules/@esri/arcgis-to-geojson-utils/dist/arcgis-to-geojson.js"></script>
   <script src="../node_modules/lodash/lodash.js"></script>
-  <script src="../node_modules/angular-i18n/angular-locale_en-us.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -332,11 +317,6 @@
   <!-- endinject -->
   <!-- endbuild -->
 
-<!--
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
--->
 
   <!-- highcharts export/print -->
     <script src="https://code.highcharts.com/modules/exporting.js"></script>

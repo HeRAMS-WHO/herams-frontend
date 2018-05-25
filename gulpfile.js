@@ -182,6 +182,17 @@ gulp.task('html', ['styles'], function() {
 });
 
 
+//Copies fonts files into a single folder
+gulp.task('fonts', function() {
+    return gulp.src(mainBowerFiles().concat('app/styles/fonts/**/*'))
+    .pipe(filter('**/*.{eot,svg,ttf,woff,woff2}'))
+    .pipe(flatten())
+    .pipe(gulp.dest('dist/fonts'))
+    .pipe(gulp.dest('.tmp/fonts'));
+});
+
+
+
 
 /** ===============================================================  **/
 /** =================    Dev Tasks  ===============================  **/

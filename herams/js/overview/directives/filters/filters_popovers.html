@@ -2,12 +2,7 @@
      <!-- Header -->
      <div class="popover-hdr" ng-if="title!=null">
          {{title}}
-<!--
-         <img src="img/filters/select_all.png" ng-show="getLevelStatus()==1" ng-click="checkLevel($event)""/>
-         <img src="img/filters/select_off.png" ng-show="getLevelStatus()==0" ng-click="checkLevel($event)"/>
-         <img src="img/filters/select_partial.png" ng-show="getLevelStatus()==2" ng-click="checkLevel($event)"/>
--->
-         {{droplevel}} / {{getLevelStatus()}}<img ng-src="{{ setChckBx(getLevelStatus())}}" ng-click="checkLevel($event)"/>
+         <img ng-src="{{ setChckBx(getLevelStatus())}}" ng-click="checkLevel($event)"/>
      </div>
      <ul>
          <!-- Multiple Choice -->
