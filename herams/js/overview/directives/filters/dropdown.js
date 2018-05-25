@@ -49,6 +49,8 @@ angular.module('app-herams').directive('dropdown', function($log,filtersSvc) {
 
                 evt.stopPropagation();
 
+                $('ul.uib-datepicker-popup').remove();
+
             });
 
             $('body').on('click', function () {

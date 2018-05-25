@@ -47,7 +47,7 @@
                              <ul>
                                  <li class="question-answer" ng-repeat="answer in question.answers">
                                      <div class="answer-text" ng-click="checkItem($event,question.code,answer.code)">
-                                         <img src="{{setAChckBx(question.code,answer.code)}}"/>
+                                         <img src="{{setAChckBx(question.code,answer.code)}}" ng-cloak/>
                                          <span ng-bind-html="answer.text"></span>
                                      </div>
                                  </li>
