@@ -718,7 +718,7 @@
   background-color: white;
   padding-bottom: 30px;
   z-index: 2;
-  min-height: 400px;
+  max-height: 400px;
   overflow: auto;
 }
 .mainWrapper .overview .menu .menu-items ul {
