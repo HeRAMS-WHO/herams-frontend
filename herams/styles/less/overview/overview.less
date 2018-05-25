@@ -638,69 +638,72 @@
       overflow-y: auto;
 
        li {
-        padding-left: 15px;
-        height: 33px;
-        list-style: none;
 
-        display:flex;
-        justify-content: space-between;
-        align-items: center;
+          .chevron {
+            opacity: 0;
+            margin-right: 8px;
 
-        .chevron {
-          opacity: 0;
-          margin-right: 8px;
-
-        }
-
-        &:hover {
-          // background-color: @light-grey;
-          background-color: #f3f3f3;
-          .chevron.showing {
-            opacity: 100;
           }
-        }
 
-        &:active {
-          color: white;
-          background-color: #ededed;
-          .chevron.showing {
-            opacity: 100;
-          }
-        }
-
-         &.selected {
-             color: white;
-             background-color: @brand-blue;
+          &:hover {
+            // background-color: @light-grey;
+            background-color: #f3f3f3;
             .chevron.showing {
               opacity: 100;
             }
-         }
+          }
 
-         span.label {
-           width: 160px;
-           height:30px;
-           overflow:hidden;
-           white-space:nowrap;
-           padding-top:5px;
-           margin-right: 10px;
-           cursor: pointer;
-           i {
-             font-size:0.6em;
-             padding-right:5px;
-           }
-         }
+          &:active {
+            color: white;
+            background-color: #ededed;
+            .chevron.showing {
+              opacity: 100;
+            }
+          }
 
-         span.checkbox {
-           margin-right: 5px;
-           cursor: pointer;
-           .checked {
-             display: none;
+           &.selected {
+               color: white;
+               background-color: @brand-blue;
+              .chevron.showing {
+                opacity: 100;
+              }
            }
-           img {
-             width: 17px;
-             height: 17px;
+
+        &>div {
+          padding-left: 15px;
+          height: 33px;
+          list-style: none;
+
+          display:flex;
+          justify-content: space-between;
+          align-items: center;
+
+           span.label {
+             width: 160px;
+             height:30px;
+             overflow:hidden;
+             white-space:nowrap;
+             padding-top:5px;
+             margin-right: 10px;
+             cursor: pointer;
+             i {
+               font-size:0.6em;
+               padding-right:5px;
+             }
            }
-         }
+
+           span.checkbox {
+             margin-right: 5px;
+             cursor: pointer;
+             .checked {
+               display: none;
+             }
+             img {
+               width: 17px;
+               height: 17px;
+             }
+           }
+        }
       }
 
     }

@@ -1174,14 +1174,6 @@
   max-height: 405px;
   overflow-y: auto;
 }
-.global-filters-popovers .popovers-containers ul li {
-  padding-left: 15px;
-  height: 33px;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 .global-filters-popovers .popovers-containers ul li .chevron {
   opacity: 0;
   margin-right: 8px;
@@ -1206,7 +1198,15 @@
 .global-filters-popovers .popovers-containers ul li.selected .chevron.showing {
   opacity: 100;
 }
-.global-filters-popovers .popovers-containers ul li span.label {
+.global-filters-popovers .popovers-containers ul li > div {
+  padding-left: 15px;
+  height: 33px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.global-filters-popovers .popovers-containers ul li > div span.label {
   width: 160px;
   height: 30px;
   overflow: hidden;
@@ -1215,18 +1215,18 @@
   margin-right: 10px;
   cursor: pointer;
 }
-.global-filters-popovers .popovers-containers ul li span.label i {
+.global-filters-popovers .popovers-containers ul li > div span.label i {
   font-size: 0.6em;
   padding-right: 5px;
 }
-.global-filters-popovers .popovers-containers ul li span.checkbox {
+.global-filters-popovers .popovers-containers ul li > div span.checkbox {
   margin-right: 5px;
   cursor: pointer;
 }
-.global-filters-popovers .popovers-containers ul li span.checkbox .checked {
+.global-filters-popovers .popovers-containers ul li > div span.checkbox .checked {
   display: none;
 }
-.global-filters-popovers .popovers-containers ul li span.checkbox img {
+.global-filters-popovers .popovers-containers ul li > div span.checkbox img {
   width: 17px;
   height: 17px;
 }

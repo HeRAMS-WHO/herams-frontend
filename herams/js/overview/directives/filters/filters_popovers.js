@@ -136,6 +136,8 @@ angular.module('app-herams').directive('filtersPopover', function($log,filtersSv
 
                 $scope.clickFilter = function(evt) {
 
+                    evt.stopPropagation();
+
                     if (evt.currentTarget != lastClicked) $(lastClicked).parent().removeClass('selected');
 
                     if (!nextPopoverID) {
@@ -153,8 +155,6 @@ angular.module('app-herams').directive('filtersPopover', function($log,filtersSv
                             });
                         }
                     }
-
-                    evt.stopPropagation();
                 }
             }
         }

@@ -116,9 +116,14 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
             applied_location_fltrs.push(geoId);
 
+            // check if level is all checked
+            // if so, add parent_id to the filters
+            if ((getLevelLocationStatus(data[0].geo_level) == 1) && (applied_location_fltrs.indexOf(data[0].parent_id)==-1))
+                applied_location_fltrs.push(data[0].parent_id);
+
             /* select all child locations */
             var children = _.filter(location_fltrs, { 'parent_id': geoId });
-            applied_location_fltrs = applied_location_fltrs.concat( _.map(children, 'geo_id'));
+            if (children.length>0) applied_location_fltrs = applied_location_fltrs.concat( _.map(children, 'geo_id'));
 
         }
 
