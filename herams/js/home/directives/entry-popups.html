@@ -1,37 +1,45 @@
 <div>
-    <div class="entry-popup-top"><h6>Health Faciliy Functionality</h6></div>
+    <div class="entry-popup-top">
+        {{::countryname}}
+    </div>
 
-    <div class="entry-popup-main container-fluid">
-        <div class="row charts-titles">
-            <div class="col-sm-4 indic1-title">{{::data.charts[0].title}}</div>
-            <div class="col-sm-4 indic2-title">{{::data.charts[1].title}}</div>
-            <div class="col-sm-4 indic3-title">{{::data.charts[2].title}}</div>
+    <div class="entry-popup-subtitle">
+        <div class="display-total">
+            <img src="img/home/HF_sm.png"/>
+            <div><span class="highlight">{{::data.total_hf}}</span> Health Facilities</div>
         </div>
-
-        <div class="row charts">
-            <div class="col-sm-4" id="indic1-chart">
-            </div>
-            <div class="col-sm-4" id="indic2-chart">
-            </div>
-            <div class="col-sm-4" id="indic3-chart">
-            </div>
-        </div>
-
-        <div class="row charts-percents">
-            <div class="col-sm-4">{{::data.charts[0].percentage}}%</div>
-            <div class="col-sm-4">{{::data.charts[1].percentage}}%</div>
-            <div class="col-sm-4">{{::data.charts[2].percentage}}%</div>
-        </div>
-
-        <div class="row charts-cnts">
-            <div class="col-sm-4 indic1-cnt">{{::data.charts[0].total}}</div>
-            <div class="col-sm-4 indic2-cnt">{{::data.charts[1].total}}</div>
-            <div class="col-sm-4 indic3-cnt">{{::data.charts[2].total}}</div>
+        <div class="sep"></div>
+        <div class="display-total">
+            <img src="img/home/Contributors.png"/>
+            <div><span class="highlight">{{::data.total_contributors}}</span> Contributors</div>
         </div>
     </div>
 
-    <div class="entry-popup-bottom">
-        <div class="display-total">Total: {{::data.total}}</div>
+    <div class="entry-popup-main">
+        <div class="charts-titles">
+            <div class="indic1-title">{{::data.charts[0].title}}</div>
+            <div class="indic2-title">{{::data.charts[1].title}}</div>
+            <div class="indic3-title">{{::data.charts[2].title}}</div>
+        </div>
+
+        <div class="charts">
+            <div id="indic1-chart"></div>
+            <div id="indic2-chart"></div>
+            <div id="indic3-chart"></div>
+        </div>
+
+        <div class="charts-legends">
+            <div id="chart1-legend"></div>
+            <div id="chart2-legend"></div>
+            <div id="chart3-legend"></div>
+        </div>
+
+        <div class="charts-icons">
+            <div><img src="img/home/Functionnality.png"/></div>
+            <div><img src="img/home/Availability.png"/></div>
+            <div><img src="img/home/HF.png"/></div>
+        </div>
+
     </div>
 
 </div>

@@ -1,0 +1,137 @@
+.menu-entry {
+
+  position:fixed;
+  top: 0;
+  left: 0;
+  width:@home-sidebar-width;
+  height:100%;
+
+  background-color: @home-sidebar-bgcolor;
+
+  z-index: 500;
+
+
+  .collapse-left-content {
+    top: 10px;
+    position: fixed;
+    left: 320px;
+    img {
+      margin:0;
+      padding:0;
+      cursor: pointer;
+    }
+  }
+
+
+    .expand-left-content {
+      display: none;
+    }
+
+
+
+  .Logo {
+    border-bottom: 1px solid @sep-color;
+    padding: 45px 0 43px 0;
+    margin-bottom: 55px;
+    text-align:center;
+
+    img {
+      width: 240px;
+      margin: auto;
+    }
+  }
+
+  .menu-items {
+    ul {
+      list-style: none;
+      padding:0;
+      margin: 0;
+
+      li {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 1.4em;
+        font-weight: @medium;
+        height:50px;
+        text-transform: uppercase;
+        padding-left: 15px;
+        border-left: 4px solid @home-sidebar-bgcolor;
+
+        cursor: pointer;
+
+        &:hover {
+          color: @brand-blue;
+          background-color: @menu-hover-color;
+          border-left: 4px solid @brand-blue;
+        }
+
+        img {
+          width: 30px;
+          height: 20px;
+          margin: 0 15px 0 0;
+        }
+
+      }
+    }
+  }
+
+
+  .menu-copy {
+    height: 50vh;
+    overflow: auto;
+
+    &>p {
+      color: @intermediate-grey;
+      font-size: 0.9em;
+      line-height: 2em;
+      padding: 0 55px;
+    }
+    a {
+      color: @brand-blue;
+      text-decoration: none;
+      font-size: 1em;
+    }
+  }
+
+
+  &.reduced {
+
+    width: 184px;
+    height: 110px;
+
+    border-bottom-right-radius: 3px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.2);
+
+    .collapse-left-content, .menu-items, .menu-copy {
+      display: none;
+    }
+
+    .expand-left-content {
+      display: block;
+      top: 10px;
+      position: fixed;
+      left: 150px;
+
+      img {
+        margin:0;
+        padding:0;
+        cursor: pointer;
+      }
+    }
+
+      .Logo {
+        border: none;
+        padding: 20px 0;
+        text-align:center;
+
+        img {
+          width: 134px;
+          margin: auto;
+        }
+      }
+
+
+  }
+
+}

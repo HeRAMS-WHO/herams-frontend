@@ -1,0 +1,190 @@
+/**
+    OVERALL WRAPPER
+ */
+.mainWrapper .main .background-top {
+  // height: 173px;
+  height: 159px;
+  background-color: #42424b;
+}
+.mainWrapper .main .content {
+  // position: fixed;
+  position: absolute;
+  // top: 34px; /* !! top to be with Breadcrumbs !! */
+  top: 20px;
+  width: 100%;
+  height: 90%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+/**
+    HEADER
+ */
+
+.content .header .row:nth-child(2) {
+  height: 79px;
+}
+.content .header .row:nth-child(2) div:first-child {
+  // padding: 0;
+  margin: 0;
+}
+.content .header .breadcrumbs {
+  color: #878787;
+  font-size: 1.2em;
+  font-weight: @light;
+  height: 17px;
+  margin-top: 11px;
+
+  a {
+    color: #878787;
+    &:hover {
+      color: @brand-blue;
+    }
+    i {
+      font-size: 0.8em;
+    }
+  }
+}
+.content .header {
+  height: 79px;
+  padding:0;
+  padding-right: 20px;
+}
+.content .header .title {
+  font-size: 3em;
+  font-weight: @light;
+  letter-spacing: -2px;
+  line-height: 41px;
+  margin: 0;
+  padding: 0;
+  // margin-top: 17px;
+  color: white;
+}
+.content .header .title span {
+  margin: 0;
+  // padding-bottom: 10px;
+  padding-bottom: 3px;
+  border-bottom: 4px solid #5791e1;
+}
+
+.content .header > .row > div:nth-child(2) {
+  padding:0;
+  margin: 0;
+}
+
+
+
+/**
+    USER PROFILE
+ */
+
+.content .header .user-profile
+{
+  padding-top:0;
+  margin-top:5px;
+  line-height:1em;
+
+  display:flex;
+  justify-content: flex-end;
+  align-items:center;
+
+}
+
+/* user profile txt infos */
+.content .header .user-profile > div:first-child {
+  font-size: 1em;
+  font-weight: medium;
+  color: white;
+  text-align: right;
+}
+.content .header .user-profile > div:first-child .usrname {
+  text-transform: uppercase;
+  margin: 2px 0;
+}
+.content .header .user-profile > div:first-child .email {
+  font-size: 0.9em;
+  color: #b3b1b8;
+  margin: 2px 0;
+}
+.content .header .user-profile > div:first-child .org {
+  margin: 10px 0;
+}
+.content .header .user-profile > div:first-child .org > span {
+  text-transform: uppercase;
+  color: #42424b;
+  border-radius:3px;
+  padding: 2px;
+  background-color: #e9e9e9;
+  width: 40px;
+}
+
+/* user profile icons/pictures container */
+.content .header .user-profile > div:nth-child(2) {
+  display:flex;
+  justify-content: space-around;
+  align-items:center;
+
+  max-width: 90px;
+}
+
+/* user profile picture placeholder */
+.content .header .user-profile > div:nth-child(2) > i:first-child {
+  font-size: 4em;
+  color: #59585e;
+  padding: 0 10px;
+}
+.content .header .user-profile > div:nth-child(2) > img {
+  padding: 0 10px;
+}
+/* arrow down */
+.content .header .user-profile > div:nth-child(2) > i {
+  font-size: 1.2em;
+  color: #e9e9e9;
+  cursor: pointer;
+}
+/*
+.content .header .user-profile > div:nth-child(2) > i:nth-child(2) {
+  font-size: 1.2em;
+  color: #e9e9e9;
+  cursor: pointer;
+}
+*/
+
+
+/* popover placement trick */
+.popover-spacer {
+  width: 70px !important;
+  height:5px;
+  color: #fff;
+}
+
+/* LOADER :: Absolute Center Spinner */
+.loading {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  img {
+    width: 100px;
+  }
+}
+.loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.5);
+}
+
+

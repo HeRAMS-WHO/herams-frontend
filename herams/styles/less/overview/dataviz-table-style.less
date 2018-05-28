@@ -1,0 +1,129 @@
+/* Variables
+================================== */
+@bw: 3px;  // border width
+
+.dataviz-table {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+  .title {
+    font-size: 1.2em;
+    font-weight: @bold;
+    color: @dark-grey;
+
+    text-align: left;
+    margin: 0 0 20px 0;
+  }
+
+  /* Tables
+  ================================== */
+
+  table {
+    width: 100%;
+  }
+
+  td,th {
+    text-align: left;
+
+    font-size: 0.9em;
+    color: @dark-grey;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 20px;
+
+    &.wider {
+      width: 30%;
+    }
+
+    &.border-left {
+      border-left: solid 1px @light-grey;
+    }
+
+  }
+
+  tr {
+    height: 28px;
+    border-bottom: solid 1px @light-grey;
+
+    &.no-border-bottom {
+      border-bottom: none;
+    }
+
+  }
+  th {
+    background-color: @light-grey;
+    border-bottom: solid 2px @intermediate-grey;
+    padding-top: 15px;
+  }
+
+  /* Tables (CSS - not compliant with IE)
+  ================================== */
+  .HRStable {
+    display: flex;
+    flex-wrap: wrap;
+    // margin: 0 0 3em 0;
+    margin: 0;
+    padding: 0;
+
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+       /* IE10+ CSS */
+      // width: 600px;
+    }
+  }
+
+  .HRStable-row-container {
+    width: 100%;
+    display: flex;
+  }
+
+  .HRStable-cell {
+    box-sizing: border-box;
+    flex-grow: 1;
+    width: 100%; // Default to full width
+    overflow: hidden; // Or flex might break
+    border-bottom: solid 1px @light-grey;
+
+    height: 25px;
+
+    font-size: 0.9em;
+    color: @dark-grey;
+    text-align: left;
+    line-height: 25px;
+    padding-left: 10px;
+
+    &.row-header  {
+      height: auto;
+      font-weight: @bold;
+      line-height: normal;
+      padding: 10px;
+      background-color: @light-grey;
+      border-bottom: solid 2px @intermediate-grey;
+    }
+
+    &.row-last  {
+      border-bottom: none;
+    }
+
+
+    &.col-wider{
+      width:46%;
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+         /* IE10+ CSS */
+        // width: 300px;
+      }
+    }
+    &.col-reg{
+      width:18%;
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+         /* IE10+ CSS */
+        // width: 100px;
+      }
+    }
+
+    &.border-left {
+      border-left: solid 1px @light-grey;
+    }
+  }
+
+}

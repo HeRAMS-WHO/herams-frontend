@@ -1,0 +1,88 @@
+
+/* Import Source Sans Pro font*/
+// @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700');
+// @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+// @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300');
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700');
+
+@import "variables.less";
+@import "textstyles.less";
+
+@import "base.less";
+@import "depoverrides.less";
+
+@import "home/home.less";
+
+@import "home/menu.less";
+@import "home/map.less";
+
+@import "overview/overview.less";
+@import "overview/layout-map-split.less";
+
+@import "overview/dataviz-table-style.less";
+
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+html,
+body {
+  font-family: @font-family-base;
+  font-size: @font-size-base;
+  font-weight: @regular;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+body > div,
+body > div > div {
+  height: 100%;
+}
+body {
+  background-color: #e0e0e0;
+  user-select: none;
+}
+a,
+a:hover,
+a:focus {
+  cursor: pointer;
+  text-decoration: none;
+}
+*:focus {
+  outline: none;
+}
+
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #ededed;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: @intermediate-grey;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: @brand-blue;
+}
+
+
+

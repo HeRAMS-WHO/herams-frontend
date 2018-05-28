@@ -2,48 +2,87 @@
 
 /**
  * @ngdoc service
- * @name app-herams.service:MainMapSvc
+ * @name app-herams.service:HFMapSvc
  * @description
- *   This service provides a set of methods to handle leaflet on the main page
+ *   This service provides a set of methods to create a Map on the workspace page
  */
-angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$timeout,$window,$compile,$log,esriSvc) {
+angular.module('app-herams').service('HFMapSvc', function($rootScope,$state,$timeout,$window,$compile,$log,esriSvc,commonSvc) {
 
-    var map;
+    var map,
+        mapSpecs,
+        dynBounds;
+
+    function addMarkers(map,serverData) {
+
+        var listHF = serverData.hf_list,
+            colorsSpecs = serverData.config.colors,
+            latlongList = [];
+
+        for (var i in listHF) {
+            var myIcon = L.divIcon({
+                className: 'herams-marker-icon',
+                html:'<i class="fas fa-circle" style="color:'+ colorsSpecs[listHF[i].type] +'"></i>'
+            });
+             L.marker(listHF[i].coord, {icon: myIcon}).addTo(map);
+
+             latlongList.push(listHF[i].coord);
+        }
+
+        /* constraints to max 200 first coords working better fro Nigeria */
+        var maxLatLongs = (latlongList.length <200)? latlongList.length : 200;
+
+        dynBounds = new L.LatLngBounds(latlongList.slice(0,maxLatLongs));
+        map.fitBounds(dynBounds);
+
+    }
 
     return {
 
         /**
-        * @name MainMapSvc.createMainMap
+        * @name HFMapSvc.createMap
         * @description
         *   returns a leaflet map object after creation according to params
         */
-        createMap: function(container,mapdata) {
+        createMap: function(container,serverData) {
+
+            mapSpecs = CONFIG.overview.map;
 
             /* - creating map instance - */
-            var map = L.map(container, {
-                zoomControl:false,
-                center: [mapdata.lat, mapdata.long],
-                zoom: mapdata.zoom
-            });
+            map = L.map(container);
+            map.zoomControl.setPosition('topright');
 
             /* - adding basemaps - */
-            for (var i in mapdata.basemaps) {
-               var tmp = L.tileLayer(mapdata.basemaps[i]).addTo(map);
+            for (var i in mapSpecs.basemaps) {
+               var tmp = L.tileLayer(mapSpecs.basemaps[i]).addTo(map);
             }
 
-            /* - adding ESRI layer - */
-            esriSvc.getEsriShape(map, mapdata.layers[0]);
+            /* - adding Country / specific area layer - */
+            esriSvc.getEsriShape(map, mapSpecs.layers[0]);
+
+            /* - adding HF markers - */
+            addMarkers(map,serverData);
 
             /* - responsiveness - */
-            $(window).on('orientationchange pageshow resize', function () {
-                $("#mapid").height($('.main-content').innerHeight());
-                map.invalidateSize();
-                map.setView([mapdata.lat, mapdata.long]);
-            }).trigger('resize');
+            this.refreshLayout();
 
+        },
 
-            // return map;
+        refreshLayout: function() {
+
+            var viewportHght = $(window).height()-280;
+            viewportHght = (viewportHght>550)? viewportHght : 550;
+
+            $('.main-content').height(viewportHght);
+            $('.map-container').height(viewportHght);
+
+            var hght = $('.map-container').innerHeight();
+
+            $("#mapid-wkspace").height(hght);
+            if (map) map.invalidateSize();
+
+            if (map) map.fitBounds(dynBounds);
 
         }
+
     }
 });

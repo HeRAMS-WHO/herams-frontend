@@ -13,6 +13,12 @@
  */
 angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$log) {
 
+    var mainMap;
+
+    function resizer () {
+        // $log.info('resizer HOME');
+    }
+
     return {
         templateUrl: '/js/home/directives/home-map.html',
         restrict: 'E',
@@ -23,22 +29,27 @@ angular.module('app-herams').directive('homemap', function(MainMapSvc,$timeout,$
         controller: function($scope) {},
         link: function($scope, $el, $attr) {
 
-            $timeout(function() {
+            $scope.$watch('mapdata', function(homeData) {
 
-                $log.info('homemap.js > $scope.mapdata: ',$scope.mapdata);
+                if (homeData.config) {
 
-                /* create Map */
-                var mainMap = MainMapSvc.createMainMap('mapid',$scope.mapdata.config);
+                     /* create Map */
+                    mainMap = MainMapSvc.createMainMap('mapid',homeData.config);
 
-                /* adding HeRams */
-                var statuses = $scope.mapdata.config.statuses,
-                    layers = $scope.mapdata.layers;
+                    /* redraw map on changes */
+                    $scope.$on('collapse-click',resizer);
+                    $(window).resize(resizer);
 
-                // MainMapSvc.addLayersToMainMap(mainMap,layers,statuses);
-                MainMapSvc.addcircleMarkerToMainMap(mainMap,layers,statuses);
+                    /* adding HeRams */
+                    var statuses = homeData.config.statuses,
+                        layers = homeData.layers;
+
+                    // MainMapSvc.addLayersToMainMap(mainMap,layers,statuses);
+                    MainMapSvc.addcircleMarkerToMainMap(mainMap,layers,statuses);
+
+                }
 
             })
-
 
         }
     }

@@ -1,3 +1,29 @@
-<div class="map-container">
-    <div id="mapid"></div>
+<div class="map-container" ng-cloak>
+<!--------------------- DO NOT REMOVE --------------------->
+<!--
+    <div class="map-filters">
+        <div class="regfiltr">
+            <div class="filter-name">Filter AA</div>
+            <div class="filter-select">All <span class="filter-count">(#)</span></div>
+        </div>
+        <div class="regfiltr">
+            <div class="filter-name">Filter BB</div>
+            <div class="filter-select">All <span class="filter-count">(#)</span></div>
+        </div>
+        <div class="srchfiltr">
+            <div class="filter-input">Search</div>
+        </div>
+    </div>
+-->
+<!-------------------- END DO NOT REMOVE ------------------->
+
+    <div id="mapid-wkspace">No match with these criteria / No data available</div>
+    <div class="map-legend">
+        <div class="legend-part" ng-cloak>
+            <div ng-repeat="legendItem in  legend track by $index">
+                <i class="fas fa-circle" ng-style="{'color':legendItem.color}"></i>
+                <span>{{legendItem.label}}</span>
+            </div>
+        </div>
+    </div>
 </div>

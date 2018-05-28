@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HeRams</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+</head>
+<body ng-app="app-herams">
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+    <div class="mainWrapper">
+        <div ng-controller="MainCtrl" class="overview" ng-init="init()">
+
+           <div class="menu">
+                <div class="backhome">
+                    <a href="index.html"><i class="fas fa-chevron-left"></i><span class="highlight">Back</span> to Herams</a>
+                </div>
+                <div class="Logo">
+                    <img src="img/HeRAMS_NGA.svg"/>
+                </div>
+                <div class="menu-items">
+                    <ul ng-cloak>
+                        <li ng-repeat="category in categories" ng-class="{'selected': category.id==catIDSelect }">{{category.name}}</li>
+<!--
+                        <li class="selected">Overview</li>
+                        <li>Health infrastructure</li>
+                        <li>Health services</li>
+                        <li>Resources</li>
+-->
+                    </ul>
+                </div>
+               <div class="partners-list-btn">Partners</div>
+            </div>
+
+            <div class="main">
+                <div class="background-top"></div>
+                <div class="content popover-base">
+                    <div class="header container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-8">
+                                <div class="breadcrumbs"><a href="/">&lt; Back</a></div>
+                                <div class="title"><span>Overview</span></div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="user-profile">
+                                    <div>
+                                        <div class="usrname">Samuel Petragallo</div>
+                                        <div class="email">petragallo@who.int</div>
+                                        <div class="org"><span>who</span></div>
+                                    </div>
+                                    <div>
+                                        <!--<i class="fas fa-user-circle"></i>-->
+                                        <img src="img/Profile_white.png"/>
+                                        <i class="fas fa-angle-down" id="log"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 filters">
+                                <div class="filter-location"><img src="img/filter_where.svg"/>Nigeria</div>
+                                <div class="filter-calendar"><img src="img/filter_when.svg"/>{{date | date:'yyyy-MM-dd'}}</div>
+                                <div class="filter-freesearch"><img src="img/filter_who.svg"/><i style="color:#343a40">nc</i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="main-content"><layout14 mapdata="::heramdata" ng-cloak></layout14></div>-->
+                    <layout13 mapdata="::heramdata" ng-cloak></layout13>
+               </div>
+            </div>
+
+        </div>
+
+      </div>
+
+
+    <!--<div class="partners-list-btn">Partners</div>-->
+
+    <div class="partners-list-grp">
+        <div class="partners-list-cache"></div>
+        <div class="partners-list">
+            <div><img src="img/partners/AAH.jpg"/></div>
+            <div><img src="img/partners/ALIMA.jpg"/></div>
+            <div><img src="img/partners/BornoState.jpg"/></div>
+            <div><img src="img/partners/fhi360.jpg"/></div>
+            <div><img src="img/partners/IntlMedicalCorps.jpg"/></div>
+            <div><img src="img/partners/IOM.jpg"/></div>
+            <div><img src="img/partners/MDM.jpg"/></div>
+            <div><img src="img/partners/MSF.jpg"/></div>
+            <div><img src="img/partners/Nigeria.jpg"/></div>
+            <div><img src="img/partners/UNFPA.jpg"/></div>
+            <div><img src="img/partners/UNICEF.jpg"/></div>
+            <div><img src="img/partners/WHO.jpg"/></div>
+        </div>
+    </div>
+
+    <div id="popover-content" class="hidden-popover">
+        <div class="log-popover">
+        <ul>
+            <li>Profile</li>
+            <li>Logout</li>
+        </ul>
+        </div>
+    </div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+  <script src="../bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+  <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <!--<script src="../bower_components/angular-animate/angular-animate.js"></script>-->
+  <script src="../bower_components/angular-mocks/angular-mocks.js"></script>
+  <script src="../bower_components/angular-loader/angular-loader.js"></script>
+  <!--<script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>-->
+
+  <script src="../bower_components/leaflet/dist/leaflet-src.js"></script>
+  <script src="../bower_components/highcharts/highcharts.js"></script>
+  <script src="../bower_components/highcharts/highcharts-more.js"></script>
+  <script src="../bower_components/highcharts/modules/exporting.js"></script>
+
+  <script src="../node_modules/@esri/arcgis-to-geojson-utils/dist/arcgis-to-geojson.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+
+    <!-- build:js({.tmp,herams}) scripts/scripts.js -->
+  <script src="js/globalscripts/herams_global.js"></script>
+
+  <script src="config/config.js"></script>
+  <script src="config/tmp_chart.js"></script>
+
+   <script src="js/app.js"></script>
+
+  <!-- inject:js -->
+  <script src="js/globalscripts/herams_global.js"></script>
+  <script src="js/common/services/commonSvc.js"></script>
+  <script src="js/common/services/esritogeojsonSvc.js"></script>
+  <script src="js/home/controllers/home.js"></script>
+  <script src="js/home/directives/entry-popups.js"></script>
+  <script src="js/home/directives/homemap.js"></script>
+  <script src="js/home/services/ChartConfigSvc.js"></script>
+  <script src="js/home/services/LayerPopupSvc.js"></script>
+  <script src="js/home/services/MainMapSvc.js"></script>
+  <script src="js/overview/controllers/MainCtrl.js"></script>
+  <script src="js/overview/directives/hfmap.js"></script>
+  <script src="js/overview/services/HFMapSvc.js"></script>
+  <script src="js/overview/directives/dataviz/dataviz-table.js"></script>
+  <script src="js/overview/directives/layouts/layout_1_3.js"></script>
+  <script src="js/overview/directives/layouts/layout_1_4.js"></script>
+  <script src="config/config.js"></script>
+  <script src="config/tmp_chart.js"></script>
+  <script src="config/tmp_chart_bckp.js"></script>
+  <!-- endinject -->
+  <!-- endbuild -->
+
+<!--
+  <script src="components/version/version.js"></script>
+  <script src="components/version/version-directive.js"></script>
+  <script src="components/version/interpolate-filter.js"></script>
+-->
+</body>
+</html>

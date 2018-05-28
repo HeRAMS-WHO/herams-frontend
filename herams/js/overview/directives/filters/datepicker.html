@@ -1,0 +1,7 @@
+<div>
+    <div class="filter-value" style="position:relative;" ng-click="togglePicker()">
+        <img src="img/filter_when.svg"/>{{dt | date:'yyyy-MM-dd' }}
+        <i class="fas fa-angle-down"></i>
+    </div>
+    <div uib-datepicker-popup ng-model="dt"  is-open="showing" datepicker-options="dateOptions" show-button-bar="false" class="calendar-popup"></div>
+</div>

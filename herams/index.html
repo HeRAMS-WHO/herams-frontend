@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html class="no-js">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HeRams</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="../bower_components/fontawesome/css/fontawesome.css" />
-  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>HeRAMS</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
 
-  <link rel="stylesheet" href="styles/main.css">
-  <script src="../bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css">
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="../bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+
+    <script>
+        var tokenConfig="085e1f753eef2a2ebd11a6ba1f422568";
+    </script>
 </head>
 <body ng-app="app-herams">
 
@@ -22,38 +34,70 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-      <div class="mainWrapper">
-        <div class="home" ng-controller="HomeCtrl" ng-init="init()">
+  <div class="mainWrapper">
+        <div class="home popover-base" ng-controller="HomeCtrl" ng-init="init()">
 
-            <div class="menu-entry">
+            <!--  USER PROFILE -->
+            <div class="user-profile">
+                <div>
+                    <div class="usrname" ng-cloak>{{ usr_name }}</div>
+                    <div class="email" ng-cloak>{{ usr_email }}</div>
+                    <div class="org"><span>who</span></div>
+                </div>
+                <div>
+                    <img src="img/Profile_black.png"/>
+                    <i class="fas fa-angle-down" id="log"></i>
+                 </div>
+            </div>
+
+            <!--  LEFT-HAND SIDE PANEL -->
+            <div class="menu-entry reduced">
+                <div class="collapse-left-content">
+                    <img src="img/home/Menu_minimize.png"/>
+                </div>
+                <div class="expand-left-content">
+                    <img src="img/home/Menu_maximize.png"/>
+                </div>
                 <div class="Logo">
                     <img src="img/HeRAMS.png"/>
                 </div>
-                <div class="menu-items">
-                    <ul>
-                        <li><img src="img/flags/ng.svg"/> nigeria</li>
-                        <li><img src="img/flags/ua.svg"/> ukraine</li>
-                        <li><img src="img/flags/ye.svg"/> yemen</li>
-                    </ul>
+                <div class="menu-copy">
+                    <p class="highlight">Collectively build a comprehensive picture of the health sector in terms of health resources and services availability and monitor its evolution over time.</p>
+                    <p>The Health Resources and Services Availability Monitoring System (HeRAMS) is a collaborative approach designed to systematically assess and monitor the availability of essential health resources and services in highly constrained environments and provide decision-makers with the information necessary to identify needs, assess gaps and respond effectively.</p>
                 </div>
             </div>
 
-            <div class="map-entry">
-               <homemap mapdata="homedata" ng-cloak></homemap>
+            <!--  MAP -->
+             <div class="map-entry fullscreen">
+              <homemap mapdata="homedata" ng-cloak></homemap>
             </div>
 
-        </div>
+            <div class="map-legend">
+                <div class="legend-part" ng-cloak>
+                    <div ng-repeat="statusspec in statuses"><i class="fas fa-circle" ng-style="{'color':statusspec.color}"></i><span>{{statusspec.label}}</span></div>
+                </div>
+            </div>
+
+            <div class="loading"><img src="img/spinner.gif"/></div>
+
       </div>
+
+    </div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+  <script src="../bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
   <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
   <script src="../bower_components/angular/angular.js"></script>
@@ -62,7 +106,7 @@
   <!--<script src="../bower_components/angular-animate/angular-animate.js"></script>-->
   <script src="../bower_components/angular-mocks/angular-mocks.js"></script>
   <script src="../bower_components/angular-loader/angular-loader.js"></script>
-  <!--<script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>-->
+  <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
 
   <script src="../bower_components/leaflet/dist/leaflet-src.js"></script>
   <script src="../bower_components/highcharts/highcharts.js"></script>
@@ -70,38 +114,28 @@
   <script src="../bower_components/highcharts/modules/exporting.js"></script>
 
   <script src="../node_modules/@esri/arcgis-to-geojson-utils/dist/arcgis-to-geojson.js"></script>
+  <script src="../node_modules/lodash/lodash.js"></script>
 
-  <!-- app -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+  <script src="config/config_dev.js"></script>
+
+    <!-- build:js({.tmp,herams}) scripts/scripts_home.js -->
+   <script src="js/app.js"></script>
+
+  <!-- inject:js -->
   <script src="config/config.js"></script>
-  <script src="config/tmp_chart.js"></script>
-
-  <!-- app -->
-  <script src="js/app.js"></script>
-
-  <!-- home -->
-  <!-- controllers -->
-  <script src="js/home/directives/homemap.js"></script>
-  <script src="js/home/controllers/home.js"></script>
-  <script src="js/overview/directives/hfmap.js"></script>
-  <script src="js/overview/controllers/overview.js"></script>
-  <!-- directives -->
-  <script src="js/home/directives/entry-popups.js"></script>
-  <!-- services -->
+  <script src="js/common/directives/user_popover.js"></script>
   <script src="js/common/services/commonSvc.js"></script>
-  <script src="js/home/services/MainMapSvc.js"></script>
-  <script src="js/home/services/LayerPopupSvc.js"></script>
-  <script src="js/home/services/ChartConfigSvc.js"></script>
   <script src="js/common/services/esritogeojsonSvc.js"></script>
-  <script src="js/overview/services/HFMapSvc.js"></script>
+  <script src="js/common/services/LayerPopupSvc.js"></script>
+  <script src="js/home/controllers/home.js"></script>
+  <script src="js/home/directives/entry-popups.js"></script>
+  <script src="js/home/directives/homemap.js"></script>
+  <script src="js/home/services/MainMapSvc.js"></script>
+  <!-- endinject -->
+  <!-- endbuild -->
 
-  <!-- overview -->
-  <!-- controllers -->
-  <script src="js/overview/controllers/overview.js"></script>
-
-<!--
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
--->
 </body>
 </html>

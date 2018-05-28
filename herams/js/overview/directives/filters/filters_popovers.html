@@ -1,0 +1,36 @@
+ <div class="popovers-containers">
+     <!-- Header -->
+     <div class="popover-hdr" ng-if="title!=null">
+         {{title}}
+         <img ng-src="{{ setChckBx(getLevelStatus())}}" ng-click="checkLevel($event)"/>
+     </div>
+     <ul>
+         <!-- Multiple Choice -->
+         <li ng-repeat="item in items" ng-if="!singlechoice">
+             <div class="popover-item" data-label="{{item}}" ng-click="clickFilter($event)">
+                 <span class="label">
+                     <i class="fas fa-circle" ng-style="{'color':getHFColor(item)}" ng-if="type=='hf'"></i>
+                     {{item}}
+                 </span>
+                 <span class="checkbox" ng-click="checkItem($event,item)">
+                     <img src="img/filters/select_all.png" ng-show="isSelected(item)==1"/>
+                     <img src="img/filters/select_off.png" ng-show="isSelected(item)==0"/>
+                     <img src="img/filters/select_partial.png" ng-show="isSelected(item)==2"/>
+    <!--
+                    <img ng-src="{{ setItemChckBx(item)}}" ng-click="checkItem($event,item)"/>
+    -->
+                 </span>
+                 <span class="chevron" ng-class="{'showing': openNext!=null}">
+                     <img src="img/filters/arrow_filters_location_big2.png"/>
+                 </span>
+             </div>
+         </li>
+         <!-- Single Choice  -->
+          <li ng-repeat="item in items" ng-if="singlechoice" ng-class="{'selected':isSelected(item)}">
+             <span class="label" ng-click="checkItem($event,item)" data-label="{{item}}">
+                 <i class="fas fa-circle" ng-style="{'color':getHFColor(item)}" ng-if="type=='hf'"></i>
+                 {{item}}
+             </span>
+         </li>
+     </ul>
+ </div>

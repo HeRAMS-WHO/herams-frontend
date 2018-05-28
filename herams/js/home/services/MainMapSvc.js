@@ -8,7 +8,18 @@
  */
 angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$timeout,$window,$compile,$log,commonSvc,esriSvc,LayerPopupSvc) {
 
+    function disableZooming(pMap) {
+        pMap.touchZoom.disable();
+        pMap.doubleClickZoom.disable();
+        pMap.scrollWheelZoom.disable();
+        pMap.boxZoom.disable();
+    }
 
+/*
+    function showScaling(pMap) {
+        var saleIndic = L.control.scale().addTo(pMap);
+    }
+*/
     return {
 
         /**
@@ -18,13 +29,37 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
          */
         createMainMap: function (container,config) {
 
+            /* - Setting Map Bounds - */
+            var minNorth = L.latLng(87.8750,  -30.535486),
+            maxSouth = L.latLng(-71.1879, 160.769861),
+            bounds = L.latLngBounds(minNorth, maxSouth);
+
+
             /* Creating map */
             var map = L.map(container,
-                {zoomControl: false})
+                {
+                    maxBounds: bounds,
+                    minZoom: config.zoom_options.minZoom,
+                    maxZoom: config.zoom_options.maxZoom,
+                    zoomDelta: config.zoom_options.zoomDelta,
+                    center: [40.056073, 78.883203],
+                    zoom: 3
+                });
+
+            map.fitBounds(bounds);
+                // .setView([22.3964, 114.1095], 3);
+                /*
                 .setView(
                     [config.center.lat, config.center.long],
-                    config.zoom
+                    config.zoom_options.zoom
                 );
+                */
+
+            map.zoomControl.setPosition('bottomright');
+
+            /!* No Zooming *!/
+            // disableZooming(map);
+
 
             /* Adding required basemaps - imagery, countrynames, etc.. */
             for (var i in config.basemaps) {
@@ -68,41 +103,41 @@ angular.module('app-herams').service('MainMapSvc', function($rootScope,$state,$t
 
         addcircleMarkerToMainMap: function(map, layers, statuses) {
             for (var i in layers) {
+
+                /* - MARKERS INIT - */
                 var status = statuses[layers[i].status];
-                console.log(status);
                 var latlng = L.latLng(layers[i].geodata.lat, layers[i].geodata.long);
-                var geojson = L.circleMarker(latlng, {
-                            radius:CONFIG.home.shapeRadius,
+                var marker = L.circleMarker(latlng, {
+                            radius:CONFIG.home.centroidRadius,
                             fillColor : status.color,
-                        color: status.color,
-                        weight: 1,
-                        opacity: 1,
-                        fillOpacity: CONFIG.home.layersOpacity
-                    }).addTo(map);
+                            color: layers[i].available? "white" : status.color,
+                            weight: layers[i].available? 3 : 0,
+                            opacity: 1,
+                            fillOpacity: CONFIG.home.layersOpacity,
+                            className: layers[i].stats? '' : 'disable-cursor'
+                        }).addTo(map);
 
+                /* - MARKERS HOVERS - */
+                if (layers[i].available) {
+                    marker.on('mouseover', function (evt) {
+                        evt.target.setStyle({
+                            radius: CONFIG.home.centroidRadius + 3,
+                            fillOpacity: 1
+                        });
+                    });
+                    marker.on('mouseout', function (evt) {
+                        evt.target.setStyle({
+                            radius: CONFIG.home.centroidRadius,
+                            fillOpacity: CONFIG.home.layersOpacity
+                        });
+                    });
+                }
+
+                /* - MARKERS POPUPS - */
                 if (layers[i].stats != null) {
-                   LayerPopupSvc.addPopup(map,geojson,layers[i]);
+                   LayerPopupSvc.addPopup(map,marker,layers[i]);
                 }
             }
-/*
-            for (var i in layers) {
-                var status = statuses[layers[i].status];
-                var latlng = L.latLng(layers[i]geodata.lat, layers[i]geodata.lat);
-                var geojson = L.circleMarker(latlng, {
-                            radius:CONFIG.home.shapeRadius,
-                            style: {
-                                color       : status.color,
-                                weight      : 1,
-                                fillOpacity : CONFIG.home.layersOpacity,
-                                fillColor   : status.color
-                            }
-                        }).addTo(refMap);
-
-                if (layers[i].stats != null) {
-                   LayerPopupSvc.addPopup(refMap,geojson,layerData);
-                }
-            }
-*/
         }
     }
 });

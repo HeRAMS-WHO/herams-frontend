@@ -11,23 +11,23 @@
  * @example
  *   <entry-popup />
  */
-angular.module('app-herams').directive('hfmap', function(HFMapSvc,$timeout,$log) {
+angular.module('app-herams').directive('hfmap', function($log) {
 
     return {
         templateUrl: '/js/overview/directives/hf-map.html',
         restrict: 'E',
         replace: true,
-        scope: {
-            mapdata:"="
-        },
-        controller: function($scope) {},
-        link: function($scope, $el, $attr) {
+        scope: true,
+        link: function(scope) {
+            scope.legend = [];
+            scope.$watch('mapdata', function(new_val) {
+                if (new_val.config) {
+                    for (var i in new_val.config.legend) {
+                         scope.legend.push(new_val.config.legend[i])
+                    }
+                }
+            });
 
-            $timeout(function() {
-
-                /* create Map */
-                HFMapSvc.createMap('mapid',$scope.mapdata);
-            })
         }
     }
 
