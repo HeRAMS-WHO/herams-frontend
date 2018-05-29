@@ -90,7 +90,7 @@
             }
 
             &.selected {
-              // color: @brand-blue;
+              color: @brand-blue;
               border-left: unit(@menu-border-left, px) solid @brand-blue;
               padding-left: unit(@menu-hover-left, px);
             }
@@ -109,6 +109,12 @@
               font-weight: @medium;
               height: 40px;
               padding-left: calc(unit(@menu-padding-left, px) + @menu-categories-subnav-offset);
+
+              &.selected {
+                color: @brand-blue;
+                border-left: unit(@menu-border-left, px) solid @brand-blue;
+                padding-left: unit(@menu-hover-left, px);
+              }
 
               span:first-of-type {
                 width: 90%;

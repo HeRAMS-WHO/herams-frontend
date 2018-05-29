@@ -742,6 +742,7 @@
   width: 90%;
 }
 .mainWrapper .overview .menu .menu-items ul li div.item.selected {
+  color: #4177c1;
   border-left: 3px solid #4177c1;
   padding-left: 22px;
 }
@@ -757,6 +758,11 @@
   font-weight: 600;
   height: 40px;
   padding-left: calc(35px);
+}
+.mainWrapper .overview .menu .menu-items ul li div.sub-categories ul > li > div:first-child.selected {
+  color: #4177c1;
+  border-left: 3px solid #4177c1;
+  padding-left: 22px;
 }
 .mainWrapper .overview .menu .menu-items ul li div.sub-categories ul > li > div:first-child span:first-of-type {
   width: 90%;
