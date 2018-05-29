@@ -315,8 +315,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         /* ---------------------- Dates Filters methods ---------------------- */
 
-        var dates_fltrs,
-            applied_date;
+        var dates_fltrs;
 
         function getDatesList() {
             return dates_fltrs;
@@ -324,21 +323,21 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         function getDateGlobalValue() {
             if (dates_fltrs) {
-                return (applied_date)? applied_date : dates_fltrs[0];
+                return (this.shared.applied_date)? this.shared.applied_date : dates_fltrs[0];
             }
         }
 
         function getDateStatus(date) {
-            return (applied_date == date);
+            return (this.shared.applied_date == date);
         }
 
         function addDate(date) {
-            applied_date = date;
-            filters_selection["date"] = applied_date;
+            this.shared.applied_date = date;
+            filters_selection["date"] = this.shared.applied_date;
         }
 
         function rmvDate() {
-            applied_date = null;
+            this.shared.applied_date = null;
             filters_selection["date"] = null;
         }
 
@@ -523,6 +522,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
     return {
         shared: {
+            applied_date            : null,
             advanced_filters_src    : null,
             advanced_filters_applied: null,
             LS_grps_data            : null,

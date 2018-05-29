@@ -28,7 +28,10 @@ angular.module('app-herams')
         $scope.tmpFilters = [];
 
         /* - SCOPE METHODS - */
-        $scope.date = new Date();
+        // $scope.date = new Date();
+
+        $scope.date = filtersSvc.shared.date;
+
         $scope.getAdvancedFiltersCnt = filtersSvc.getAdvancedFiltersCnt;
 
         /* ui-router */
@@ -253,6 +256,8 @@ angular.module('app-herams')
 
             if ($scope.catIDSelect[level] != category.id || (showing_cat_level != level)) {
 
+                // $scope.catNameSelect = ["","",""];
+                $scope.catIDSelect   = ["","",""];
                 $scope.catNameSelect[level] = category.name;
                 $scope.catIDSelect[level]   = category.id;
 
