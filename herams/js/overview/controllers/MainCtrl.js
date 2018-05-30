@@ -373,12 +373,6 @@ angular.module('app-herams')
             $scope.date = filtersSvc.getDateGlobalValue();
             //
             clearSetFilters();
-/*
-            if (filtersSvc.getAdvancedFiltersCnt()>0) {
-                filtersSvc.clearAdvancedFilters();
-                applyFilters();
-            }
-*/
          }
         $scope.clearMainFilters=clearMainFilters;
 
