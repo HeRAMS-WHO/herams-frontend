@@ -10,7 +10,7 @@
 angular.module('app-herams')
     .controller('MainCtrl', function($scope,$compile,$log,$timeout,$uibModal,commonSvc,filtersSvc,HFMapSvc,chartsSvc) {
 
-        var nodata_text_alert = 'No match with these criteria / No data available';
+        var nodata_text_alert = 'No data available';
 
         /* - SCOPE VARS - */
         $scope.charts = {};
