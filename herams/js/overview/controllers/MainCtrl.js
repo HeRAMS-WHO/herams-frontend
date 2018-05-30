@@ -30,7 +30,7 @@ angular.module('app-herams')
         /* - SCOPE METHODS - */
         // $scope.date = new Date();
 
-        $scope.date = filtersSvc.shared.date;
+        //$scope.date = filtersSvc.shared.date;
 
         $scope.getAdvancedFiltersCnt = filtersSvc.getAdvancedFiltersCnt;
 
@@ -128,6 +128,10 @@ angular.module('app-herams')
                 $scope.states  = filtersSvc.getStatesList();
                 $scope.hftypes  = filtersSvc.getHFTypesList();
                 $scope.surveysDates  = filtersSvc.getDatesList();
+
+                var dt = filtersSvc.getDate();
+                $scope.date = dt;
+                // $log.info('filtersSvc.shared.applied_date = ', filtersSvc.shared.applied_date);
 
             }
 
@@ -359,16 +363,22 @@ angular.module('app-herams')
         function clearSetFilters() {
             filtersSvc.clearFilters();
             $scope.$broadcast('setFiltersCleared');
+            //
+            applyFilters();
         }
         $scope.clearSetFilters=clearSetFilters;
 
         function clearMainFilters() {
-            // $log.info('clearMainFilters');
+            filtersSvc.clearDate();
+            $scope.date = filtersSvc.getDateGlobalValue();
+            //
             clearSetFilters();
+/*
             if (filtersSvc.getAdvancedFiltersCnt()>0) {
                 filtersSvc.clearAdvancedFilters();
                 applyFilters();
             }
+*/
          }
         $scope.clearMainFilters=clearMainFilters;
 
