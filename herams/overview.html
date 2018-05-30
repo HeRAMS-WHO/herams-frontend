@@ -51,7 +51,7 @@
                 <div class="menu-items">
                     <ul ng-cloak>
                         <li ng-repeat="category in categories">
-                            <div class="item" ng-class="{'selected': category.id==catIDSelect[0], 'greyed-out': !hasData(category) }">
+                            <div class="item" ng-class="{'selected': category.id==catIDSelect[0], 'greyed-out': isDisabled(category) }">
                                 <span ng-click="launchLayout(category)">{{category.name}}</span>
                                 <span class="item-open-close" ng-if="category.subcategories!=null" ng-click="launchLayout(category)">
                                     <img src="img/menu_open.svg" ng-if="category.id!=catMenuON[0]"/>
@@ -61,7 +61,7 @@
                             <div class="sub-categories parent-category-id-{{category.id}}" ng-if="category.subcategories!=null" ng-show="category.id==catMenuON[0]">
                                 <ul ng-cloak>
                                     <li ng-repeat="subcat in category.subcategories">
-                                        <div ng-class="{'selected': subcat.id==catIDSelect[1], 'greyed-out': !hasData(subcat) }">
+                                        <div ng-class="{'selected': subcat.id==catIDSelect[1], 'greyed-out': isDisabled(subcat) }">
                                             <span ng-click="launchLayout(subcat,1)">{{subcat.name}}</span>
                                             <span class="item-open-close" ng-if="subcat.subcategories!=null" ng-click="launchLayout(subcat,1)">
                                                 <img src="img/menu_open.svg" ng-if="subcat.id!=catMenuON[1]"/>
@@ -71,7 +71,7 @@
                                         <div class="sub-categories sub-categories-lev2 parent-category-id-{{subcat.id}}" ng-if="subcat.subcategories!=null" ng-show="subcat.id==catMenuON[1]">
                                             <ul ng-cloak>
                                                 <li ng-repeat="subsubcat in subcat.subcategories">
-                                                    <div ng-class="{'selected': subsubcat.id==catIDSelect[2], 'greyed-out': !hasData(subsubcat) }">
+                                                    <div ng-class="{'selected': subsubcat.id==catIDSelect[2], 'greyed-out': isDisabled(subsubcat) }">
                                                         <span ng-click="launchLayout(subsubcat,2)">{{subsubcat.name}}</span>
                                                     </div>
                                                 </li>

@@ -253,6 +253,11 @@ angular.module('app-herams')
         }
         $scope.hasData = hasData;
 
+        function isDisabled (category) {
+            return ((category.ws_chart_url == "") && (category.ws_map_url == "") && (category.aggregated == undefined));
+        }
+        $scope.isDisabled = isDisabled;
+
         var showing_cat_level = 0;
         function launchLayout(category,level) {
 
@@ -286,7 +291,6 @@ angular.module('app-herams')
                     $('.main-content').hide();
                     $('.loading').show();
 
-
                     // LOADS
                     $timeout(function() {
                         var f = function() {
@@ -297,12 +301,13 @@ angular.module('app-herams')
 
                 }
                 else {
-
-                    $( ".main-content" ).empty();
-                    chartsSvc.destroyCharts();
-
-                    $( ".main-content" ).html(nodata_text_alert);
-
+                    if (category.aggregated == false) {
+                        launchLayout(category.subcategories[0],level+1)
+                    } else {
+                        $( ".main-content" ).empty();
+                        chartsSvc.destroyCharts();
+                        $( ".main-content" ).html(nodata_text_alert);
+                    }
                 }
 
             }
