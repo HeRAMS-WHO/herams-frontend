@@ -64,16 +64,24 @@ angular.module('app-herams').directive('filtersPopover', function($log,filtersSv
             }
 
             $scope.getLevelStatus = function() {
-                if ($scope.items) {
-                    var level = filtersSvc.getLocationLevel($scope.items[0]);
-                    $scope.droplevel = level;
-                    if (level) return filtersSvc.getLevelLocationStatus(level);
+                if ($scope.type == "location") {
+                    if ($scope.items) {
+                        var level = filtersSvc.getLocationLevel($scope.items[0]);
+                        $scope.droplevel = level;
+                        if (level) return filtersSvc.getLevelLocationStatus(level);
+                    }
+                } else {
+                    return filtersSvc.getHFStatusCode();
                 }
             }
 
             $scope.checkLevel = function(evt) {
-                var level = filtersSvc.getLocationLevel($scope.items[0]);
-                if (level) filtersSvc.checkLocationLevel(level);
+                if ($scope.type == "location") {
+                    var level = filtersSvc.getLocationLevel($scope.items[0]);
+                    if (level) filtersSvc.checkLocationLevel(level);
+                } else {
+                    filtersSvc.checkAllHF();
+                }
 
                 evt.stopPropagation();
             }
