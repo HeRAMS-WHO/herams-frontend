@@ -10,16 +10,13 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         var appFilters;
 
-        var dflt_notset_display = "not set",
-            dflt_multi_display = "multi";
-
         /* ---------------------- FILTERS SELECTION ---------------------- */
 
         var filters_selection = {};
 
         function initSelection() {
             filters_selection["location"] = [];
-            filters_selection["date"] = null;
+            filters_selection["date"] = getDateGlobalValue();
             filters_selection["hftypes"] = [];
             filters_selection["advanced"]=[];
         }
@@ -100,11 +97,6 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             states_geolevel = '2',
             applied_location_fltrs = [];
 
-        function getLocationfromID(geoID) {
-
-           var children = _.filter(location_fltrs, { 'geo_id': geoID });
-        }
-
         function getStatesList() {
             var states = _.filter(location_fltrs, { 'geo_level': states_geolevel });
             return _.map(states, 'geo_name');
@@ -182,12 +174,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         function getLevelLocationStatus(level) {
             var data = _.filter(location_fltrs, { 'geo_level': level });
-            var dataIDs = _.map(data,'geo_id');
-
-            // if (level == 2) $log.info('getLevelLocationStatus : ', _.map(data,'geo_id'), ' / ', applied_location_fltrs);
-
             var rslt = _.intersectionWith(_.map(data,'geo_id'),applied_location_fltrs, _.isEqual);
-            // if (level == 2) $log.info('getLevelLocationStatus : ', rslt, ' / ', data);
 
             return setStatusCode(rslt, data);
         }
@@ -226,9 +213,6 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         function getLocationGlobalValue() {
             if (applied_location_fltrs) {
 
-                // $log.info('getLocationGlobalValue - getLevelLocationStatus(2)',getLevelLocationStatus('2'));
-                // var cntStr = (applied_location_fltrs.length>0)? " ("+applied_location_fltrs.length+")" : "";
-
                 if (applied_location_fltrs.length==1) return _.find(location_fltrs, { 'geo_id': applied_location_fltrs[0] }).geo_name;
 
                 var cntStr = (applied_location_fltrs.length>0)? " (multi)" : "";
@@ -236,26 +220,6 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
                 return "Location"+cntStr;
 
-/*
-                 if (applied_location_fltrs.length<1) {
-                    return dflt_notset_display;
-
-                }  else if (applied_location_fltrs.length>1) {
-
-                     // $log.info('getLevelLocationStatus(\'1\') = ',getLevelLocationStatus('1'));
-                     // $log.info('getLevelLocationStatus(\'2\') = ',getLevelLocationStatus('2'));
-
-                     if (getLevelLocationStatus('1') == 1) {
-                         return "Nigeria";
-                     } else if (getLevelLocationStatus('2') == 1) {
-                         return "Borno";
-                     } else {
-                        return dflt_multi_display;
-                     }
-                } else {
-                    return _.find(location_fltrs, { 'geo_id': applied_location_fltrs[0] }).geo_name;
-                }
-*/
             }
         }
 
@@ -294,37 +258,24 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                 if (applied_hftype_fltrs.length==1) return _.find(hftype_fltrs, { 'code': applied_hftype_fltrs[0] }).label;
 
                 var cntStr = (applied_hftype_fltrs.length>0)? " (multi)" : "";
-                // $log.info('getHFGlobalValue : hftype_fltrs=',hftype_fltrs);
                 if (applied_hftype_fltrs.length == hftype_fltrs.length) cntStr = " (all)";
                 return "Type"+cntStr;
-
-
-/*
-                if (applied_hftype_fltrs.length<1) {
-                    return dflt_notset_display;
-
-                }  else if (applied_hftype_fltrs.length>1) {
-                    return dflt_multi_display;
-
-                } else {
-                    return _.find(hftype_fltrs, { 'code': applied_hftype_fltrs[0] }).label;
-                }
-*/
             }
         }
 
         /* ---------------------- Dates Filters methods ---------------------- */
 
         var dates_fltrs,
-            applied_date;
+            applied_date = null;
 
         function getDatesList() {
             return dates_fltrs;
         }
 
         function getDateGlobalValue() {
+            // $log.info('getDateGlobalValue: ',_self);
             if (dates_fltrs) {
-                return (applied_date)? applied_date : dates_fltrs[0];
+                return (applied_date!=null)? applied_date : dates_fltrs[0];
             }
         }
 
@@ -346,6 +297,7 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
         /* ---------------------- MAIN FILTERS METHODS ---------------------- */
 
         function clearFilters () {
+            //
             initSelection();
             //
             this.shared.advanced_filters_applied = {};
@@ -528,13 +480,16 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             LS_grps_data            : null,
             LS_grps_titles          : null
         },
+        getDate: function() {
+            return getDateGlobalValue();
+        },
+        clearDate: function() {
+            applied_date = null;
+            applied_date = getDateGlobalValue();
+        },
         setFiltersData  : function(data) {
             appFilters = data;
 
-/*
-            this.shared.advanced_filters_src    = data;
-            this.shared.advanced_filters_applied = null;
-*/
             filters_selection["advanced"]       = [];
 
             location_fltrs = data.locations;

@@ -51,7 +51,7 @@
                 <div class="menu-items">
                     <ul ng-cloak>
                         <li ng-repeat="category in categories">
-                            <div class="item" ng-class="{'selected': category.id==catIDSelect[0], 'greyed-out': !hasData(category) }">
+                            <div class="item" ng-class="{'selected': category.id==catIDSelect[0], 'greyed-out': isDisabled(category) }">
                                 <span ng-click="launchLayout(category)">{{category.name}}</span>
                                 <span class="item-open-close" ng-if="category.subcategories!=null" ng-click="launchLayout(category)">
                                     <img src="img/menu_open.svg" ng-if="category.id!=catMenuON[0]"/>
@@ -61,7 +61,7 @@
                             <div class="sub-categories parent-category-id-{{category.id}}" ng-if="category.subcategories!=null" ng-show="category.id==catMenuON[0]">
                                 <ul ng-cloak>
                                     <li ng-repeat="subcat in category.subcategories">
-                                        <div ng-class="{'selected': subcat.id==catIDSelect[1], 'greyed-out': !hasData(subcat) }">
+                                        <div ng-class="{'selected': subcat.id==catIDSelect[1], 'greyed-out': isDisabled(subcat) }">
                                             <span ng-click="launchLayout(subcat,1)">{{subcat.name}}</span>
                                             <span class="item-open-close" ng-if="subcat.subcategories!=null" ng-click="launchLayout(subcat,1)">
                                                 <img src="img/menu_open.svg" ng-if="subcat.id!=catMenuON[1]"/>
@@ -71,7 +71,7 @@
                                         <div class="sub-categories sub-categories-lev2 parent-category-id-{{subcat.id}}" ng-if="subcat.subcategories!=null" ng-show="subcat.id==catMenuON[1]">
                                             <ul ng-cloak>
                                                 <li ng-repeat="subsubcat in subcat.subcategories">
-                                                    <div ng-class="{'selected': subsubcat.id==catIDSelect[2], 'greyed-out': !hasData(subsubcat) }">
+                                                    <div ng-class="{'selected': subsubcat.id==catIDSelect[2], 'greyed-out': isDisabled(subsubcat) }">
                                                         <span ng-click="launchLayout(subsubcat,2)">{{subsubcat.name}}</span>
                                                     </div>
                                                 </li>
@@ -141,7 +141,7 @@
                                         </button>
                                     </div>
                                     <div class="filter-btns">
-                                        <button type="button" class="btn btn-secondary" ng-click="clearMainFilters()"><i class="fas fa-times"></i>Reset</button>
+                                        <button type="button" class="btn btn-secondary" ng-click="clearMainFilters()"><i class="fas fa-times"></i>Clear</button>
                                         <button type="button" class="btn btn-secondary" ng-click="applyFilters()"><i class="fas fa-check"></i>Apply</button>
                                     </div>
                                 </div>
@@ -198,7 +198,7 @@
                           </div>
                           <div class="modal-footer">
                               <div class="advanced-filters-cnt">Total: {{getAdvancedFiltersCnt()}} filters</div>
-                                <button type="button" class="btn btn-secondary" ng-click="clearSetFilters()"><i class="fas fa-times"></i>Clear</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="clearSetFilters()"><i class="fas fa-times"></i>Clear</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="applyFilters()"><i class="fas fa-check"></i>Apply</button>
                           </div>
                         </div>
@@ -305,10 +305,10 @@
   <script src="js/common/services/esritogeojsonSvc.js"></script>
   <script src="js/common/services/LayerPopupSvc.js"></script>
   <script src="js/overview/controllers/MainCtrl.js"></script>
-  <script src="js/overview/directives/hfmap.js"></script>
   <script src="js/overview/services/chartsSvc.js"></script>
   <script src="js/overview/services/filtersSvc.js"></script>
   <script src="js/overview/services/HFMapSvc.js"></script>
+  <script src="js/overview/directives/hfmap.js"></script>
   <script src="js/overview/directives/filters/advanced_search.js"></script>
   <script src="js/overview/directives/filters/datepicker.js"></script>
   <script src="js/overview/directives/filters/dropdown.js"></script>
