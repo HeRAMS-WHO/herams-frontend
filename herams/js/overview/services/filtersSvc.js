@@ -248,6 +248,20 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             return (applied_hftype_fltrs.indexOf(getHFData(hf_name).code) != -1);
         }
 
+
+        function getHFStatusCode() {
+            var rtrn;
+
+           if (applied_hftype_fltrs.length == 0) {
+               rtrn = 0;
+           } else {
+               (applied_hftype_fltrs.length == hftype_fltrs.length)? rtrn = 1 : rtrn = 2;
+           }
+
+           return rtrn;
+        }
+
+
         function getHFColor(hf_name) {
             return getHFData(hf_name).color;
         }
@@ -262,6 +276,17 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
                 return "Type"+cntStr;
             }
         }
+
+        function checkAllHF() {
+
+            if (applied_hftype_fltrs.length>0) {
+                applied_hftype_fltrs = [];
+            }  else {
+                applied_hftype_fltrs = _.map(hftype_fltrs,'code');
+            }
+
+        }
+
 
         /* ---------------------- Dates Filters methods ---------------------- */
 
@@ -517,6 +542,8 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
         getHFTypesList  : getHFTypesList,
         getHFColor      : getHFColor,
+        getHFStatusCode : getHFStatusCode,
+        checkAllHF      : checkAllHF,
 
         getDatesList    : getDatesList,
         getDateGlobalValue : getDateGlobalValue,
