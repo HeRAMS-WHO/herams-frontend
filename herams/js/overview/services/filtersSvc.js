@@ -248,7 +248,6 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
             return (applied_hftype_fltrs.indexOf(getHFData(hf_name).code) != -1);
         }
 
-
         function getHFStatusCode() {
             var rtrn;
 
@@ -260,7 +259,6 @@ angular.module('app-herams').factory('filtersSvc', function($log,commonSvc) {
 
            return rtrn;
         }
-
 
         function getHFColor(hf_name) {
             return getHFData(hf_name).color;
