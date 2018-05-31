@@ -288,7 +288,7 @@
                     border-bottom: 1px solid @light-grey;
                   }
                 }
-                .btn {
+                .btn.btn-default {
                   border-radius: 0;
                   background: none;
                   &:hover {
@@ -297,14 +297,17 @@
                   &:focus {
                     box-shadow: none;
                   }
-                  &.btn-info {
+                  &.btn-info.active {
                     background-color: @brand-blue;
                     border:none;
                     border-radius:0;
+                    .text-info {
+                      color: white!important;
+                    }
                   }
-                  .text-info {
-                    color: white!important;
-                  }
+                    .text-info {
+                      color: @brand-blue!important;
+                    }
                 }
               }
 
