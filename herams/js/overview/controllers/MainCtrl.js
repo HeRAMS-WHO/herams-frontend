@@ -10,7 +10,7 @@
 angular.module('app-herams')
     .controller('MainCtrl', function($scope,$compile,$log,$timeout,$uibModal,commonSvc,filtersSvc,HFMapSvc,chartsSvc) {
 
-        var nodata_text_alert = 'No match with these criteria / No data available';
+        var nodata_text_alert = 'No data available';
 
         /* - SCOPE VARS - */
         $scope.charts = {};
@@ -28,7 +28,10 @@ angular.module('app-herams')
         $scope.tmpFilters = [];
 
         /* - SCOPE METHODS - */
-        $scope.date = new Date();
+        // $scope.date = new Date();
+
+        //$scope.date = filtersSvc.shared.date;
+
         $scope.getAdvancedFiltersCnt = filtersSvc.getAdvancedFiltersCnt;
 
         /* ui-router */
@@ -125,6 +128,10 @@ angular.module('app-herams')
                 $scope.states  = filtersSvc.getStatesList();
                 $scope.hftypes  = filtersSvc.getHFTypesList();
                 $scope.surveysDates  = filtersSvc.getDatesList();
+
+                var dt = filtersSvc.getDate();
+                $scope.date = dt;
+                // $log.info('filtersSvc.shared.applied_date = ', filtersSvc.shared.applied_date);
 
             }
 
@@ -246,6 +253,11 @@ angular.module('app-herams')
         }
         $scope.hasData = hasData;
 
+        function isDisabled (category) {
+            return ((category.ws_chart_url == "") && (category.ws_map_url == "") && (category.aggregated == undefined));
+        }
+        $scope.isDisabled = isDisabled;
+
         var showing_cat_level = 0;
         function launchLayout(category,level) {
 
@@ -253,6 +265,8 @@ angular.module('app-herams')
 
             if ($scope.catIDSelect[level] != category.id || (showing_cat_level != level)) {
 
+                // $scope.catNameSelect = ["","",""];
+                $scope.catIDSelect   = ["","",""];
                 $scope.catNameSelect[level] = category.name;
                 $scope.catIDSelect[level]   = category.id;
 
@@ -277,7 +291,6 @@ angular.module('app-herams')
                     $('.main-content').hide();
                     $('.loading').show();
 
-
                     // LOADS
                     $timeout(function() {
                         var f = function() {
@@ -288,12 +301,13 @@ angular.module('app-herams')
 
                 }
                 else {
-
-                    $( ".main-content" ).empty();
-                    chartsSvc.destroyCharts();
-
-                    $( ".main-content" ).html(nodata_text_alert);
-
+                    if (category.aggregated == false) {
+                        launchLayout(category.subcategories[0],level+1)
+                    } else {
+                        $( ".main-content" ).empty();
+                        chartsSvc.destroyCharts();
+                        $( ".main-content" ).html(nodata_text_alert);
+                    }
                 }
 
             }
@@ -354,16 +368,16 @@ angular.module('app-herams')
         function clearSetFilters() {
             filtersSvc.clearFilters();
             $scope.$broadcast('setFiltersCleared');
+            //
+            applyFilters();
         }
         $scope.clearSetFilters=clearSetFilters;
 
         function clearMainFilters() {
-            // $log.info('clearMainFilters');
+            filtersSvc.clearDate();
+            $scope.date = filtersSvc.getDateGlobalValue();
+            //
             clearSetFilters();
-            if (filtersSvc.getAdvancedFiltersCnt()>0) {
-                filtersSvc.clearAdvancedFilters();
-                applyFilters();
-            }
          }
         $scope.clearMainFilters=clearMainFilters;
 

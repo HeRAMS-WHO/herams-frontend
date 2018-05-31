@@ -742,6 +742,7 @@
   width: 90%;
 }
 .mainWrapper .overview .menu .menu-items ul li div.item.selected {
+  color: #4177c1;
   border-left: 3px solid #4177c1;
   padding-left: 22px;
 }
@@ -757,6 +758,11 @@
   font-weight: 600;
   height: 40px;
   padding-left: calc(35px);
+}
+.mainWrapper .overview .menu .menu-items ul li div.sub-categories ul > li > div:first-child.selected {
+  color: #4177c1;
+  border-left: 3px solid #4177c1;
+  padding-left: 22px;
 }
 .mainWrapper .overview .menu .menu-items ul li div.sub-categories ul > li > div:first-child span:first-of-type {
   width: 90%;
@@ -901,33 +907,38 @@
 .mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker table thead tr:nth-child(2) {
   border-bottom: 1px solid #e0e0e0;
 }
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn,
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn,
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn {
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn.btn-default,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn.btn-default,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn.btn-default {
   border-radius: 0;
   background: none;
 }
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn:hover,
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn:hover,
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn:hover {
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn.btn-default:hover,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn.btn-default:hover,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn.btn-default:hover {
   color: #4177c1;
 }
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn:focus,
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn:focus,
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn:focus {
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn.btn-default:focus,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn.btn-default:focus,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn.btn-default:focus {
   box-shadow: none;
 }
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn.btn-info,
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn.btn-info,
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn.btn-info {
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn.btn-default.btn-info.active,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn.btn-default.btn-info.active,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn.btn-default.btn-info.active {
   background-color: #4177c1;
   border: none;
   border-radius: 0;
 }
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn .text-info,
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn .text-info,
-.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn .text-info {
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn.btn-default.btn-info.active .text-info,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn.btn-default.btn-info.active .text-info,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn.btn-default.btn-info.active .text-info {
   color: white!important;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-daypicker .btn.btn-default .text-info,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-monthpicker .btn.btn-default .text-info,
+.mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .uib-yearpicker .btn.btn-default .text-info {
+  color: #4177c1 !important;
 }
 .mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .fa,
 .mainWrapper .overview .main .content .header .filters .filters-groups .filter-calendar .fas {
