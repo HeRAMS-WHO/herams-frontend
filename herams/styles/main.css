@@ -846,7 +846,7 @@
 }
 .mainWrapper .overview .main .content .header .filters .filters-groups > div.filter-advanced,
 .mainWrapper .overview .main .content .header .filters .filters-groups > div.filter-advanced-view {
-  min-width: 90px;
+  min-width: 115px;
   margin-left: 0;
 }
 .mainWrapper .overview .main .content .header .filters .filters-groups > div.filter-advanced button,
@@ -858,6 +858,9 @@
 .mainWrapper .overview .main .content .header .filters .filters-groups > div.filter-advanced button:hover,
 .mainWrapper .overview .main .content .header .filters .filters-groups > div.filter-advanced-view button:hover {
   color: #4177c1;
+}
+.mainWrapper .overview .main .content .header .filters .filters-groups > div.filter-advanced-view {
+  min-width: 150px;
 }
 .mainWrapper .overview .main .content .header .filters .filters-groups > div.filter-advanced {
   border-right: 1px solid #e0e0e0;
