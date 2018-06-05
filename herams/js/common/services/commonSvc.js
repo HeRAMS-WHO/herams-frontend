@@ -25,7 +25,7 @@ angular.module('app-herams').factory('commonSvc', function($state,$http,$compile
         /* - GET REQUESTS -*/
         loadData: function(url,params) {
             var dfltParams = {
-                    token: tokenConfig
+                    'access-token': tokenConfig
                 };
 
             if (params) dfltParams = $.extend(dfltParams,params);
