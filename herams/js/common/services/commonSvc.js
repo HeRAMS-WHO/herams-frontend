@@ -22,7 +22,8 @@ angular.module('app-herams').factory('commonSvc', function($state,$http,$compile
             return $.extend(true, {}, obj);
         },
 
-        /* - GET REQUESTS -*/
+        /* - POST REQUESTS -*/
+/*
         loadData: function(url,params) {
             var dfltParams = {
                     'access-token': tokenConfig
@@ -34,11 +35,26 @@ angular.module('app-herams').factory('commonSvc', function($state,$http,$compile
                 method: 'POST',
                 url: url,
                 params: dfltParams
-/*
+            });
+        },
+*/
+
+
+        /* - GET REQUESTS -*/
+        loadData: function(url,params) {
+            var dfltParams = {
+                    'access-token': tokenConfig
+                };
+
+            if (params) dfltParams = $.extend(dfltParams,params);
+
+            return $http({
+                'method': 'GET',
+                'url': url,
+                'params': dfltParams,
                 'headers': {
                     'Content-Type': 'application/json;charset=UTF-8'
                 }
-*/
             });
         },
 
