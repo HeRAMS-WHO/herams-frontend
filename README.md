@@ -1,4 +1,6 @@
 # `angular-seed` — the seed for AngularJS apps
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FWorldHealthOrganization%2Fherams-frontend.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FWorldHealthOrganization%2Fherams-frontend?ref=badge_shield)
+
 
 This project is an application skeleton for a typical [AngularJS][angularjs] web app. You can use it
 to quickly bootstrap your angular webapp projects and dev environment for these projects.
@@ -293,3 +295,7 @@ For more information on AngularJS please check out [angularjs.org][angularjs].
 [selenium]: http://docs.seleniumhq.org/
 [travis]: https://travis-ci.org/
 [travis-docs]: https://docs.travis-ci.com/user/getting-started
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FWorldHealthOrganization%2Fherams-frontend.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FWorldHealthOrganization%2Fherams-frontend?ref=badge_large)
